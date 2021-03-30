@@ -1,0 +1,16 @@
+////////////////////////////////////////
+// SECOND BREAKPOINT: less than 768px //
+////////////////////////////////////////
+@include media-breakpoint-down(sm) {
+	.btn-sm-block {
+		display: block;
+		width: 100%;
+	}
+}
+
+/////////////////////////////
+// Between 768px and 992px //
+/////////////////////////////
+@include media-breakpoint-between(sm, md) {
+	//
+}

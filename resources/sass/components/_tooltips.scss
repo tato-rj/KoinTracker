@@ -1,0 +1,6 @@
+.tippy-box[data-theme~='app'] {
+  background-color: $primary;
+}
+.tippy-box[data-theme~='app'][data-placement^='top'] > .tippy-arrow::before {
+  border-top-color: $primary;
+}

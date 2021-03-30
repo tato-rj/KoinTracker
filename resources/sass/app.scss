@@ -1,0 +1,39 @@
+@import "variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~animate.css/animate.min.css";
+@import "bootstrap-custom";
+@import "components/hamburger";
+@import "components/scrollbar";
+@import "components/navbar";
+@import "components/tooltips";
+@import "responsive/sm";
+@import "responsive/md";
+@import "responsive/lg";
+@import "responsive/xl";
+
+.coin-card:hover {
+    transform: translateY(-5px);
+}
+
+[name="range-switch"] > div {
+    border-radius: 20px;
+}
+
+[name="range-switch"] button {
+    border: 0;
+    border-radius: 20px;
+    width: 40px;
+    height: 40px;
+    transition: .2s;
+    background: transparent;
+}
+
+[name="range-switch"] button:hover {
+    background: $primary;
+    color: white;
+}
+
+[name="range-switch"] button.selected {
+    background: $primary;
+    color: white;
+}
