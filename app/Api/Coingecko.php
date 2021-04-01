@@ -18,11 +18,11 @@ class Coingecko
 		if (! $from)
 			return null;
 
-		$success = false;
-		$attempts = 0;
+		// $successful = false;
+		// $attempts = 0;
 
-		// while ($attempts < 3 || $success) {
-			$attempts += 1;
+		// while ($attempts < 3 || $successful) {
+		// 	$attempts += 1;
 
 			$response = Http::get('https://api.coingecko.com/api/v3/coins/'.$this->id.'/market_chart/range', [
 				'vs_currency' => config('app.currency'),
@@ -30,8 +30,8 @@ class Coingecko
 				'to' => now()->timestamp
 			]);
 
-			if ($response->failed())
-				dd('OPS');
+		// 	if ($response->successful())
+		// 		$successful = true;
 		// }
 
 		return $response->collect();

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\CryptoApi;
 
-class Coin extends App
+class Coin extends AppModel
 {
 	use CryptoApi;
 	

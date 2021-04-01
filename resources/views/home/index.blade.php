@@ -11,7 +11,7 @@
 	<div class="row mb-5">
 		<div class="col-lg-4 col-md-6 col-12">
 			<div class="mb-3">
-				@label(['text' => 'Portfolio balance', 'icon' => 'piggy-bank'])
+				@label(['text' => 'My portfolio balance', 'icon' => 'piggy-bank'])
 				<h1>{{usd(0)}}</h1>
 				@include('components.portfolio.badge', ['label' => usd(0) . ' (24h)'])
 			</div>
@@ -19,11 +19,11 @@
 
 		</div>
 		<div class="col-lg-8 col-md-6 col-12">
-		    <img src="{{asset('images/graph-bg.jpg')}}" class="w-100">
+		    <img src="{{asset('images/graph-bg.jpg')}}" class="w-100 blur opacity-2">
 			<div class="w-100 h-100 d-flex flex-center position-absolute" style="top: 0; left: 0">
 				<div class="text-center">
 					<p>Start tracking your investments now</p>
-					<button class="btn btn-primary btn-wide">@fa(['icon' => 'plus'])ADD MY FIRST TRANSATION</button>
+					@include('components.transactions.button')
 				</div>
 			</div>
 		</div>

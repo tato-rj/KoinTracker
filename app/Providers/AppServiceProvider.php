@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Models\Coin;
+use App\Models\{Coin, Badge};
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,24 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         \View::composer('*', function($view) {
-            $badges = [
-                ['icon' => 'baby', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'cookie', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'gamepad', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'coffee', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'dice', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'heart', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'star-half', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'star', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'user-astronaut', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'dumbbell', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'fighter-jet', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'chess-queen', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'jedi', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'medal', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'trophy', 'title' => 'Foo','description' => 'This is just a description'],
-                ['icon' => 'dragon', 'title' => 'Foo','description' => 'This is just a description']
-            ];
+            $badges = Badge::all();
 
             $view->with(compact(['badges']));
         });
@@ -47,5 +30,10 @@ class AppServiceProvider extends ServiceProvider
     {
         \Blade::include('components.fontawesome', 'fa');
         \Blade::include('components.label');
+        \Blade::include('components.form.input');
+        \Blade::include('components.form.textarea');
+        \Blade::include('components.form.datepicker');
+        \Blade::include('components.form.checkbox');
+        \Blade::include('components.alert');
     }
 }

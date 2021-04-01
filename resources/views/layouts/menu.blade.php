@@ -14,25 +14,30 @@
 					<a href="{{route('home')}}" class="nav-link t-2 rounded px-4 py-3 font-lg text-dark link-none font-weight-bold">@fa(['icon' => 'home', 'classes' => 'opacity-6'])HOME</a>
 				</div>
 				<div class="nav-item">
-					<a href="{{route('home')}}" class="nav-link t-2 rounded px-4 py-3 font-lg text-dark link-none font-weight-bold">@fa(['icon' => 'chart-line', 'classes' => 'opacity-6'])MY PORTFOLIO</a>
-				</div>
-				<div class="nav-item">
 					<a href="{{route('home')}}" class="nav-link t-2 rounded px-4 py-3 font-lg text-dark link-none font-weight-bold">@fa(['icon' => 'eye', 'classes' => 'opacity-6'])WATCHLIST</a>
 				</div>
+				<div class="nav-item">
+					<a href="{{route('home')}}" class="nav-link t-2 rounded px-4 py-3 font-lg text-dark link-none font-weight-bold">@fa(['icon' => 'book-open', 'classes' => 'opacity-6'])GLOSSARY</a>
+				</div>
+				<div class="dropdown-divider"></div>
+				<div class="nav-item">
+					<a href="{{route('home')}}" class="nav-link t-2 rounded px-4 py-3 font-lg text-dark link-none font-weight-bold">SETTINGS</a>
+				</div>
+				<div class="nav-item">
+					<a href="{{route('home')}}" class="nav-link t-2 rounded px-4 py-3 font-lg text-dark link-none font-weight-bold">HELP</a>
+				</div>
 				@auth
-					<div class="dropdown-divider"></div>
 					<div class="nav-item">
-						<a href="{{route('home')}}" class="nav-link t-2 rounded px-4 py-3 font-lg text-dark link-none font-weight-bold">SETTINGS</a>
-					</div>
-					<div class="nav-item">
-						<a href="{{route('home')}}" class="nav-link t-2 rounded px-4 py-3 font-lg text-dark link-none font-weight-bold">HELP</a>
+						<a class="nav-link t-2 rounded px-4 py-3 font-lg text-dark link-none font-weight-bold" href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>LOGOUT
+						</a>
 					</div>
 				@else
 					<div class="nav-item my-2">
-						<a href="{{route('home')}}" class="btn btn-block btn-primary">GET STARTED</a>
+						<a href="{{route('register')}}" class="btn btn-block btn-primary">GET STARTED</a>
 					</div>
 					<div class="nav-item">
-						<a href="{{route('home')}}" class="btn btn-block btn-outline-primary">SIGN IN</a>
+						<a href="{{route('login')}}" class="btn btn-block btn-outline-primary">SIGN IN</a>
 					</div>
 				@endauth
 			</div>

@@ -15,6 +15,17 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('portfolio_id');
+            $table->string('coin');
+            $table->unsignedInteger('coin_amount');
+            $table->unsignedInteger('price_per_coin');
+            $table->string('currency');
+            $table->unsignedInteger('currency_amount');
+            $table->string('fee')->nullable();
+            $table->string('comments');
+            $table->string('type');
+            $table->string('transfer_type')->nullable();
+            $table->date('transaction_date');
             $table->timestamps();
         });
     }

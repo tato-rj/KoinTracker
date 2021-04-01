@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="container">
-	<div class="row">
+	<div class="row mb-4">
 		<div class="col-lg-4 col-md-6 col-12 mb-2">
 			<div class="d-apart mb-4">
 				<div class="d-flex align-items-center">
@@ -40,8 +40,17 @@
 		</div>
 	</div>
 	<div class="row">
-		
-{{-- 				<ul class="list-flat">
+		<div class="col-lg-8 col-md-6 col-12 mb-4">
+			@component('components.box')
+			<h5 class="border-bottom mb-2 pb-2">Learn about {{$coin->name}}</h5>
+			<p style="white-space: pre-wrap;">{{$coin->description}}</p>
+			@endcomponent
+		</div>
+
+		<div class="col-lg-4 col-md-6 col-12 mb-4">
+			@component('components.box', ['outline' => true])
+				<h5 class="border-bottom mb-2 pb-2">Market info</h5>
+				<ul class="list-flat">
 					<li>
 						@label(['text' => 'Market cap'])
 						<p class="font-weight-bold mb-2">{{usd($coin->marketCap)}}</p>
@@ -58,7 +67,9 @@
 						@label(['text' => 'Max supply'])
 						<p class="font-weight-bold mb-2">{{$coin->maxSupply ?? 'Unlimited'}}</p>
 					</li>
-				</ul> --}}
+				</ul>
+			@endcomponent
+		</div>
 	</div>
 </div>
 @endsection

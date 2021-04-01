@@ -1,15 +1,22 @@
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
+@import "~pikaday/scss/pikaday";
 @import "~animate.css/animate.min.css";
 @import "bootstrap-custom";
 @import "components/hamburger";
 @import "components/scrollbar";
 @import "components/navbar";
 @import "components/tooltips";
+@import "components/alerts";
+@import "components/filters";
 @import "responsive/sm";
 @import "responsive/md";
 @import "responsive/lg";
 @import "responsive/xl";
+
+.btn {
+    text-transform: uppercase;
+}
 
 .coin-card:hover {
     transform: translateY(-5px);
@@ -20,6 +27,7 @@
 }
 
 [name="range-switch"] button {
+    color: #4e5862;
     border: 0;
     border-radius: 20px;
     width: 40px;
@@ -35,5 +43,9 @@
 
 [name="range-switch"] button.selected {
     background: $primary;
-    color: white;
+    color: white !important;
+}
+
+a[href]:not(.btn, .alert-link) {
+    color: lighten($primary, 20);
 }

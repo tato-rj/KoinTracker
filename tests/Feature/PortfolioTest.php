@@ -2,17 +2,20 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
 
 class PortfolioTest extends TestCase
 {
     /** @test */
-    public function unauthenticated_users_cannot_add_transations()
+    public function when_a_user_verifies_the_email_a_default_portfolio_is_automatically_created()
     {
-        $this->expectException('Illuminate\Auth\AuthenticationException');
+        $this->signIn(User::factory()->unverified()->create());
 
-        $this->post(route('portfolio.transactions.store'));         
+        $this->assertFalse(auth()->user()->portfolios()->exists());
+
+        $this->simulateEmailConfirmation(auth()->user());
+
+        $this->assertTrue(auth()->user()->portfolios()->exists());
     }
 }

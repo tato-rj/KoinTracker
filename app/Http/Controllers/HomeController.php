@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function index()
     {
     	$coins = Coin::all();
-
-    	return view('portfolio.index', compact('coins'));
+    	
+    	return view('home.index', compact('coins'));
     }
 }

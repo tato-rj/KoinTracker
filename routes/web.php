@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+require __DIR__.'/auth.php';
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,14 +25,19 @@ Route::prefix('{coin}')->name('coins.')->group(function() {
 
 });
 
-Route::prefix('portfolio')->name('portfolio.')->group(function() {
+Route::prefix('portfolios')->name('portfolios.')->group(function() {
 
-	Route::prefix('transactions')->name('transactions.')->group(function() {
+	Route::prefix('{portfolio}')->group(function() {
 
-		Route::post('', 'TransactionsController@store')->name('store');
+		Route::prefix('transactions')->name('transactions.')->middleware(['auth', 'verified'])->group(function() {
 
+			Route::post('', 'TransactionsController@store')->name('store');
+			
+			Route::patch('{transaction}', 'TransactionsController@update')->name('update');
+
+			Route::delete('{transaction}', 'TransactionsController@destroy')->name('destroy');
+
+		});
 	});
-
 });
 
-require __DIR__.'/auth.php';

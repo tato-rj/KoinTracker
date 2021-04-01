@@ -100,13 +100,38 @@
     </head>
 
     <body data-coin="{{$coin ?? null}}">
-        <div id="app">
+        <div id="app" class="mb-6">
             @include('layouts.header')
 
             @yield('content')
-            
-            @include('layouts.footer')
         </div>
+        
+        @include('layouts.footer')
+
+        @auth
+            @include('transactions.create.modal')
+        @endauth
+
+        @if($popup = session('popup'))
+            @include('components.popups.' . $popup)
+        @endif
+
+        @if($message = session('success'))
+        @alert([
+            'color' => 'green',
+            'message' => '<strong class="mr-2">Success |  </strong>' . $message,
+            'dismissible' => true,
+            'floating' => 'top'])
+        @endif
+
+        @if($message = session('error') ?? $errors->first())
+        @alert([
+            'color' => 'red',
+            'message' => '<strong class="mr-2">Sorry |  </strong>' . $message,
+            'dismissible' => true,
+            'floating' => 'top'])
+        @endif
+        
         <script src="https://unpkg.com/currency.js@~2.0.0/dist/currency.min.js"></script>
         <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
         <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
@@ -114,8 +139,22 @@
         <script src="{{ mix('js/app.js') }}"></script>
 
         <script type="text/javascript">
+        $('.datepicker').each(function() {
+            var picker = new Pikaday({ field: $(this)[0] });
+        });
+    
         tippy('[data-tippy-content]', {
             allowHTML: true,
+        });
+        </script>
+
+        <script type="text/javascript">
+        $('#select-coin').change(function() {
+            let icon = $(this).find(':selected').data('icon');
+            let coin = this.value;
+
+            $(this).siblings('img').attr('src', icon);
+            $('#add-transaction-container input[name="coin"]').val(coin);
         });
         </script>
         @stack('js')

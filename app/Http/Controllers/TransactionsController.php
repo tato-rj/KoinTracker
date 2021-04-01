@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Transaction;
+use App\Models\{Transaction, Portfolio};
 use Illuminate\Http\Request;
 
 class TransactionsController extends Controller
@@ -33,9 +33,19 @@ class TransactionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Portfolio $portfolio)
     {
-        //
+        $portfolio->transactions()->create([
+            'coin' => $request->coin,
+            'coin_amount' => $request->coin_amount,
+            'currency' => $request->currency,
+            'currency_amount' => $request->currency_amount,
+            'fee' => $request->fee,
+            'comments' => $request->comments,
+            'date' => carbon($request->date)->format('YYYY-MM-DD hh:mm:ss')
+        ]);
+
+        return back()->with('success', 'The transaction has been successfully created!');
     }
 
     /**
@@ -50,26 +60,27 @@ class TransactionsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaction $transaction)
+    public function update(Request $request, Portfolio $portfolio, Transaction $transaction)
     {
-        //
+        $this->authorize('update', $transaction);
+
+        $transaction->update([
+            'coin' => $request->coin,
+            'coin_amount' => $request->coin_amount,
+            'currency' => $request->currency,
+            'currency_amount' => $request->currency_amount,
+            'fee' => $request->fee,
+            'comments' => $request->comments,
+            'date' => carbon($request->date)->format('YYYY-MM-DD hh:mm:ss')
+        ]);
+
+        return back()->with('success', 'The transaction has been successfully updated!');
     }
 
     /**
@@ -78,8 +89,12 @@ class TransactionsController extends Controller
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transaction $transaction)
+    public function destroy(Portfolio $portfolio, Transaction $transaction)
     {
-        //
+        $this->authorize('update', $transaction);
+        
+        $transaction->delete();
+
+        return back()->with('success', 'The transaction has been successfully deleted!');
     }
 }

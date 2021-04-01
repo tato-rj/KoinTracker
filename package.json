@@ -25,6 +25,7 @@
         "currency.js": "^2.0.3",
         "jquery": "^3.6.0",
         "moment": "^2.29.1",
-        "numeral": "^2.0.6"
+        "numeral": "^2.0.6",
+        "pikaday": "^1.8.2"
     }
 }

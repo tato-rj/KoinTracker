@@ -12,7 +12,7 @@ class GetMarketData extends Command
      *
      * @var string
      */
-    protected $signature = 'market:update';
+    protected $signature = 'market:fresh';
 
     /**
      * The console command description.

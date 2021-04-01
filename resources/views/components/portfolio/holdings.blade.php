@@ -7,14 +7,14 @@
 		</div>
 	</div>
 	<div class="mb-2">
-		@label(['text' => 'Best transaction', 'color' => 'green'])
+		@label(['text' => 'Best investment', 'color' => 'green'])
 		<div class="d-apart">
 			<div>{{usd(0)}}</div>
 			@include('components.portfolio.badge', ['label' => percentage(0, 0, false)])
 		</div>
 	</div>
 	<div class="mb-2">
-		@label(['text' => 'Worst transaction', 'color' => 'red'])
+		@label(['text' => 'Worst investment', 'color' => 'red'])
 		<div class="d-apart">
 			<div>{{usd(0)}}</div>
 			@include('components.portfolio.badge', ['label' => percentage(0, 0, false)])

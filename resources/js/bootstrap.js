@@ -11,6 +11,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.moment = require('moment');
 window.numeral = require('numeral');
+window.Pikaday = require('pikaday');
 
 try {
     window.$ = window.jQuery = require('jquery');
