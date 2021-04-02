@@ -13,4 +13,15 @@ class Portfolio extends AppModel
 	{
 		return $this->hasMany(Transaction::class);
 	}
+
+	public function range($range)
+	{
+		return [[]];
+
+		// Example	
+		// return [
+		// 	[now()->subDay()->timestamp, 10000],
+		// 	[now()->timestamp, 12000]
+		// ];
+	}
 }

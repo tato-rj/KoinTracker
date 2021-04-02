@@ -21,13 +21,15 @@ Route::prefix('{coin}')->name('coins.')->group(function() {
 
 	Route::get('', 'CoinsController@show')->name('show');
 
-	Route::get('chart', 'CoinsController@chart')->name('chart');
+	Route::get('chart', 'ChartsController@coin')->name('chart');
 
 });
 
 Route::prefix('portfolios')->name('portfolios.')->group(function() {
 
 	Route::prefix('{portfolio}')->group(function() {
+
+		Route::get('chart', 'ChartsController@portfolio')->name('chart');
 
 		Route::prefix('transactions')->name('transactions.')->middleware(['auth', 'verified'])->group(function() {
 

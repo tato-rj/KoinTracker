@@ -19,12 +19,4 @@ class CoinsController extends Controller
 
         return view('coin.show.index', compact(['coin', 'coins']));
     }
-
-    public function chart(Request $request, Coin $coin)
-    {
-        return view('components.chart.canvas', [
-            'id' => $request->id, 
-            'points' => $coin->range($request->range), 
-            'url' => route('coins.chart', $coin)])->render();
-    }
 }

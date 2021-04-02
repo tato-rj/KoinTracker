@@ -18,28 +18,18 @@ class Coingecko
 		if (! $from)
 			return null;
 
-		// $successful = false;
-		// $attempts = 0;
-
-		// while ($attempts < 3 || $successful) {
-		// 	$attempts += 1;
-
-			$response = Http::get('https://api.coingecko.com/api/v3/coins/'.$this->id.'/market_chart/range', [
-				'vs_currency' => config('app.currency'),
-				'from' => $from->timestamp,
-				'to' => now()->timestamp
-			]);
-
-		// 	if ($response->successful())
-		// 		$successful = true;
-		// }
+		$response = Http::retry(3, 100)->get('https://api.coingecko.com/api/v3/coins/'.$this->id.'/market_chart/range', [
+			'vs_currency' => config('app.currency'),
+			'from' => $from->timestamp,
+			'to' => now()->timestamp
+		]);
 
 		return $response->collect();
 	}
 
 	public function market()
 	{
-		$response = Http::get('https://api.coingecko.com/api/v3/coins/'.$this->id, [
+		$response = Http::retry(3, 100)->get('https://api.coingecko.com/api/v3/coins/'.$this->id, [
 			'localization' => false,
 			'tickers' => false,
 			'community_data' => false,

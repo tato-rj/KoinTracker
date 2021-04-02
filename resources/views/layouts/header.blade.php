@@ -1,5 +1,6 @@
 @if(auth()->check() && ! auth()->user()->hasVerifiedEmail())
 <div class="alert-warning p-2 text-center">
+	@fa(['icon' => 'envelope'])<strong>Thanks for signing up!</strong>
 	@include('auth.confirm-password-notice')
 </div>
 @endif

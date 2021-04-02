@@ -28,6 +28,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Portfolio::class);
     }
 
+    public function getPortfolioAttribute()
+    {
+        return $this->portfolios->first();
+    }
+
     public function transactions()
     {
         return $this->hasManyThrough(Transaction::class, Portfolio::class);

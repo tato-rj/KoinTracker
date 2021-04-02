@@ -11,7 +11,7 @@
     <div class="row mb-5">
         <div class="col-lg-4 col-md-8 col-12 mx-auto">
             <h3 class="mb-4">Sign in to {{config('app.name')}}</h3>
-            <form method="POST" action="{{ route('login') }}" class="mb-4">
+            <form method="POST" action="{{ route('login') }}" class="mb-4" disable-on-submit>
                 @csrf
 
                 @input(['bag' => 'default', 'name' => 'email', 'placeholder' => 'Email'])

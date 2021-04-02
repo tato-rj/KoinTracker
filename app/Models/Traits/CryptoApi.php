@@ -11,6 +11,22 @@ trait CryptoApi
 		return (new Coingecko($this->uid));
 	}
 
+	public function getWebsiteAttribute()
+	{
+		if (! $this->latest_market)
+			return null;
+
+		return $this->latest_market['links']['homepage'][0];
+	}
+
+	public function getSubredditAttribute()
+	{
+		if (! $this->latest_market)
+			return null;
+
+		return $this->latest_market['links']['subreddit_url'];
+	}
+
 	public function getDescriptionAttribute()
 	{
 		if (! $this->latest_market)
@@ -119,6 +135,6 @@ trait CryptoApi
 		if (! $this->$attr)
 			return null;
 
-		return $this->$attr['prices'];		
+		return $this->$attr['prices'];
 	}
 }

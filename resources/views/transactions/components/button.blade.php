@@ -4,4 +4,4 @@ data-toggle="modal"
 @else
 href="{{route('login')}}" 
 @endauth
-class="btn btn-primary btn-wide btn-sm-block">@fa(['icon' => 'plus'])ADD A TRANSATION</a>
+class="btn btn-primary btn-wide {{$size ?? 'btn-sm-block'}}">@fa(['icon' => 'plus'])ADD A TRANSATION</a>

@@ -1854,6 +1854,8 @@ __webpack_require__(/*! ./helpers/arrays */ "./resources/js/helpers/arrays.js");
 
 __webpack_require__(/*! ./helpers/colors */ "./resources/js/helpers/colors.js");
 
+__webpack_require__(/*! ./classes/Graph */ "./resources/js/classes/Graph.js");
+
 $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': app.csrfToken
@@ -1877,6 +1879,15 @@ $(document).ready(function () {
     $('.hamburger-icon').removeClass('open');
   });
   $('.modal[autoshow]').modal('show');
+  $('.modal').each(function () {
+    if ($(this).find('.is-invalid')[0]) $(this).modal('show');
+  });
+});
+$(document).on('submit', 'form[disable-on-submit]', function () {
+  $(this).find('button[type="submit"]').addLoader();
+});
+$(document).on('click', 'a[disable-on-submit]', function () {
+  $(this).find('button[type="submit"]').addLoader();
 });
 
 /***/ }),
@@ -1918,6 +1929,281 @@ try {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/classes/Graph.js":
+/*!***************************************!*\
+  !*** ./resources/js/classes/Graph.js ***!
+  \***************************************/
+/***/ (() => {
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var chartInstance;
+
+var TinyGraph = /*#__PURE__*/function () {
+  function TinyGraph() {
+    _classCallCheck(this, TinyGraph);
+  }
+
+  _createClass(TinyGraph, [{
+    key: "run",
+    value: function run(canvas, data, color) {
+      new Chart(canvas, {
+        type: 'line',
+        responsive: true,
+        maintainAspectRatio: false,
+        data: {
+          labels: data.timestamps,
+          datasets: [{
+            data: data.prices,
+            borderColor: color,
+            borderWidth: 3,
+            borderCapStyle: 'round',
+            backgroundColor: convertHex(color, 6),
+            fill: false
+          }]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          tooltips: {
+            enabled: false
+          },
+          elements: {
+            point: {
+              radius: 0
+            }
+          },
+          scales: {
+            xAxes: [{
+              display: false
+            }],
+            yAxes: [{
+              display: false
+            }]
+          }
+        }
+      });
+    }
+  }]);
+
+  return TinyGraph;
+}();
+
+var BigGraph = /*#__PURE__*/function () {
+  function BigGraph() {
+    _classCallCheck(this, BigGraph);
+  }
+
+  _createClass(BigGraph, [{
+    key: "run",
+    value: function run(canvas, data, color) {
+      this._createCustomLine();
+
+      chartInstance = new Chart(canvas, {
+        type: 'LineWithLine',
+        data: {
+          labels: data.timestamps,
+          datasets: [{
+            data: data.prices,
+            borderColor: color,
+            borderWidth: 4,
+            borderCapStyle: 'round',
+            backgroundColor: convertHex(color, 6),
+            fill: false
+          }]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          tooltips: {
+            titleFontSize: 16,
+            titleFontFamily: "Segoe UI",
+            mode: 'index',
+            intersect: false,
+            custom: function custom(item) {
+              if (item.opacity === 0) {
+                $('#price').text($('#price').data('original'));
+                $('#price-date').text($('#price-date').data('original'));
+                $('#price-difference').text($('#price-difference').data('original')).removeClass('alert-red alert-green').addClass($('#price-difference').data('theme'));
+              }
+
+              item.displayColors = false;
+            },
+            callbacks: {
+              title: function title(item, data) {
+                return currency(item[0].value).format();
+              },
+              label: function label(item, data) {
+                var initialPrice = data.datasets[0].data[0];
+                var price = currency(item.value).format();
+                var difference = item.value - initialPrice;
+                var isPositive = difference >= 0;
+                var percentage = percent(difference, initialPrice) + '%';
+                var format = $('[name="range-switch"] button.selected').data('sub') == 'year' ? 'ddd, MMMM Do, YYYY' : 'ddd, MMMM Do, h:mm a';
+                var date = moment(parseInt(item.label)).format(format);
+                $('#price').text(price);
+                $('#price-date').text(date);
+                difference = difference < 0 ? currency(difference).format() : '+' + currency(difference).format();
+                $('#price-difference').text(difference + ' (' + percentage + ')').removeClass(isPositive ? 'alert-red' : 'alert-green').addClass(isPositive ? 'alert-green' : 'alert-red');
+                return date;
+
+                function percent(piece, total) {
+                  var percent = Math.abs(piece * 100 / total);
+                  return percent.toFixed(2);
+                }
+              }
+            }
+          },
+          hover: {
+            mode: 'index',
+            intersect: false
+          },
+          elements: {
+            point: {
+              radius: 0
+            }
+          },
+          scales: {
+            xAxes: [{
+              gridLines: {
+                display: false
+              },
+              ticks: {
+                display: false
+              }
+            }],
+            yAxes: [{
+              gridLines: {
+                display: false
+              },
+              ticks: {
+                display: false
+              }
+            }]
+          }
+        }
+      });
+    }
+  }, {
+    key: "_createCustomLine",
+    value: function _createCustomLine() {
+      Chart.defaults.LineWithLine = Chart.defaults.line;
+      Chart.controllers.LineWithLine = Chart.controllers.line.extend({
+        draw: function draw(ease) {
+          Chart.controllers.line.prototype.draw.call(this, ease);
+
+          if (this.chart.tooltip._active && this.chart.tooltip._active.length) {
+            var activePoint = this.chart.tooltip._active[0],
+                ctx = this.chart.ctx,
+                x = activePoint.tooltipPosition().x,
+                topY = this.chart.legend.bottom,
+                bottomY = this.chart.chartArea.bottom; // draw line
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(x, topY);
+            ctx.lineTo(x, bottomY);
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = 'rgba(0,0,0,0.4)';
+            ctx.stroke();
+            ctx.restore();
+          }
+        }
+      });
+    }
+  }]);
+
+  return BigGraph;
+}();
+
+var Graph = /*#__PURE__*/function () {
+  function Graph(canvas) {
+    _classCallCheck(this, Graph);
+
+    this.canvas = canvas;
+  }
+
+  _createClass(Graph, [{
+    key: "draw",
+    value: function draw(builder) {
+      if (this.canvas.length) builder.run(this.canvas[0], this._getAxis(), this.canvas.data('color'));
+    }
+  }, {
+    key: "_getAxis",
+    value: function _getAxis() {
+      var timestamps = [];
+      var prices = [];
+      var data = this.canvas.data('points');
+
+      for (var i = 0; i < data.length; i++) {
+        if (data.length > 20) {
+          if (i % 10 === 0) {
+            timestamps.push(data[i][0]);
+            prices.push(data[i][1]);
+          }
+        } else {
+          timestamps.push(data[i][0]);
+          prices.push(data[i][1]);
+        }
+      }
+
+      return {
+        timestamps: timestamps,
+        prices: prices
+      };
+    }
+  }]);
+
+  return Graph;
+}();
+
+var GraphRange = /*#__PURE__*/function () {
+  function GraphRange() {
+    _classCallCheck(this, GraphRange);
+  }
+
+  _createClass(GraphRange, [{
+    key: "linkTo",
+    value: function linkTo(builder) {
+      $('[name="range-switch"] button').click(function () {
+        var $button = $(this);
+        var canvasId = $button.closest('[name="range-switch"]').data('target');
+        $button.parent().children('button').disable();
+        axios.get($(canvasId).data('url'), {
+          params: {
+            id: $(canvasId).attr('id'),
+            range: $button.data('range')
+          }
+        }).then(function (response) {
+          $button.addClass('selected').siblings().removeClass('selected');
+          chartInstance.destroy();
+          $(canvasId).replaceWith(response.data);
+          new Graph($(canvasId)).draw(builder);
+        })["catch"](function (response) {
+          console.log(response);
+        }).then(function () {
+          $button.parent().children('button').enable();
+        });
+      });
+    }
+  }]);
+
+  return GraphRange;
+}();
+
+window.Graph = Graph;
+window.TinyGraph = TinyGraph;
+window.BigGraph = BigGraph;
+window.GraphRange = GraphRange;
 
 /***/ }),
 
@@ -2022,6 +2308,18 @@ jQuery.fn.toggleCssBetween = function (style, options) {
   } else {
     element.css(style, options[0]);
   }
+};
+
+jQuery.fn.addLoader = function () {
+  var spinner = "<div class=\"loader-spinner animated fadeIn\" style=\"position: absolute;\n                                top: 50%;\n                                left: 50%;\n                                -webkit-transform: transform: translate(-50%, -50%);\n                                transform: translate(-50%, -50%);\">\n                        <div class=\"spinner-border opacity-8\" style=\"width: 1rem; height: 1rem; border-width: .16em; margin-bottom: .1rem;\"></div>\n                    </div>";
+  $(this).prop('disabled', true).addClass('position-relative').contents().wrapAll('<div class="invisible"></div>');
+  $(this).append(spinner);
+};
+
+jQuery.fn.removeLoader = function () {
+  $(this).removeClass('position-relative').find('.invisible').removeClass('invisible');
+  $(this).prop('disabled', false);
+  $(this).find('.loader-spinner').remove();
 };
 
 /***/ }),

@@ -2,7 +2,7 @@
 @slot('body')
 @if(auth()->user()->hasVerifiedEmail())
 <div id="add-transaction-container">
-	@include('transactions.create.nav')
+	@include('transactions.components.nav')
 
 	<div class="tab-content">
 		@include('transactions.create.buy')
@@ -12,7 +12,7 @@
 </div>
 
 @else
-<div class="text-center mb-2">
+<div class="bg-light rounded p-3 mb-2">
 	@include('auth.confirm-password-notice')
 </div>
 @endif

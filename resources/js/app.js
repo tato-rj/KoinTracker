@@ -5,6 +5,7 @@ require('./helpers/string');
 require('./helpers/cookies');
 require('./helpers/arrays');
 require('./helpers/colors');
+require('./classes/Graph');
 
 $.ajaxSetup({
     headers: {
@@ -33,4 +34,17 @@ $(document).ready(function() {
 	});
 
     $('.modal[autoshow]').modal('show');
+
+    $('.modal').each(function() {
+      if ($(this).find('.is-invalid')[0])
+        $(this).modal('show');
+    });
+});
+
+$(document).on('submit', 'form[disable-on-submit]', function() {
+    $(this).find('button[type="submit"]').addLoader();
+});
+
+$(document).on('click', 'a[disable-on-submit]', function() {
+    $(this).find('button[type="submit"]').addLoader()
 });
