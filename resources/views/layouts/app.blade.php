@@ -157,6 +157,23 @@
             $('#add-transaction-container input[name="coin"]').val(coin);
         });
         </script>
+
+        <script type="text/javascript">
+            $('[name="coin_amount"], [name="price_per_coin"], [name="fee"]').on('change keyup', function() {
+                let $form = $(this).closest('form');
+                let coinAmount = parseFloat($form.find('[name="coin_amount"]').val());
+                let coinPrice = parseFloat($form.find('[name="price_per_coin"]').val());
+                let fee = parseFloat($form.find('[name="fee"]').val());
+                
+                if (isNaN(fee))
+                    fee = 0;
+
+                let cost = (coinAmount * coinPrice) + fee;
+
+                if (! isNaN(cost))
+                    $form.find('.total-cost').text(cost.toFixed(2));
+            });
+        </script>
         @stack('js')
     </body>
 </html>

@@ -3,6 +3,7 @@
 		@csrf
 
 		<input type="hidden" name="coin" value="{{isset($coin) ? $coin->uid : $coins->first()->uid}}">
+		<input type="hidden" name="type" value="sell">
 		
 		@input(['bag' => 'default', 'type' => 'number', 'name' => 'coin_amount', 'placeholder' => 0, 'label' => 'Quantity', 'placeholder' => 'How many coins?'])
 
@@ -15,20 +16,13 @@
 			</div>
 		</div>
 
-		<div class="form-row">
-			<div class="col">
-				@datepicker(['bag' => 'default', 'name' => 'transaction_date', 'label' => 'When did you sell it?', 'placeholder' => 'Pick a date'])
-			</div>
-			<div class="col">
-				@include('transactions.create.timeslots')
-			</div>
-		</div>
+		@include('transactions.components.date')
 
 		@textarea(['bag' => 'default', 'name' => 'comments', 'placeholder' => 'Any comments on this transaction?', 'label' => 'Comments', 'rows' => 3, 'required' => false])
 
 		<div class="bg-light rounded py-3 px-4 mb-3">
 			<label class="mb-1 text-muted"><small class="font-weight-bold">@fa(['icon' => 'money-bill-wave', 'mr' => 1])Total received</small></label>
-			<h2 class="m-0">$0</h2>
+			<h2 class="m-0 total-cost">$0</h2>
 		</div>
 
 		<button type="submit" class="btn btn-block btn-primary">Add Sell Transaction</button>

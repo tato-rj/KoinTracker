@@ -6,7 +6,7 @@
 @section('content')
 <div class="container">
 	<div class="row mb-4">
-		<div class="col-lg-4 col-md-6 col-12 mb-2">
+		<div class="col-lg-4 col-md-5 col-12 mb-2">
 			<div class="d-apart mb-4">
 				<div class="d-flex align-items-center">
 					<img src="{{$coin->getIcon()}}" class="mr-2" style="width: 40px">
@@ -43,14 +43,14 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-8 col-md-6 col-12 mb-4">
+		<div class="col-lg-9 col-md-8 col-12 mb-4">
 			<div class="text-center">
 				<img src="{{asset('images/empty.svg')}}" style="width: 200px" class="my-4 opacity-8">
 				<p class="text-muted">Looks like you haven't added any {{$coin->name}} transactions yet...</p>
 			</div>
 		</div>
 
-		<div class="col-lg-4 col-md-6 col-12 mb-4">
+		<div class="col-lg-3 col-md-4 col-12 mb-4">
 			@component('components.box', ['outline' => true])
 				<h5 class="border-bottom mb-2 pb-2">Resources</h5>
 				<ul class="list-flat">

@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Contracts\ApiContract;
 use App\Models\Traits\CryptoApi;
 
-class Coin extends AppModel
+class Coin extends AppModel implements ApiContract
 {
 	use CryptoApi;
 	
@@ -26,5 +27,10 @@ class Coin extends AppModel
     public function getIcon($type = 'color')
     {
     	return asset('images/crypto/icons/'.$type.'/'.$this->short.'.svg');
+    }
+
+    public function scopeName($query, $name)
+    {
+        return $query->where('name', $name)->first();
     }
 }

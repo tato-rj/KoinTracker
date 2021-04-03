@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-class Portfolio extends AppModel
+use App\Contracts\ApiContract;
+
+class Portfolio extends AppModel implements ApiContract
 {
 	public function user()
 	{
@@ -16,12 +18,31 @@ class Portfolio extends AppModel
 
 	public function range($range)
 	{
-		return [[]];
+		$now = now();
+		$points = collect([]);
+		$length = 48;
+		$step = 30;
+		$range = Coin::name('bitcoin')->range('24h');
 
-		// Example	
-		// return [
-		// 	[now()->subDay()->timestamp, 10000],
-		// 	[now()->timestamp, 12000]
-		// ];
+		for ($i=0; $i<=$length; $i++) {
+			$date = now()->subMinutes($step * $i);
+			$coins = $this->transactions()->whereDate('transaction_date', '<=', $date)->sum('coin_amount');
+
+			foreach ($range as $point) {
+				if (carbon($point[0], true)->gte($date)) {
+					$points->prepend([$date->getPreciseTimestamp(3), $coins * $point[1]]);
+					break;
+				}
+			}
+		}
+
+		return $points;
+	}
+
+	public function transactionCost($coin_amount, $price_per_coin, $fee)
+	{
+		$cost = ($coin_amount * $price_per_coin) + $fee;
+
+        return round($cost, 2);
 	}
 }

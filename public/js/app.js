@@ -2050,6 +2050,7 @@ var BigGraph = /*#__PURE__*/function () {
                 var percentage = percent(difference, initialPrice) + '%';
                 var format = $('[name="range-switch"] button.selected').data('sub') == 'year' ? 'ddd, MMMM Do, YYYY' : 'ddd, MMMM Do, h:mm a';
                 var date = moment(parseInt(item.label)).format(format);
+                console.log(item.label);
                 $('#price').text(price);
                 $('#price-date').text(date);
                 difference = difference < 0 ? currency(difference).format() : '+' + currency(difference).format();
@@ -2146,7 +2147,9 @@ var Graph = /*#__PURE__*/function () {
 
       for (var i = 0; i < data.length; i++) {
         if (data.length > 20) {
-          if (i % 10 === 0) {
+          var divider = data.length > 100 ? 10 : 2;
+
+          if (i % divider === 0) {
             timestamps.push(data[i][0]);
             prices.push(data[i][1]);
           }

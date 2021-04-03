@@ -17,15 +17,15 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->unsignedInteger('portfolio_id');
             $table->string('coin');
-            $table->unsignedInteger('coin_amount');
-            $table->unsignedInteger('price_per_coin');
+            $table->decimal('coin_amount', 10, 8);
+            $table->decimal('price_per_coin', 10, 2);
             $table->string('currency');
-            $table->unsignedInteger('currency_amount');
-            $table->string('fee')->nullable();
-            $table->string('comments');
+            $table->decimal('currency_amount', 10, 2);
+            $table->float('fee')->nullable();
+            $table->string('comments')->nullable();
             $table->string('type');
             $table->string('transfer_type')->nullable();
-            $table->date('transaction_date');
+            $table->datetime('transaction_date');
             $table->timestamps();
         });
     }

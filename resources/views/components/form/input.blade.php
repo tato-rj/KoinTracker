@@ -13,10 +13,10 @@
 		step="{{$step ?? null}}"
 		@endif
 		name="{{$name}}" 
-		@if(! empty($limit))
+		@isset($limit)
 		maxlength="{{$limit}}"
 		max="{{$limit}}"
-		@endif
+		@endisset
 		placeholder="{{$placeholder ?? ucfirst(snake_str($name, true))}}" 
 		@if(old($name))
 		value="{{old($name)}}"

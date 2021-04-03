@@ -10,7 +10,8 @@ class HomeController extends Controller
     public function index()
     {
     	$coins = Coin::all();
-    	
+
+    	// return auth()->user()->portfolio->range('24h');
     	return view('home.index', compact('coins'));
     }
 }

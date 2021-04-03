@@ -38,14 +38,14 @@ class TransactionsController extends Controller
         $portfolio->transactions()->create([
             'coin' => $request->coin,
             'coin_amount' => $request->coin_amount,
-            'price_per_coin' => $request->coin_amount,
-            'currency' => $request->currency,
-            'currency_amount' => $request->currency_amount,
+            'price_per_coin' => $request->price_per_coin,
+            'currency' => auth()->user()->currency,
+            'currency_amount' => $portfolio->transactionCost($request->coin_amount, $request->price_per_coin, $request->fee),
             'fee' => $request->fee,
             'comments' => $request->comments,
             'type' => $request->type,
             'transfer_type' => $request->transfer_type,
-            'transaction_date' => carbon($request->date)->format('YYYY-MM-DD hh:mm:ss')
+            'transaction_date' => carbon($request->transaction_date . ' ' . $request->transaction_time)->toDateTimeString()
         ]);
 
         return back()->with('success', 'The transaction has been successfully created!');
@@ -83,7 +83,7 @@ class TransactionsController extends Controller
             'comments' => $request->comments,
             'type' => $request->type,
             'transfer_type' => $request->transfer_type,
-            'transaction_date' => carbon($request->date)->format('YYYY-MM-DD hh:mm:ss')
+            'transaction_date' => carbon($request->transaction_date . ' ' . $request->transaction_time)->toDateTimeString()
         ]);
 
         return back()->with('success', 'The transaction has been successfully updated!');

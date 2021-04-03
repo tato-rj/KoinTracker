@@ -3,6 +3,7 @@
 		@csrf
 
 		<input type="hidden" name="coin" value="{{isset($coin) ? $coin->uid : $coins->first()->uid}}">
+		<input type="hidden" name="type" value="transfer">
 		
 		@select([
 			'bag' => 'default',
@@ -24,14 +25,7 @@
 			</div>
 		</div>
 
-		<div class="form-row">
-			<div class="col">
-				@datepicker(['bag' => 'default', 'name' => 'transaction_date', 'label' => 'When did you transfer it?', 'placeholder' => 'Pick a date'])
-			</div>
-			<div class="col">
-				@include('transactions.create.timeslots')
-			</div>
-		</div>
+		@include('transactions.components.date')
 
 		@textarea(['bag' => 'default', 'name' => 'comments', 'placeholder' => 'Any comments on this transaction?', 'label' => 'Comments', 'rows' => 3, 'required' => false])
 
