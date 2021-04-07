@@ -18,7 +18,7 @@ function percentage($num, $total, $caret = true)
 function formatPercent($number, $caret = true)
 {
 	$upcaret = $caret ? '<i class="fas fa-caret-up mr-1"></i>' : null;
-	$downcaret = $caret ? '<i class="fas fa-caret-up mr-1"></i>' : null;
+	$downcaret = $caret ? '<i class="fas fa-caret-down mr-1"></i>' : null;
 
 	return $number > 0 ? 
 			$upcaret . number_format($number, 2) . '%' : 

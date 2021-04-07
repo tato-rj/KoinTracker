@@ -12,13 +12,14 @@
 		<div class="col-lg-4 col-md-6 col-12">
 			<div class="mb-3">
 				@label(['text' => 'My portfolio balance', 'icon' => 'piggy-bank'])
-				<h1>{{usd(0)}}</h1>
+				<h1>{{usd(auth()->user()->portfolio->currentValue)}}</h1>
 				@include('components.portfolio.badge', ['label' => usd(0) . ' (24h)'])
 			</div>
 			@include('components.portfolio.holdings')
 			@auth
 				@if(auth()->user()->transactions()->exists())
-				@include('transactions.components.button', ['size' => 'btn-block'])
+				<a href="{{route('home')}}" class="btn btn-primary mb-2 btn-block">MY PORTFOLIO</a>
+				@include('transactions.components.button', ['size' => 'btn-block', 'theme' => 'outline-primary'])
 				@endif
 			@endauth
 		</div>

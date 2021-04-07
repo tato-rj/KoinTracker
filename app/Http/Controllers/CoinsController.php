@@ -16,7 +16,7 @@ class CoinsController extends Controller
     public function show(Coin $coin)
     {
         $coins = Coin::all();
-
+        
         return view('coin.show.index', compact(['coin', 'coins']));
     }
 }

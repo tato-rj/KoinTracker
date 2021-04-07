@@ -3,6 +3,7 @@
 namespace App\Models\Traits;
 
 use App\Api\Coingecko;
+use App\Chart\Chart;
 
 trait CryptoApi
 {
@@ -135,6 +136,6 @@ trait CryptoApi
 		if (! $this->$attr)
 			return null;
 
-		return $this->$attr['prices'];
+		return (new Chart)->getData($this->$attr['prices'])->setMax(30)->filter();
 	}
 }

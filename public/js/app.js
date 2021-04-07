@@ -1973,6 +1973,14 @@ var TinyGraph = /*#__PURE__*/function () {
           legend: {
             display: false
           },
+          layout: {
+            padding: {
+              left: 10,
+              right: 10,
+              top: 5,
+              bottom: 5
+            }
+          },
           tooltips: {
             enabled: false
           },
@@ -2024,6 +2032,14 @@ var BigGraph = /*#__PURE__*/function () {
           legend: {
             display: false
           },
+          layout: {
+            padding: {
+              left: 10,
+              right: 10,
+              top: 5,
+              bottom: 5
+            }
+          },
           tooltips: {
             titleFontSize: 16,
             titleFontFamily: "Segoe UI",
@@ -2050,7 +2066,6 @@ var BigGraph = /*#__PURE__*/function () {
                 var percentage = percent(difference, initialPrice) + '%';
                 var format = $('[name="range-switch"] button.selected').data('sub') == 'year' ? 'ddd, MMMM Do, YYYY' : 'ddd, MMMM Do, h:mm a';
                 var date = moment(parseInt(item.label)).format(format);
-                console.log(item.label);
                 $('#price').text(price);
                 $('#price-date').text(date);
                 difference = difference < 0 ? currency(difference).format() : '+' + currency(difference).format();
@@ -2144,21 +2159,16 @@ var Graph = /*#__PURE__*/function () {
       var timestamps = [];
       var prices = [];
       var data = this.canvas.data('points');
+      var current = data.pop;
+      console.log(data);
 
       for (var i = 0; i < data.length; i++) {
-        if (data.length > 20) {
-          var divider = data.length > 100 ? 10 : 2;
-
-          if (i % divider === 0) {
-            timestamps.push(data[i][0]);
-            prices.push(data[i][1]);
-          }
-        } else {
-          timestamps.push(data[i][0]);
-          prices.push(data[i][1]);
-        }
+        timestamps.push(data[i][0]);
+        prices.push(data[i][1]);
       }
 
+      timestamps.push(current[0]);
+      prices.push(current[1]);
       return {
         timestamps: timestamps,
         prices: prices

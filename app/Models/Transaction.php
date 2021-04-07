@@ -8,7 +8,7 @@ class Transaction extends AppModel
 		'coin_amount' => 'float',
 		'price_per_coin' => 'float',
 		'currency_amount' => 'float',
-		'transaction_date' => 'date'
+		'transaction_date' => 'datetime'
 	];
 
 	public function portfolio()

@@ -30,7 +30,9 @@ class TransactionTest extends TestCase
     {
     	$this->signIn(User::factory()->unverified()->create(), $verify = true);
 
-        $this->post(route('portfolios.transactions.store', auth()->user()->portfolios->first()), Transaction::factory()->make()->toArray());
+        $this->post(route('portfolios.transactions.store', auth()->user()->portfolios->first()), Transaction::factory()->make([
+            'transaction_date' => '2021-04-03',
+            'transaction_time' => '09:15 AM'])->toArray());
 
         $this->assertDatabaseHas('transactions', ['portfolio_id' => auth()->user()->portfolios->first()->id]);
     }

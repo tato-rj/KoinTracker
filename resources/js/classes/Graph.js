@@ -22,6 +22,14 @@ class TinyGraph
 		    	legend: {
 		    		display: false
 		    	},
+		    	layout:{
+		    		padding: {
+		    			left: 10,
+		    			right: 10,
+		    			top: 5,
+		    			bottom: 5
+		    		}
+		    	},
 		    	tooltips: {
 		    		enabled: false,
 		    	},
@@ -65,6 +73,14 @@ class BigGraph
 		    	legend: {
 		    		display: false
 		    	},
+		    	layout:{
+		    		padding: {
+		    			left: 10,
+		    			right: 10,
+		    			top: 5,
+		    			bottom: 5
+		    		}
+		    	},
 		    	tooltips: {
 		    		titleFontSize: 16,
 		    		titleFontFamily: "Segoe UI",
@@ -92,7 +108,7 @@ class BigGraph
 		                	let percentage = percent(difference, initialPrice) + '%';
 		                	let format = $('[name="range-switch"] button.selected').data('sub') == 'year' ? 'ddd, MMMM Do, YYYY' : 'ddd, MMMM Do, h:mm a';
 		                	let date = moment(parseInt(item.label)).format(format);
-		                	console.log(item.label);
+
 		                	$('#price').text(price);
 		                	$('#price-date').text(date);
 
@@ -185,19 +201,15 @@ class Graph
 		let timestamps = [];
 		let prices = [];
 		let data = this.canvas.data('points');
+		let current = data.pop;
 
 		for (var i=0; i < data.length; i++) {
-			if (data.length > 20) {
-				let divider = data.length > 100 ? 10 : 2;
-				if (i % divider === 0) {
-					timestamps.push(data[i][0]);
-					prices.push(data[i][1]);
-				}
-			} else {
-				timestamps.push(data[i][0]);
-				prices.push(data[i][1]);
-			}
+			timestamps.push(data[i][0]);
+			prices.push(data[i][1]);
 		}
+
+		timestamps.push(current[0]);
+		prices.push(current[1]);
 
 		return {timestamps: timestamps, prices: prices};
 	}

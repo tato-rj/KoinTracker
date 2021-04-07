@@ -35,6 +35,7 @@ class TransactionsController extends Controller
      */
     public function store(Request $request, Portfolio $portfolio)
     {
+        // return $request->all();
         $portfolio->transactions()->create([
             'coin' => $request->coin,
             'coin_amount' => $request->coin_amount,
@@ -45,7 +46,7 @@ class TransactionsController extends Controller
             'comments' => $request->comments,
             'type' => $request->type,
             'transfer_type' => $request->transfer_type,
-            'transaction_date' => carbon($request->transaction_date . ' ' . $request->transaction_time)->toDateTimeString()
+            'transaction_date' => carbon($request->transaction_date)->setTimeFromTimeString($request->transaction_time)->toDateTimeString()
         ]);
 
         return back()->with('success', 'The transaction has been successfully created!');

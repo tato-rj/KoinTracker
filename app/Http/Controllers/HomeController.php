@@ -11,7 +11,7 @@ class HomeController extends Controller
     {
     	$coins = Coin::all();
 
-    	// return auth()->user()->portfolio->range('24h');
+    	// return auth()->user()->portfolio->range('1h');
     	return view('home.index', compact('coins'));
     }
 }

@@ -29,7 +29,7 @@
 			</div>
 			@include('coin.components.info', ['class' => 'd-none d-md-block'])
 
-			@include('transactions.components.button', ['size' => 'btn-block'])
+			@include('transactions.components.button', ['size' => 'btn-block', 'theme' => 'primary'])
 
 		</div>
 		<div class="col-lg-8 col-md-6 col-12 mb-2">

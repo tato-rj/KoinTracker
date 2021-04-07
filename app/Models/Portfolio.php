@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Contracts\ApiContract;
+use App\Chart\{Chart, Range};
 
 class Portfolio extends AppModel implements ApiContract
 {
@@ -16,27 +17,32 @@ class Portfolio extends AppModel implements ApiContract
 		return $this->hasMany(Transaction::class);
 	}
 
-	public function range($range)
+	public function getCoinsAttribute()
 	{
-		$now = now();
-		$points = collect([]);
-		$length = 48;
-		$step = 30;
-		$range = Coin::name('bitcoin')->range('24h');
+		return $this->transactions()->groupBy('coin')->pluck('coin');
+	}
 
-		for ($i=0; $i<=$length; $i++) {
-			$date = now()->subMinutes($step * $i);
-			$coins = $this->transactions()->whereDate('transaction_date', '<=', $date)->sum('coin_amount');
+	public function amountOf($coin)
+	{
+		return $this->transactions()->where('coin', $coin)->sum('coin_amount');
+	}
 
-			foreach ($range as $point) {
-				if (carbon($point[0], true)->gte($date)) {
-					$points->prepend([$date->getPreciseTimestamp(3), $coins * $point[1]]);
-					break;
-				}
-			}
+	public function getCurrentValueAttribute()
+	{
+		$total = 0;
+
+		foreach ($this->coins as $coin) {
+			$total += Coin::name($coin)->price * $this->amountOf($coin);
 		}
 
-		return $points;
+		return $total;
+	}
+
+	public function range($range)
+	{
+		$points = (new Range)->portfolio($this)->get($range);
+
+		return (new Chart)->getData($points)->filter();
 	}
 
 	public function transactionCost($coin_amount, $price_per_coin, $fee)

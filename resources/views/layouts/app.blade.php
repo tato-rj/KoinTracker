@@ -99,7 +99,7 @@
         </script>
     </head>
 
-    <body data-coin="{{$coin ?? null}}">
+    <body>
         <div id="app" class="mb-6">
             @include('layouts.header')
 
