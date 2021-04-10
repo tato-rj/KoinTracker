@@ -15,4 +15,9 @@ class Transaction extends AppModel
 	{
 		return $this->belongsTo(Portfolio::class);
 	}
+
+	public function coin()
+	{
+		return $this->belongsTo(Coin::class);
+	}
 }

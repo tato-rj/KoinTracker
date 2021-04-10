@@ -2151,7 +2151,7 @@ var Graph = /*#__PURE__*/function () {
   _createClass(Graph, [{
     key: "draw",
     value: function draw(builder) {
-      if (this.canvas.length) builder.run(this.canvas[0], this._getAxis(), this.canvas.data('color'));
+      if (this.canvas.length) builder.run(this.canvas[0], this.canvas.data('points'), this.canvas.data('color'));
     }
   }, {
     key: "_getAxis",
@@ -2160,7 +2160,6 @@ var Graph = /*#__PURE__*/function () {
       var prices = [];
       var data = this.canvas.data('points');
       var current = data.pop;
-      console.log(data);
 
       for (var i = 0; i < data.length; i++) {
         timestamps.push(data[i][0]);

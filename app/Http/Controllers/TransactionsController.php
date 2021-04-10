@@ -35,9 +35,8 @@ class TransactionsController extends Controller
      */
     public function store(Request $request, Portfolio $portfolio)
     {
-        // return $request->all();
         $portfolio->transactions()->create([
-            'coin' => $request->coin,
+            'coin_id' => $request->coin_id,
             'coin_amount' => $request->coin_amount,
             'price_per_coin' => $request->price_per_coin,
             'currency' => auth()->user()->currency,
@@ -75,7 +74,7 @@ class TransactionsController extends Controller
         $this->authorize('update', $transaction);
 
         $transaction->update([
-            'coin' => $request->coin,
+            'coin_id' => $request->coin_id,
             'coin_amount' => $request->coin_amount,
             'price_per_coin' => $request->coin_amount,
             'currency' => $request->currency,

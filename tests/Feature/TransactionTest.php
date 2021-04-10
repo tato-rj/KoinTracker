@@ -42,7 +42,7 @@ class TransactionTest extends TestCase
     {
         $this->signIn(User::factory()->unverified()->create(), $verify = true);
 
-        $original = Transaction::factory()->make();
+        $original = Transaction::factory()->make(['transaction_time' => now()->format('h:m:i')]);
 
         $this->post(route('portfolios.transactions.store', auth()->user()->portfolios->first()), $original->toArray());
 

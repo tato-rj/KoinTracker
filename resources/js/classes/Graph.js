@@ -194,7 +194,7 @@ class Graph
 
 	draw(builder) {
 		if (this.canvas.length)
-			builder.run(this.canvas[0], this._getAxis(), this.canvas.data('color'));
+			builder.run(this.canvas[0], this.canvas.data('points'), this.canvas.data('color'));
 	}
 
 	_getAxis() {

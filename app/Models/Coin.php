@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Contracts\ApiContract;
 use App\Models\Traits\CryptoApi;
+use App\Api\Fake\Coin as FakeCoin;
 
 class Coin extends AppModel implements ApiContract
 {
@@ -24,6 +25,11 @@ class Coin extends AppModel implements ApiContract
         return 'uid';
     }
 
+    public function scopeFake($query)
+    {
+        return new FakeCoin;
+    }
+
     public function getIcon($type = 'color')
     {
     	return asset('images/crypto/icons/'.$type.'/'.$this->short.'.svg');
@@ -31,6 +37,6 @@ class Coin extends AppModel implements ApiContract
 
     public function scopeName($query, $name)
     {
-        return $query->where('name', $name)->first();
+        return $query->where('uid', $name)->first();
     }
 }

@@ -46,7 +46,7 @@ trait CryptoApi
 
 	public function getPriceChangeTodayAttribute()
 	{
-		return $this->price - $this->range('24h')[0][1];
+		return $this->price - $this->range('24h', $formatted = false)[0][1];
 	}
 
 	public function getLastUpdatedAttribute()
@@ -129,13 +129,13 @@ trait CryptoApi
 		return $this->latest_market['market_data']['price_change_percentage_1y_in_currency'][config('app.currency')];
 	}
 
-	public function range($range)
+	public function range($range, $formatted = true)
 	{
 		$attr = 'latest_'.$range.'_range';
 
 		if (! $this->$attr)
 			return null;
 
-		return (new Chart)->getData($this->$attr['prices'])->setMax(30)->filter();
+		return (new Chart)->getData($this->$attr['prices'])->setMax(30)->filter($formatted);
 	}
 }

@@ -25,12 +25,12 @@ class Chart
 		return $this;
 	}
 
-	public function filter()
+	public function filter($formatted = true)
 	{
 		$data = $this->data;
 
 		if ($data->count() <= $this->max)
-			return $data->values();
+			return $formatted ? $this->formatted($data->values()) : $data->values();
 
 		$last = $data->pop();
 
@@ -42,6 +42,19 @@ class Chart
 
 		$data->push($last);
 
-		return $data;
-	}	
+		return $formatted ? $this->formatted($data) : $data;
+	}
+
+	public function formatted($data)
+	{
+		$timestamps = collect();
+		$prices = collect();
+
+		foreach ($data as $points) {
+			$timestamps->push($points[0]);
+			$prices->push($points[1]);
+		}
+
+		return compact(['timestamps', 'prices']);
+	}
 }

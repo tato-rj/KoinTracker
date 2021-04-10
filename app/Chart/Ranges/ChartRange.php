@@ -12,7 +12,7 @@ abstract class ChartRange
 		$market = collect();
 		// Get market data for each coin in the portfolio for the selected range
 		foreach ($portfolio->coins as $coin) {
-			$market[$coin] = Coin::name($coin)->range($this->range);
+			$market[$coin] = Coin::name($coin)->range($this->range, $formatted = false);
 		}
 
 		// For each point (timestamp) in the graph...
@@ -22,7 +22,7 @@ abstract class ChartRange
 			// Go through each coin in the portfolio...
 			foreach ($market as $coin => $data) {
 				// Get the amount of that coin up until that point in time...
-				$amount = $portfolio->transactions()->where('coin', $coin)->where('transaction_date', '<=', $date)->sum('coin_amount');
+				$amount = $portfolio->amountUpTo($coin, $date);
 				// Search in the list of market prices for that coin
 				foreach ($data as $point) {
 					// Get the closest market price in the current point (timestamp) and multiply the coins owned by the market price

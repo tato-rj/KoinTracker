@@ -16,7 +16,7 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('portfolio_id');
-            $table->string('coin');
+            $table->unsignedInteger('coin_id');
             $table->decimal('coin_amount', 10, 8);
             $table->decimal('price_per_coin', 10, 2);
             $table->string('currency');

@@ -19,30 +19,47 @@ class Portfolio extends AppModel implements ApiContract
 
 	public function getCoinsAttribute()
 	{
-		return $this->transactions()->groupBy('coin')->pluck('coin');
+		return $this->transactions()->with('coin')->get()->pluck('coin');
 	}
 
-	public function amountOf($coin)
+	public function amountOf($coinUid, $date = null)
 	{
-		return $this->transactions()->where('coin', $coin)->sum('coin_amount');
+		$date = $date ?? now();
+
+		return $this->transactions()->whereHas('coin', function($q) use ($coinUid) {
+			$q->where('uid', $coinUid);
+		})->where('transaction_date', '<=', $date)->sum('coin_amount');
 	}
 
-	public function getCurrentValueAttribute()
+	public function value($date = null)
 	{
 		$total = 0;
 
 		foreach ($this->coins as $coin) {
-			$total += Coin::name($coin)->price * $this->amountOf($coin);
+			$total += $coin->price * $this->amountOf($coin->uid, $date);
 		}
 
-		return $total;
+		return $total;		
 	}
 
 	public function range($range)
 	{
-		$points = (new Range)->portfolio($this)->get($range);
+		return (new Chart)->getData(
+			(new Range)->portfolio($this)->get($range)
+		)->filter();
+	}
 
-		return (new Chart)->getData($points)->filter();
+	public function formatted($data)
+	{
+		$timestamps = collect();
+		$prices = collect();
+
+		foreach ($data as $points) {
+			$timestamps->push($points[0]);
+			$prices->push($points[1]);
+		}
+
+		return compact(['timestamps', 'prices']);
 	}
 
 	public function transactionCost($coin_amount, $price_per_coin, $fee)

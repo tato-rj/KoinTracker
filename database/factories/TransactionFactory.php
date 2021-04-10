@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\{Transaction, Portfolio};
+use App\Models\{Transaction, Portfolio, Coin};
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TransactionFactory extends Factory
@@ -25,7 +25,9 @@ class TransactionFactory extends Factory
             'portfolio_id' => function() {
                 return Portfolio::factory()->create()->id;
             },
-            'coin' => $this->faker->word,
+            'coin_id' => function() {
+                return Coin::factory()->create()->id;
+            },
             'coin_amount' => $this->faker->randomFloat(),
             'price_per_coin' => $this->faker->randomFloat(),
             'currency' => $this->faker->word,
