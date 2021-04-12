@@ -20,7 +20,7 @@
 			@else
 			{{$loop->first ? 'selected' : null}} 
 			@endisset
-			value="{{$transactionCoin->uid}}">{{$transactionCoin->name}} ({{strtoupper($transactionCoin->short)}})
+			value="{{$transactionCoin->id}}">{{$transactionCoin->name}} ({{strtoupper($transactionCoin->short)}})
 		</option>
 		@endforeach
 	</select>

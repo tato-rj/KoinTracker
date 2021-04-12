@@ -2,7 +2,7 @@
 	<form method="POST" action="{{route('portfolios.transactions.store', auth()->user()->portfolios->first())}}" disable-on-submit>
 		@csrf
 
-		<input type="hidden" name="coin" value="{{isset($coin) ? $coin->uid : $coins->first()->uid}}">
+		<input type="hidden" name="coin_id" value="{{isset($coin) ? $coin->id : $coins->first()->id}}">
 		<input type="hidden" name="type" value="transfer">
 		
 		@select([

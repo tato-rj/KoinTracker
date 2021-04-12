@@ -154,7 +154,7 @@
             let coin = this.value;
 
             $(this).siblings('img').attr('src', icon);
-            $('#add-transaction-container input[name="coin"]').val(coin);
+            $('#add-transaction-container input[name="coin_id"]').val(coin);
         });
         </script>
 

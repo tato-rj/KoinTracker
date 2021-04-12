@@ -40,6 +40,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function hasBadge(Badge $badge)
     {
+        $policy = $badge->policy;
+
+        if (method_exists($this, $policy))
+            return $this->$policy();
+        
         return false;
     }
 }

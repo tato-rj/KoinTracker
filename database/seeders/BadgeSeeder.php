@@ -15,14 +15,14 @@ class BadgeSeeder extends Seeder
     public function run()
     {
         $badges = [
-            ['icon' => 'baby', 'color' => 'yellow', 'name' => 'Foo', 'description' => 'This is just a description', 'points' => 10],
-            ['icon' => 'cookie', 'color' => 'yellow', 'name' => 'Foo', 'description' => 'This is just a description', 'points' => 11],
-            ['icon' => 'gamepad', 'color' => 'yellow', 'name' => 'Foo', 'description' => 'This is just a description', 'points' => 12],
-            ['icon' => 'coffee', 'color' => 'yellow', 'name' => 'Foo', 'description' => 'This is just a description', 'points' => 13],
-            ['icon' => 'dice', 'color' => 'green', 'name' => 'Foo', 'description' => 'This is just a description', 'points' => 50],
+            ['icon' => 'baby', 'color' => 'yellow', 'name' => 'Start trading', 'description' => 'Earned when you add your first transaction', 'points' => 10],
+            ['icon' => 'cookie', 'color' => 'yellow', 'name' => 'First gains', 'description' => 'Earned when you first reach first 10% gains in any transaction', 'points' => 11],
+            ['icon' => 'star-half', 'color' => 'yellow', 'name' => 'One month member', 'description' => 'Earned when you have been with KoinTracker for 1 month.', 'points' => 12],
+            ['icon' => 'star', 'color' => 'yellow', 'name' => 'One year member', 'description' => 'Earned when you have been with KoinTracker for 1 year', 'points' => 13],
+            ['icon' => 'dice', 'color' => 'green', 'name' => 'Good hands', 'description' => 'Earn when you add at least 5 transactions.', 'points' => 50],
             ['icon' => 'heart', 'color' => 'green', 'name' => 'Foo', 'description' => 'This is just a description', 'points' => 51],
-            ['icon' => 'star-half', 'color' => 'green', 'name' => 'Foo', 'description' => 'This is just a description', 'points' => 52],
-            ['icon' => 'star', 'color' => 'green', 'name' => 'Foo', 'description' => 'This is just a description', 'points' => 53],
+            ['icon' => 'gamepad', 'color' => 'green', 'name' => 'Foo', 'description' => 'This is just a description', 'points' => 52],
+            ['icon' => 'coffee', 'color' => 'green', 'name' => 'Foo', 'description' => 'This is just a description', 'points' => 53],
             ['icon' => 'user-astronaut', 'color' => 'blue', 'name' => 'Foo', 'description' => 'This is just a description', 'points' => 100],
             ['icon' => 'dumbbell', 'color' => 'blue', 'name' => 'Foo', 'description' => 'This is just a description', 'points' => 101],
             ['icon' => 'fighter-jet', 'color' => 'blue', 'name' => 'Foo', 'description' => 'This is just a description', 'points' => 102],

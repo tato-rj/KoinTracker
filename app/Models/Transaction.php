@@ -20,4 +20,11 @@ class Transaction extends AppModel
 	{
 		return $this->belongsTo(Coin::class);
 	}
+
+	public function gains($date = null)
+	{
+		$date = $date ?? now();
+
+		return diffInPercent($this->price_per_coin, $this->coin->price);
+	}
 }

@@ -15,6 +15,13 @@ function percentage($num, $total, $caret = true)
 			$downcaret . $percent . '%';
 }
 
+function diffInPercent($start, $end)
+{	
+	$formatter = new \NumberFormatter('en_US', NumberFormatter::PERCENT);
+	
+	return $formatter->format(($end - $start) / $start);
+}
+
 function formatPercent($number, $caret = true)
 {
 	$upcaret = $caret ? '<i class="fas fa-caret-up mr-1"></i>' : null;

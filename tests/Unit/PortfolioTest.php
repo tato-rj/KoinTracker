@@ -76,7 +76,7 @@ class PortfolioTest extends TestCase
 	}
 
 	/** @test */
-	public function it_knows_its_total_most_current_totsal_value_up_to_a_specific_date()
+	public function it_knows_its_total_most_current_total_value_up_to_a_specific_date()
 	{
 		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id, 'transaction_date' => now()->subMonth()]);
 
@@ -92,10 +92,20 @@ class PortfolioTest extends TestCase
 	{
 		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id]);
 
-		$oldValue = $this->portfolio->value();
-
 		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id]);
 
-		$this->assertTrue($this->portfolio->value() > $oldValue);
+		$this->assertTrue($this->portfolio->valueFor($this->portfolio->coins->first()) < $this->portfolio->value());
+	}
+
+	/** @test */
+	public function it_knows_its_total_most_current_total_value_for_a_given_coin_up_to_a_specific_date()
+	{
+		$coin = Coin::factory()->create();
+
+		Transaction::factory()->create(['coin_id' => $coin->id, 'portfolio_id' => $this->portfolio->id, 'transaction_date' => now()->subMonth()]);
+
+		Transaction::factory()->create(['coin_id' => $coin->id, 'portfolio_id' => $this->portfolio->id, 'transaction_date' => now()]);
+
+		$this->assertTrue($this->portfolio->valueFor($coin, now()->subWeek()) < $this->portfolio->valueFor($coin));
 	}
 }

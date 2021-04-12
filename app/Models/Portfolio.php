@@ -42,6 +42,11 @@ class Portfolio extends AppModel implements ApiContract
 		return $total;		
 	}
 
+	public function valueFor($coin, $date = null)
+	{
+		return $coin->price * $this->amountOf($coin->uid, $date);
+	}
+
 	public function range($range)
 	{
 		return (new Chart)->getData(

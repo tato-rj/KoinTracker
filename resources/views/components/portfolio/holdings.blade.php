@@ -1,12 +1,12 @@
 <div class="mb-4">
 	<div class="mb-2">
-		@label(['text' => 'Total profit', 'color' => 'primary'])
+		@label(['text' => 'Total profit/loss', 'color' => 'primary'])
 		<div class="d-apart">
 			<div>{{usd(0)}}</div>
-			@include('components.portfolio.badge', ['label' => percentage(0, 0, false)])
+			@include('components.portfolio.gains', ['label' => percentage(0, 0, false)])
 		</div>
 	</div>
-	<div class="mb-2">
+{{-- 	<div class="mb-2">
 		@label(['text' => 'Best investment', 'color' => 'green'])
 		<div class="d-apart">
 			<div>{{usd(0)}}</div>
@@ -19,5 +19,5 @@
 			<div>{{usd(0)}}</div>
 			@include('components.portfolio.badge', ['label' => percentage(0, 0, false)])
 		</div>
-	</div>
+	</div> --}}
 </div>

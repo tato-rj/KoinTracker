@@ -13,4 +13,9 @@ class Badge extends AppModel
 
 		return 'alert-' . $this->theme;
 	}
+
+	public function getPolicyAttribute()
+	{
+		return lcfirst(\Str::of($this->icon)->studly());
+	}
 }

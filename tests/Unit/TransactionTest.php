@@ -18,4 +18,12 @@ class TransactionTest extends TestCase
 	{
 		$this->assertInstanceOf(Coin::class, $this->transaction->coin);
 	}
+
+	/** @test */
+	public function it_knows_its_total_gains()
+	{
+		$transaction = Transaction::factory()->create(['price_per_coin' => $this->coin->price/2]);
+
+		$this->assertTrue($transaction->gains() == '100%');
+	}
 }

@@ -8,48 +8,11 @@
 
 @section('content')
 <div class="container">
-	<div class="row mb-5">
-		<div class="col-lg-4 col-md-6 col-12">
-			<div class="mb-3">
-				@label(['text' => 'My portfolio balance', 'icon' => 'piggy-bank'])
-				<h1>{{usd(auth()->user()->portfolio->currentValue)}}</h1>
-				@include('components.portfolio.badge', ['label' => usd(0) . ' (24h)'])
-			</div>
-			@include('components.portfolio.holdings')
-			@auth
-				@if(auth()->user()->transactions()->exists())
-				<a href="{{route('home')}}" class="btn btn-primary mb-2 btn-block">MY PORTFOLIO</a>
-				@include('transactions.components.button', ['size' => 'btn-block', 'theme' => 'outline-primary'])
-				@endif
-			@endauth
-		</div>
-		<div class="col-lg-8 col-md-6 col-12">
-			@auth
-				@if(auth()->user()->transactions()->exists())
-					@include('components.chart.canvas', ['id' => 'chart', 'points' => auth()->user()->portfolio->range('24h'), 'url' => route('portfolios.chart', auth()->user()->portfolio)])
-					@include('components.chart.range', ['target' => 'chart'])
-				@else
-					@include('components.chart.empty')
-				@endif
-			@else
-				@include('components.chart.empty')
-			@endauth
-		</div>
-	</div>
-	<div class="row mb-5">
-		<div class="col-12 text-center">
-			<div class="">
-				@include('components.badges.all')
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-12 mb-4">
-			<h4 class="m-0">How's the market today</h4>
-			<p class="text-muted">Last update {{cache('market_last_updated') ? cache('market_last_updated')->diffForHumans() : 'a little while ago'}}</p>
-		</div>
-		@each('components.coins.card', $coins, 'coin')
-	</div>
+	@include('home.sections.summary')
+
+	@include('home.sections.badges')
+
+	@include('home.sections.market')
 </div>
 @endsection
 

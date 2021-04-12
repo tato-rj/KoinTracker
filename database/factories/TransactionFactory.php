@@ -28,10 +28,10 @@ class TransactionFactory extends Factory
             'coin_id' => function() {
                 return Coin::factory()->create()->id;
             },
-            'coin_amount' => $this->faker->randomFloat(),
-            'price_per_coin' => $this->faker->randomFloat(),
+            'coin_amount' => $this->faker->randomFloat(null, 1),
+            'price_per_coin' => $this->faker->randomFloat(null, 1),
             'currency' => $this->faker->word,
-            'currency_amount' => $this->faker->randomFloat(),
+            'currency_amount' => $this->faker->randomFloat(null, 1),
             'fee' => $this->faker->randomDigitNotNull,
             'comments' => $this->faker->sentence,
             'type' => $this->faker->word,
