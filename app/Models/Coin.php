@@ -39,4 +39,9 @@ class Coin extends AppModel implements ApiContract
     {
         return $query->where('uid', $name)->first();
     }
+
+    public function getFiatAttribute()
+    {
+        return fiat($this->price)->format();
+    }
 }

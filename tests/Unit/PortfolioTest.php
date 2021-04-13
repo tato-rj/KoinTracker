@@ -64,7 +64,15 @@ class PortfolioTest extends TestCase
 	}
 
 	/** @test */
-	public function it_knows_its_total_most_current_total_value()
+	public function it_knows_its_original_value()
+	{
+		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id, 'transaction_date' => now()->subMonth()]);
+		 
+		$this->assertNotEquals($this->portfolio->originalValue(), $this->portfolio->value());		 
+	}
+
+	/** @test */
+	public function it_knows_its_most_current_total_value()
 	{
 		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id]);
 

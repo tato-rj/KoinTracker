@@ -110,7 +110,7 @@ trait CryptoApi
 		if (! $this->latest_market)
 			return null;
 
-		return $this->latest_market['market_data']['price_change_percentage_24h_in_currency'][config('app.currency')];
+		return $this->latest_market['market_data']['price_change_percentage_7d_in_currency'][config('app.currency')];
 	}
 
 	public function getPastMonthChangeAttribute()

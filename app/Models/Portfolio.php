@@ -31,6 +31,17 @@ class Portfolio extends AppModel implements ApiContract
 		})->where('transaction_date', '<=', $date)->sum('coin_amount');
 	}
 
+	public function originalValue()
+	{
+		$total = 0;
+
+		foreach ($this->transactions as $transaction) {
+			$total += $transaction->coin_amount * $transaction->price_per_coin;
+		}
+
+		return $total;		
+	}
+
 	public function value($date = null)
 	{
 		$total = 0;
@@ -39,7 +50,7 @@ class Portfolio extends AppModel implements ApiContract
 			$total += $coin->price * $this->amountOf($coin->uid, $date);
 		}
 
-		return $total;		
+		return $total;
 	}
 
 	public function valueFor($coin, $date = null)

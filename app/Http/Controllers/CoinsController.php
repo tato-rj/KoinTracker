@@ -17,6 +17,6 @@ class CoinsController extends Controller
     {
         $coins = Coin::all();
         
-        return view('coin.show.index', compact(['coin', 'coins']));
+        return view('coins.show.index', compact(['coin', 'coins']));
     }
 }

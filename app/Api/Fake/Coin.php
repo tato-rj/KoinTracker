@@ -13,6 +13,6 @@ class Coin
 
 	public function range($range)
 	{
-		return $this->$range;
+		return json_decode($this->$range);
 	}
 }

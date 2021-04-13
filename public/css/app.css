@@ -10330,6 +10330,38 @@ h3 {
   filter: blur(4px);
 }
 
+.text-bitcoin {
+  color: #f7931a !important;
+}
+
+.text-bitcoin-cash {
+  color: #8dc351 !important;
+}
+
+.text-ethereum {
+  color: #627eea !important;
+}
+
+.text-cardano {
+  color: #0d1e30 !important;
+}
+
+.text-ripple {
+  color: #23292f !important;
+}
+
+.text-dogecoin {
+  color: #c3a634 !important;
+}
+
+.text-stellar {
+  color: #000000 !important;
+}
+
+.text-decentraland {
+  color: #ff2d55 !important;
+}
+
 @media (max-width: 767.98px) {
   .btn-sm-block {
     display: block;

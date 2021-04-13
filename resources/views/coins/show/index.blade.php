@@ -16,20 +16,20 @@
 					</div>
 				</div>
 				<div>
-					<button id="toggle-watchlist" class="btn btn-raw">@fa(['fa_type' => 'r', 'icon' => 'star', 'size' => 'lg'])</button>
+					<button id="toggle-watchlist" class="btn btn-raw">@fa(['fa_type' => 'r', 'icon' => 'star', 'size' => 'lg', 'mr' => 0])</button>
 				</div>
 			</div>
-			<div class="mb-3">
+			<div class="mb-4">
 				<div id="price-date" data-original="Price of {{$coin->name}} now" style="font-size: 88%" class="text-muted">Price of {{$coin->name}} now</div>
-				<h1 id="price" class="m-0" data-original="{{usd($coin->price)}}" style="font-size: 3em">{{usd($coin->price)}}</h1>
-				@include('components.portfolio.badge', [
-					'label' => usd($coin->priceChangeToday) . ' (' . formatPercent($coin->pastDayChange, false) . ')',
+				<h1 id="price" class="m-0" data-original="{{$coin->fiat}}" style="font-size: 3em">{{$coin->fiat}}</h1>
+				@include('portfolio.components.gains', [
+					'label' => fiat($coin->priceChangeToday)->format() . ' (' . formatPercent($coin->pastDayChange, false) . ')',
 					'isPositive' => $coin->priceChangeToday > 0,
 					'id' => 'price-difference'])
 			</div>
-			@include('coin.components.info', ['class' => 'd-none d-md-block'])
+			@include('coins.components.info', ['class' => 'd-none d-md-block'])
 
-			@include('transactions.components.button', ['size' => 'btn-block', 'theme' => 'primary'])
+			@include('transactions.components.add-button', ['size' => 'btn-block', 'theme' => 'primary'])
 
 		</div>
 		<div class="col-lg-8 col-md-6 col-12 mb-2">
@@ -39,7 +39,7 @@
 
 			@include('components.chart.range', ['target' => 'chart'])
 
-			@include('coin.components.info', ['class' => 'd-md-none'])
+			@include('coins.components.info', ['class' => 'd-md-none'])
 		</div>
 	</div>
 	<div class="row">
@@ -55,10 +55,10 @@
 				<h5 class="border-bottom mb-2 pb-2">Resources</h5>
 				<ul class="list-flat">
 					<li class="mb-2">
-						@fa(['icon' => 'globe', 'color' => 'secondary'])<a href="{{$coin->website}}" target="_blank">Official website</a>
+						@fa(['icon' => 'globe', 'color' => $coin->uid])<a href="{{$coin->website}}" target="_blank">Official website</a>
 					</li>
 					<li>
-						@fa(['fa_type' => 'b', 'icon' => 'reddit', 'color' => 'secondary'])<a href="{{$coin->subreddit}}" target="_blank">Reddit page</a>
+						@fa(['fa_type' => 'b', 'icon' => 'reddit', 'color' => $coin->uid])<a href="{{$coin->subreddit}}" target="_blank">Reddit page</a>
 					</li>
 				</ul>
 			@endcomponent
@@ -68,11 +68,11 @@
 				<ul class="list-flat">
 					<li>
 						@label(['text' => 'Market cap'])
-						<p class="font-weight-bold mb-2">{{usd($coin->marketCap)}}</p>
+						<p class="font-weight-bold mb-2">{{fiat($coin->marketCap)->format()}}</p>
 					</li>
 					<li>
 						@label(['text' => 'Volume (1D)'])
-						<p class="font-weight-bold mb-2">{{usd($coin->totalVolume)}}</p>
+						<p class="font-weight-bold mb-2">{{fiat($coin->totalVolume)->format()}}</p>
 					</li>
 					<li>
 						@label(['text' => 'Circulating supply'])

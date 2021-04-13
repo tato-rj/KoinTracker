@@ -21,10 +21,13 @@ class Transaction extends AppModel
 		return $this->belongsTo(Coin::class);
 	}
 
-	public function gains($date = null)
+	public function getCurrentValueAttribute()
 	{
-		$date = $date ?? now();
+		return $this->coin_amount * $this->coin->price;
+	}
 
+	public function gains()
+	{
 		return diffInPercent($this->price_per_coin, $this->coin->price);
 	}
 }

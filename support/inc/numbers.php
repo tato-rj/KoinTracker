@@ -1,6 +1,6 @@
 <?php
 
-function percentage($num, $total, $caret = true)
+function percentage($num, $total, $caret = false)
 {
 	$upcaret = $caret ? '<i class="fas fa-caret-up mr-1"></i>' : null;
 	$downcaret = $caret ? '<i class="fas fa-caret-up mr-1"></i>' : null;
@@ -17,6 +17,9 @@ function percentage($num, $total, $caret = true)
 
 function diffInPercent($start, $end)
 {	
+	if ($start == 0)
+		return '0%';
+	
 	$formatter = new \NumberFormatter('en_US', NumberFormatter::PERCENT);
 	
 	return $formatter->format(($end - $start) / $start);

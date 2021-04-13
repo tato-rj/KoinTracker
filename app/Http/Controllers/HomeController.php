@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function index()
     {
     	$coins = Coin::all();
-dd(auth()->user()->hasBadge(\App\Models\Badge::all()[1]));
+    	// dd(get_sentences($coins->first()->description, 2));
     	return view('home.index', compact('coins'));
     }
 }

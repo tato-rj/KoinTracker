@@ -18,4 +18,9 @@ trait BadgePolicy
 		
 		return false;
 	}
+
+	public function fighterJet()
+	{
+		return percentage($this->portfolio->originalValue(), $this->portfolio->value()) >= 100;
+	}
 }

@@ -31,10 +31,10 @@ function weeks($count)
 function timeslots($first = null)
 {
 	$night = [
-		"00:00 AM",
-		"00:15 AM",
-		"00:30 AM",
-		"00:45 AM",
+		"12:00 AM",
+		"12:15 AM",
+		"12:30 AM",
+		"12:45 AM",
 		"01:00 AM",
 		"01:15 AM",
 		"01:30 AM",

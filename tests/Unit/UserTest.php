@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use App\Models\{Portfolio, Transaction, User, Badge};
+use App\Models\{Portfolio, Transaction, User, Badge, Coin};
 
 class UserTest extends TestCase
 {

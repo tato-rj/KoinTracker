@@ -1,0 +1,1 @@
+<img src="{{$coin->getIcon()}}" class="mr-2" style="width: 30px;">

@@ -18,8 +18,6 @@
 
 @push('js')
 <script type="text/javascript">
-// var chartInstance;
-
 $(document).ready(function() {
 	(new GraphRange).linkTo(new BigGraph);
 	(new Graph($('#chart'))).draw(new BigGraph);
@@ -34,9 +32,5 @@ $(document).ready(function() {
 		}, $card.index() * 75);		
 	});
 });
-</script>
-<script type="text/javascript">
-
-
 </script>
 @endpush
