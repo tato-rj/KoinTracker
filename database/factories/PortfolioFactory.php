@@ -21,9 +21,11 @@ class PortfolioFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->unique()->word;
         return [
+            'slug' => str_slug($name),
             'user_id' => User::factory()->create()->id,
-            'name' => $this->faker->word
+            'name' => $name
         ];
     }
 }

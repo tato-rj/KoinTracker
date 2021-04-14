@@ -26,8 +26,20 @@ class Transaction extends AppModel
 		return $this->coin_amount * $this->coin->price;
 	}
 
-	public function gains()
+	public function getDifferenceAttribute()
 	{
-		return diffInPercent($this->price_per_coin, $this->coin->price);
+		return $this->currentValue - $this->currency_amount;
+	}
+
+	public function getIsPositiveAttribute()
+	{
+		return $this->difference > 0;
+	}
+
+	public function gains($number = false)
+	{
+		$percent = diffInPercent($this->price_per_coin, $this->coin->price);
+
+		return $number ? floatval($percent) : $percent;
 	}
 }

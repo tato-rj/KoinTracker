@@ -47,4 +47,14 @@ class User extends Authenticatable implements MustVerifyEmail
         
         return false;
     }
+
+    public function owns(Coin $coin)
+    {
+        return $this->transactions()->where('coin_id', $coin->id)->exists();
+    }
+
+    public function transactionsOf(Coin $coin)
+    {
+        return $this->transactions()->where('coin_id', $coin->id);
+    }
 }

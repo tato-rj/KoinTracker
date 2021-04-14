@@ -10362,6 +10362,56 @@ h3 {
   color: #ff2d55 !important;
 }
 
+.badge-none {
+  color: #5e7083;
+  background-color: #f3f5f7;
+  border-color: #d0d6dd;
+}
+
+.badge-novice {
+  color: white;
+  background-color: #4fc3f7;
+}
+.badge-novice i {
+  opacity: 1 !important;
+}
+
+.badge-beginner {
+  color: white;
+  background-color: #9ccc65;
+}
+.badge-beginner i {
+  opacity: 1 !important;
+}
+
+.badge-advanced {
+  color: white;
+  background-color: #ffb74d;
+}
+.badge-advanced i {
+  opacity: 1 !important;
+}
+
+.badge-expert {
+  color: white;
+  background-color: #f44336;
+}
+.badge-expert i {
+  opacity: 1 !important;
+}
+
+.clamp-1, .clamp-2 {
+  overflow: hidden !important;
+  max-height: 80px !important;
+  text-overflow: ellipsis !important;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+}
+
+.clamp-1 {
+  -webkit-line-clamp: 1 !important;
+}
+
 @media (max-width: 767.98px) {
   .btn-sm-block {
     display: block;

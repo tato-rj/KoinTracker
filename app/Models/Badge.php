@@ -4,14 +4,14 @@ namespace App\Models;
 
 class Badge extends AppModel
 {
-	protected $theme = 'grey';
+	protected $theme = 'none';
 
 	public function getTheme()
 	{
 		if (auth()->check() && auth()->user()->hasBadge($this))
-			$this->theme = $this->color;
+			$this->theme = $this->level;
 
-		return 'alert-' . $this->theme;
+		return 'badge-' . $this->theme;
 	}
 
 	public function getPolicyAttribute()

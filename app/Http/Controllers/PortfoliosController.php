@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Portfolio;
+use App\Models\{Portfolio, Coin};
 use Illuminate\Http\Request;
 
 class PortfoliosController extends Controller
@@ -46,7 +46,9 @@ class PortfoliosController extends Controller
      */
     public function show(Portfolio $portfolio)
     {
-        //
+        $coins = Coin::all();
+
+        return view('portfolios.show.index', compact(['portfolio', 'coins']));
     }
 
     /**

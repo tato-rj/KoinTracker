@@ -23,7 +23,7 @@ class BadgeFactory extends Factory
     {
         return [
             'icon' => $faker->word,
-            'color' => $faker->word,
+            'level' => $faker->word,
             'name' => $faker->word,
             'description' => $faker->sentence,
             'points' => $faker->randomDigitNotNull

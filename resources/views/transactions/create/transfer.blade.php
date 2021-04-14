@@ -21,7 +21,7 @@
 				@input(['bag' => 'default', 'type' => 'number', 'name' => 'coin_amount', 'label' => 'Quantity', 'placeholder' => 'How many coins?'])
 			</div>
 			<div class="col">
-				@input(['bag' => 'default', 'type' => 'number', 'name' => 'price_per_coin', 'label' => 'Fee', 'placeholder' => 'Any fees?'])
+				@input(['bag' => 'default', 'type' => 'number', 'name' => 'price_per_coin', 'label' => 'Fees', 'placeholder' => 'Did you pay fees?', 'required' => false])
 			</div>
 		</div>
 

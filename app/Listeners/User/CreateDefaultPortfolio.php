@@ -17,6 +17,7 @@ class CreateDefaultPortfolio
     public function handle(Verified $event)
     {
         $event->user->portfolios()->create([
+            'slug' => str_slug('Default'),
             'name' => 'Default'
         ]);
     }

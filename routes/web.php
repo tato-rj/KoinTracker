@@ -29,6 +29,8 @@ Route::prefix('portfolios')->name('portfolios.')->group(function() {
 
 	Route::prefix('{portfolio}')->group(function() {
 
+		Route::get('', 'PortfoliosController@show')->name('show');
+
 		Route::get('chart', 'ChartsController@portfolio')->name('chart');
 
 		Route::prefix('transactions')->name('transactions.')->middleware(['auth', 'verified'])->group(function() {

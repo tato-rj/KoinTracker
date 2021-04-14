@@ -7,6 +7,11 @@ use App\Chart\{Chart, Range};
 
 class Portfolio extends AppModel implements ApiContract
 {
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 	public function user()
 	{
 		return $this->belongsTo(User::class);
@@ -17,18 +22,25 @@ class Portfolio extends AppModel implements ApiContract
 		return $this->hasMany(Transaction::class);
 	}
 
+	public function bestTransaction()
+	{
+		// return $this->transactions
+	}
+
 	public function getCoinsAttribute()
 	{
-		return $this->transactions()->with('coin')->get()->pluck('coin');
+		return $this->transactions()->with('coin')->get()->pluck('coin')->unique();
 	}
 
 	public function amountOf($coinUid, $date = null)
 	{
 		$date = $date ?? now();
 
-		return $this->transactions()->whereHas('coin', function($q) use ($coinUid) {
+		$total = $this->transactions()->whereHas('coin', function($q) use ($coinUid) {
 			$q->where('uid', $coinUid);
 		})->where('transaction_date', '<=', $date)->sum('coin_amount');
+
+		return floatval($total);
 	}
 
 	public function originalValue()

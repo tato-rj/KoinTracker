@@ -1,0 +1,41 @@
+.badge-none {
+	color:  darken(#B8C2CC, 32%);
+	background-color: lighten(#B8C2CC, 20%);
+	border-color: lighten(#B8C2CC, 8%);
+}
+
+.badge-novice {
+	color:  white;
+	background-color: #4fc3f7; //blue
+	
+	i {
+		opacity: 1 !important;
+	}	
+}
+
+.badge-beginner {
+	color:  white;
+	background-color: #9ccc65; //green
+
+	i {
+		opacity: 1 !important;
+	}	
+}
+
+.badge-advanced {
+	color:  white;
+	background-color: #ffb74d; //orange
+
+	i {
+		opacity: 1 !important;
+	}	
+}
+
+.badge-expert {
+	color:  white;
+	background-color: #f44336; //red
+
+	i {
+		opacity: 1 !important;
+	}	
+}

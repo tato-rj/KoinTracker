@@ -12,7 +12,7 @@
 				@input(['bag' => 'default', 'type' => 'number', 'name' => 'price_per_coin', 'placeholder' => 0, 'label' => 'Price per coin', 'placeholder' => 'How much was 1 coin?'])
 			</div>
 			<div class="col-lg-6 col-md-6 col-12">
-				@input(['bag' => 'default', 'type' => 'number', 'name' => 'price_per_coin', 'placeholder' => 0, 'label' => 'Fee', 'placeholder' => 'Any fees?'])				
+				@input(['bag' => 'default', 'type' => 'number', 'name' => 'price_per_coin', 'placeholder' => 0, 'label' => 'Fees', 'placeholder' => 'Did you pay fees?', 'required' => false])				
 			</div>
 		</div>
 

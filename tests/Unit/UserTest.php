@@ -26,4 +26,17 @@ class UserTest extends TestCase
 
 		$this->assertInstanceOf(Transaction::class, $user->transactions->first());
 	}
+
+	/** @test */
+	public function it_knows_if_it_owns_a_given_coin()
+	{
+		$user = User::factory()->create();
+		$coin = Coin::factory()->create();
+
+		$this->assertFalse($user->transactionsOf($coin)->exists());
+
+		Transaction::factory()->create(['coin_id' => $coin->id, 'portfolio_id' => Portfolio::factory()->create(['user_id' => $user->id])]);
+		
+		$this->assertTrue($user->transactionsOf($coin)->exists());		
+	}
 }

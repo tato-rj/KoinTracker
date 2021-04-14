@@ -1,3 +1,9 @@
 <div class="{{$class ?? null}} mb-4">
-	{{get_words($coin->description, 38)}} <a data-target="#coin-modal" href="" data-toggle="modal" class="text-{{$coin->uid}}">Read more</a>
+	{{get_sentences($coin->description, 2)}} <a data-target="#coin-modal" href="" data-toggle="modal" class="text-{{$coin->uid}} text-underline">Read more</a>
 </div>
+
+@component('components.modal', ['id' => 'coin-modal', 'header' => 'About ' . $coin->name])
+@slot('body')
+<p class="m-0" style="white-space: pre-wrap;">{{$coin->description}}</p>
+@endslot
+@endcomponent

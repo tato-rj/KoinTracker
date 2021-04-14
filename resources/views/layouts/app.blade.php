@@ -12,38 +12,9 @@
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
         <style type="text/css">
-
-
-.bg-most-bullish {
-    background: #1D976C!important;
-    background: -webkit-linear-gradient(to right, #93F9B9, #1D976C)!important;
-    background: linear-gradient(to right, #93F9B9, #1D976C)!important;
+.turn {
+    transform: rotate(-45deg);
 }
-
-.bg-bullish {
-    background: #1D976C!important;
-    background: -webkit-linear-gradient(to right, #93F9B9, #1D976C)!important;
-    background: linear-gradient(to right, #93F9B9, #1D976C)!important;
-}
-
-.bg-medium {
-    background: #F09819!important;
-    background: -webkit-linear-gradient(to right, #EDDE5D, #F09819)!important;
-    background: linear-gradient(to right, #EDDE5D, #F09819)!important;
-}
-
-.bg-bearish {
-    background: #9a090e!important;
-    background: -webkit-linear-gradient(to right, #f3322c, #9a090e)!important;
-    background: linear-gradient(to right, #f3322c, #9a090e)!important;
-}
-
-.bg-most-bearish {
-    background: #9a090e!important;
-    background: -webkit-linear-gradient(to right, #f3322c, #9a090e)!important;
-    background: linear-gradient(to right, #f3322c, #9a090e)!important;
-}
-
 .animate__animated.animate__fadeInUp {
   --animate-duration: .4s;
 }
@@ -58,26 +29,6 @@
     animation: opacityPulse 1s ease-out;
     animation-iteration-count: infinite;
     opacity: 0.1; 
-}
-
-.bg-most-bearish .btn-outline-light:hover, .bg-most-bearish .btn-outline-light:active {
-    color: #9a090e !important;
-}
-
-.bg-bearish .btn-outline-light:hover, .bg-bearish .btn-outline-light:active {
-    color: #9a090e !important;
-}
-
-.bg-medium .btn-outline-light:hover, .bg-medium .btn-outline-light:active {
-    color: #F09819 !important;
-}
-
-.bg-bullish .btn-outline-light:hover, .bg-bullish .btn-outline-light:active {
-    color: #1D976C !important;
-}
-
-.bg-most-bullish .btn-outline-light:hover, .bg-most-bullish .btn-outline-light:active {
-    color: #1D976C !important;
 }
 
 .user-badge i {
@@ -131,7 +82,7 @@
             'dismissible' => true,
             'floating' => 'top'])
         @endif
-        
+
         <script src="https://unpkg.com/currency.js@~2.0.0/dist/currency.min.js"></script>
         <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
         <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
@@ -146,6 +97,18 @@
         tippy('[data-tippy-content]', {
             allowHTML: true,
         });
+        </script>
+
+        <script type="text/javascript">
+            $('#coin-transactions').on('show.bs.collapse', function (e) {
+                let $icon = $($(e.target).data('icon'));
+                $icon.addClass('turn');
+            });
+
+            $('#coin-transactions').on('hide.bs.collapse', function (e) {
+                let $icon = $($(e.target).data('icon'));
+                $icon.removeClass('turn');
+            });
         </script>
 
         <script type="text/javascript">

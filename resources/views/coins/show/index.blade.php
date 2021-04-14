@@ -22,7 +22,7 @@
 			<div class="mb-4">
 				<div id="price-date" data-original="Price of {{$coin->name}} now" style="font-size: 88%" class="text-muted">Price of {{$coin->name}} now</div>
 				<h1 id="price" class="m-0" data-original="{{$coin->fiat}}" style="font-size: 3em">{{$coin->fiat}}</h1>
-				@include('portfolio.components.gains', [
+				@include('portfolios.components.gains', [
 					'label' => fiat($coin->priceChangeToday)->format() . ' (' . formatPercent($coin->pastDayChange, false) . ')',
 					'isPositive' => $coin->priceChangeToday > 0,
 					'id' => 'price-difference'])
@@ -44,10 +44,14 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-9 col-md-8 col-12 mb-4">
-			<div class="text-center">
-				<img src="{{asset('images/empty.svg')}}" style="width: 200px" class="my-4 opacity-8">
-				<p class="text-muted">Looks like you haven't added any {{$coin->name}} transactions yet...</p>
-			</div>
+			{{-- @if(auth()->check() && auth()->user()->owns($coin)) --}}
+			@include('transactions.show.list')
+{{-- 			@else
+				<div class="text-center">
+					<img src="{{asset('images/empty.svg')}}" style="width: 200px" class="my-4 opacity-6">
+					<p class="text-muted">Looks like you haven't added any {{$coin->name}} transactions yet...</p>
+				</div>
+			@endif --}}
 		</div>
 
 		<div class="col-lg-3 col-md-4 col-12 mb-4">
@@ -97,9 +101,18 @@
 
 </script>
 <script type="text/javascript">
-// var chartInstance;
 
 $(document).ready(function() {
+	$('#coin-transactions').on('show.bs.collapse', function (e) {
+		let $icon = $($(e.target).data('icon'));
+		$icon.addClass('turn');
+	});
+
+	$('#coin-transactions').on('hide.bs.collapse', function (e) {
+		let $icon = $($(e.target).data('icon'));
+		$icon.removeClass('turn');
+	});
+
 	$('#toggle-watchlist').click(function() {
 		let $btn = $(this);
 

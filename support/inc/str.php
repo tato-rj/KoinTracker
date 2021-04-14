@@ -5,14 +5,10 @@ function slug_str($slug)
     return ucwords(str_replace('-', ' ', $slug));
 }
 
-function get_words($sentence, $count = 10) {
-	preg_match("/(?:\w+(?:\W+|$)){0,$count}/", $sentence, $matches);
-	$words = $matches[0];
+function get_sentences($sentence, $count = 10) {
+	$trimmed = preg_replace( "/\r|\n/", "", $sentence);
+	$array = preg_split('/\. |\? |! /', $trimmed);
+	$sentences = array_slice($array, 0, $count);
 
-	$lastchar = substr($words, -1);
-
-	if ($lastchar == ' ' || $lastchar == '.')
-		return substr($words, 0, -1) . '...';
-
-	return $words . '...';
+	return join('. ', $sentences) . '.';
 }

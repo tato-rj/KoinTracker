@@ -15,9 +15,12 @@ class CreatePortfoliosTable extends Migration
     {
         Schema::create('portfolios', function (Blueprint $table) {
             $table->id();
+            $table->string('slug');
             $table->unsignedInteger('user_id');
             $table->string('name');
             $table->timestamps();
+
+            $table->unique(['slug', 'user_id']);
         });
     }
 

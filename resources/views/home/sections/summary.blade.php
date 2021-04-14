@@ -6,25 +6,24 @@
 			@auth
 				@if(auth()->user()->transactions()->exists())
 					<h1>{{fiat(auth()->user()->portfolio->value())}}</h1>
-					@include('portfolio.components.gains', ['original' => auth()->user()->portfolio->originalValue(), 'latest' => auth()->user()->portfolio->value()])
+					@include('portfolios.components.gains', ['original' => auth()->user()->portfolio->originalValue(), 'latest' => auth()->user()->portfolio->value()])
 				@else
 					<h1>{{fiat(0)}}</h1>
-					@include('portfolio.components.gains', ['original' => 0, 'latest' => 0])
+					@include('portfolios.components.gains', ['original' => 0, 'latest' => 0])
 				@endif
 			@else
 				<h1>{{fiat(0)}}</h1>
-				@include('portfolio.components.gains', ['original' => 0, 'latest' => 0])
+				@include('portfolios.components.gains', ['original' => 0, 'latest' => 0])
 			@endauth
 		</div>
 
 		<div class="mb-4">
-			@include('portfolio.components.coins')
+			@include('portfolios.components.coins')
 		</div>
 
 		@auth
 			@if(auth()->user()->transactions()->exists())
-			<a href="{{route('home')}}" class="btn btn-primary mb-2 btn-block">MY PORTFOLIO</a>
-			@include('transactions.components.add-button', ['size' => 'btn-block', 'theme' => 'outline-primary'])
+			@include('transactions.components.add-button', ['size' => 'btn-block', 'theme' => 'primary'])
 			@endif
 		@endauth
 	</div>

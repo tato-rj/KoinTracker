@@ -12,7 +12,7 @@ trait BadgePolicy
 	public function cookie()
 	{
 		foreach ($this->transactions as $transaction) {
-			if ($transaction->gains() >= 10)
+			if (intval($transaction->gains()) >= 10)
 				return true;
 		}
 		
@@ -21,6 +21,6 @@ trait BadgePolicy
 
 	public function fighterJet()
 	{
-		return percentage($this->portfolio->originalValue(), $this->portfolio->value()) >= 100;
+		return intval(diffInPercent($this->portfolio->originalValue(), $this->portfolio->value())) >= 100;
 	}
 }

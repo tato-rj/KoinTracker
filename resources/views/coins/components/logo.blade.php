@@ -1,1 +1,1 @@
-<img src="{{$coin->getIcon()}}" class="mr-2" style="width: 30px;">
+<img src="{{$coin->getIcon()}}" class="mr-{{$mr ?? 2}}" style="width: 30px;">

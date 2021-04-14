@@ -12,9 +12,16 @@
 
 	@include('home.sections.badges')
 
-	@include('home.sections.transactions')
-
-	@include('home.sections.market')
+	<div class="row">
+		<div class="col-12">
+		  <h5 class="mb-4">My transactions</h5>
+		  <div class="accordion" id="coin-transactions">
+		    @foreach($portfolio->transactions()->latest()->get() as $transaction)
+		      @include('transactions.show.transaction')
+		    @endforeach
+		  </div>
+		</div>
+	</div>
 </div>
 @endsection
 
@@ -23,16 +30,6 @@
 $(document).ready(function() {
 	(new GraphRange).linkTo(new BigGraph);
 	(new Graph($('#chart'))).draw(new BigGraph);
-
-	$('.coin-card').each(function() {
-		let $card = $(this);
-
-		(new Graph($card.find('canvas'))).draw(new TinyGraph);
-
-		setTimeout(function() {
-			$card.delay().css('opacity', 1);
-		}, $card.index() * 75);		
-	});
 });
 </script>
 @endpush
