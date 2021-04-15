@@ -23,6 +23,7 @@
         "bootstrap": "^4.6.0",
         "cryptocurrency-icons": "^0.17.1",
         "currency.js": "^2.0.3",
+        "flag-icon-css": "^3.5.0",
         "jquery": "^3.6.0",
         "moment": "^2.29.1",
         "numeral": "^2.0.6",

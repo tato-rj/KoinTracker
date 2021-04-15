@@ -17,4 +17,6 @@ mix.js('resources/js/app.js', 'public/js')
     .copyDirectory('resources/images', 'public/images')
     .copyDirectory('node_modules/cryptocurrency-icons/svg', 'public/images/crypto/icons')
     .copy('resources/sass/primer/primer.css', 'public/css')
+    .copy('node_modules/flag-icon-css/css/flag-icon.min.css', 'public/css/vendor/flag-icon')
+    .copy('node_modules/flag-icon-css/flags', 'public/css/vendor/flags')
     .version();

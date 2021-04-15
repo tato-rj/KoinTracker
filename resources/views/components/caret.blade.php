@@ -1,0 +1,1 @@
+@fa(['icon' => $state ? 'caret-up' : 'caret-down', 'size' => 'sm', 'mr' => 1])

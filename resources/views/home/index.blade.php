@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @push('head')
+<link rel="preload" href="{{ asset('css/vendor/flag-icon/flag-icon.min.css') }}" as="style">
+<link href="{{ asset('css/vendor/flag-icon/flag-icon.min.css') }}" rel="stylesheet">
 <style type="text/css">
 
 </style>
@@ -15,6 +17,8 @@
 	@include('home.sections.transactions')
 
 	@include('home.sections.market')
+
+	@include('home.sections.exchanges')
 </div>
 @endsection
 

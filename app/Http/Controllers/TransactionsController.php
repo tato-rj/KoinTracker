@@ -74,14 +74,12 @@ class TransactionsController extends Controller
         $this->authorize('update', $transaction);
 
         $transaction->update([
-            'coin_id' => $request->coin_id,
             'coin_amount' => $request->coin_amount,
-            'price_per_coin' => $request->coin_amount,
-            'currency' => $request->currency,
-            'currency_amount' => $request->currency_amount,
+            'price_per_coin' => $request->price_per_coin,
+            'currency' => auth()->user()->currency,
+            'currency_amount' => $portfolio->transactionCost($request->coin_amount, $request->price_per_coin, $request->fee),
             'fee' => $request->fee ?? 0,
             'comments' => $request->comments,
-            'type' => $request->type,
             'transfer_type' => $request->transfer_type,
             'transaction_date' => carbon($request->transaction_date . ' ' . $request->transaction_time)->toDateTimeString()
         ]);

@@ -8,7 +8,7 @@ class Coingecko
 {
 	protected $id;
 
-	public function __construct($id)
+	public function __construct($id = null)
 	{
 		$this->id = $id;	
 	}
@@ -34,6 +34,16 @@ class Coingecko
 			'tickers' => false,
 			'community_data' => false,
 			'developer_data' => false
+		]);
+
+		return $response->collect();
+	}
+
+	public function exchanges($count)
+	{
+		$response = Http::retry(3, 100)->get('https://api.coingecko.com/api/v3/exchanges', [
+			'per_page' => $count,
+			'page' => 1
 		]);
 
 		return $response->collect();

@@ -21,7 +21,7 @@ function diffInPercent($start, $end)
 		return '0%';
 	
 	$formatter = new \NumberFormatter('en_US', NumberFormatter::PERCENT);
-	
+
 	return $formatter->format(($end - $start) / $start);
 }
 

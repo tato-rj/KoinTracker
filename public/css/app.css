@@ -10219,6 +10219,10 @@ h3 {
   opacity: inherit;
 }
 
+.btn-sm, .btn-group-sm > .btn {
+  border-radius: 1rem;
+}
+
 .hamburger-icon {
   width: 30px;
   height: 20px;
@@ -10416,6 +10420,10 @@ h3 {
   .btn-sm-block {
     display: block;
     width: 100%;
+  }
+
+  .border-sm-none {
+    border: none !important;
   }
 }
 .btn {

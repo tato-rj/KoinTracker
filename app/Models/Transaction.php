@@ -21,6 +21,11 @@ class Transaction extends AppModel
 		return $this->belongsTo(Coin::class);
 	}
 
+	public function getTimeAttribute()
+	{
+		return $this->transaction_date->format('g:i A');
+	}
+
 	public function getCurrentValueAttribute()
 	{
 		return $this->coin_amount * $this->coin->price;

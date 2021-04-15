@@ -9,11 +9,24 @@
   </div>
 
   <div id="transaction-{{$transaction->id}}" data-icon="#icon-{{$transaction->id}}" class="collapse" data-parent="#coin-transactions">
-    <div class="row p-3">
-      @include('transactions.show.details.investment')
-      @include('transactions.show.details.gains')
-      @include('transactions.show.details.value')
-      @include('transactions.show.details.percentage')
+    <div class="d-flex flex-wrap flex-center">
+      <div class="flex-grow row px-3">
+        @include('transactions.show.details.investment')
+        @include('transactions.show.details.gains')
+        @include('transactions.show.details.value')
+        @include('transactions.show.details.percentage')
+      </div>
+      <div>
+        <button title="Edit" class="py-0 d-lg-block d-md-block d-inline-block btn btn-raw" 
+          data-toggle="modal" data-target="#edit-transaction-{{$transaction->id}}-modal">
+          @fa(['icon' => 'edit', 'mr' => 0, 'color' => 'grey'])</button>
+        <button title="Delete" class="py-0 d-lg-block d-md-block d-inline-block btn btn-raw" 
+          data-toggle="modal" data-target="#delete-transaction-{{$transaction->id}}-modal">
+          @fa(['icon' => 'trash-alt', 'mr' => 0, 'color' => 'grey'])</button>
+      </div>
     </div>
   </div>
 </div>
+
+@include('transactions.actions.edit')
+@include('transactions.actions.delete')

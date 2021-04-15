@@ -17,9 +17,9 @@
 			@endauth
 		</div>
 
-		<div class="mb-4">
+		@if(auth()->check() && auth()->user()->transactions()->exists())
 			@include('portfolios.components.coins')
-		</div>
+		@endif
 
 		@auth
 			@if(auth()->user()->transactions()->exists())

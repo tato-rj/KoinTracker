@@ -30,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \Blade::include('components.fontawesome', 'fa');
+        \Blade::include('components.flag');
+        \Blade::include('components.caret');
         \Blade::include('components.label');
         \Blade::include('components.form.input');
         \Blade::include('components.form.select');

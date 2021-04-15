@@ -33,8 +33,6 @@
 
 		</div>
 		<div class="col-lg-8 col-md-6 col-12 mb-2">
-			{{-- @include('home.components.sentiment') --}}
-
 			@include('components.chart.canvas', ['id' => 'chart', 'points' => $coin->range('24h'), 'url' => route('coins.chart', $coin)])
 
 			@include('components.chart.range', ['target' => 'chart'])
@@ -44,14 +42,7 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-9 col-md-8 col-12 mb-4">
-			{{-- @if(auth()->check() && auth()->user()->owns($coin)) --}}
 			@include('transactions.show.list')
-{{-- 			@else
-				<div class="text-center">
-					<img src="{{asset('images/empty.svg')}}" style="width: 200px" class="my-4 opacity-6">
-					<p class="text-muted">Looks like you haven't added any {{$coin->name}} transactions yet...</p>
-				</div>
-			@endif --}}
 		</div>
 
 		<div class="col-lg-3 col-md-4 col-12 mb-4">
