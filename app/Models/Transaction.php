@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use App\Casts\Money;
+
 class Transaction extends AppModel
 {
 	protected $casts = [
 		'coin_amount' => 'float',
-		'price_per_coin' => 'float',
-		'currency_amount' => 'float',
-		'transaction_date' => 'datetime'
+		'price_per_coin' => Money::class,
+		'fee' => Money::class,
+		'currency_amount' => Money::class,
+		'transaction_date' => 'datetime',
 	];
 
 	public function portfolio()
@@ -21,30 +24,40 @@ class Transaction extends AppModel
 		return $this->belongsTo(Coin::class);
 	}
 
+	public function getIsShortAttribute()
+	{
+		return $this->type == 'sell' || $this->transfer_type == 'out';
+	}
+
 	public function getTimeAttribute()
 	{
-		return $this->transaction_date->format('g:i A');
+		return $this->transaction_date->format('h:i A');
 	}
 
 	public function getCurrentValueAttribute()
 	{
-		return $this->coin_amount * $this->coin->price;
+		return $this->coin->current_price->multiply($this->coin_amount);
 	}
 
 	public function getDifferenceAttribute()
 	{
-		return $this->currentValue - $this->currency_amount;
+		return $this->currentValue->subtract($this->currency_amount);
 	}
 
 	public function getIsPositiveAttribute()
 	{
-		return $this->difference > 0;
+		return $this->difference->isPositive();
 	}
 
 	public function gains($number = false)
 	{
-		$percent = diffInPercent($this->price_per_coin, $this->coin->price);
+		$percent = diffInPercent($this->price_per_coin->getAmount(), $this->coin->current_price->getAmount());
 
 		return $number ? floatval($percent) : $percent;
+	}
+
+	public function isTransfer()
+	{
+		return $this->type == 'transfer';
 	}
 }

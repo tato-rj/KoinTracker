@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
 	        CoinSeeder::class,
             BadgeSeeder::class,
             UserSeeder::class,
+            GlossarySeeder::class
 	    ]);
     }
 }

@@ -10,3 +10,8 @@ $stellar: #000000;
 $dogecoin: #c3a634;
 $decentraland: #ff2d55;
 $cardano: #0d1e30;
+
+$pd-day-hover-bg: lighten($primary, 75%);
+$pd-day-selected-bg: $primary;
+$pd-day-today-color: $primary;
+$pd-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";

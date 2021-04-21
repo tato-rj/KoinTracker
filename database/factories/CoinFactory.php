@@ -25,6 +25,7 @@ class CoinFactory extends Factory
             'uid' => $this->faker->word,
             'short' => $this->faker->word,
             'name' => $this->faker->word,
+            'current_price' => fiat($this->faker->randomFloat(null, 1)),
             'latest_market' => Coin::fake()->market(),
             'latest_1h_range' => Coin::fake()->range('hour'),
             'latest_24h_range' => Coin::fake()->range('day'),

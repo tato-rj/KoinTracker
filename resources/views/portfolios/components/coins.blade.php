@@ -5,7 +5,7 @@
 	</div>
 
 	@if(auth()->check() && auth()->user()->portfolios()->exists())
-	@forelse(auth()->user()->portfolio->coins as $coin)
+	@forelse(auth()->user()->portfolio->sortedCoins->pluck('coin') as $coin)
 		<div class="d-flex align-items-center justify-content-between mb-2">
 			<div class="d-flex align-items-center">
 				@include('coins.components.logo', ['link' => true]) 

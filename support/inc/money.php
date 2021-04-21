@@ -2,10 +2,7 @@
 
 use  Akaunting\Money\{Money, Currency};
 
-function fiat($value, $formatted = true)
+function fiat($value, $formatted = false)
 {
-	if ($value === null)
-		return null;
-	
-	return (new Money($value, new Currency('USD'), $formatted));
+	return (new Money($value ?? 0, new Currency('USD'), $formatted));
 }

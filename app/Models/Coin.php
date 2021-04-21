@@ -5,12 +5,14 @@ namespace App\Models;
 use App\Contracts\ApiContract;
 use App\Models\Traits\CryptoApi;
 use App\Api\Fake\Coin as FakeCoin;
+use App\Casts\Money;
 
 class Coin extends AppModel implements ApiContract
 {
 	use CryptoApi;
 	
     protected $casts = [
+        'current_price' => Money::class,
         'latest_market' => 'array',
 		'latest_1h_range' => 'array',
 		'latest_24h_range' => 'array',
@@ -38,10 +40,5 @@ class Coin extends AppModel implements ApiContract
     public function scopeName($query, $name)
     {
         return $query->where('uid', $name)->first();
-    }
-
-    public function getFiatAttribute()
-    {
-        return fiat($this->price)->format();
     }
 }

@@ -22,7 +22,7 @@ class TransactionTest extends TestCase
 	/** @test */
 	public function it_knows_its_total_gains()
 	{
-		$transaction = Transaction::factory()->create(['price_per_coin' => $this->coin->price/2]);
+		$transaction = Transaction::factory()->create(['coin_id' => $this->coin->id, 'price_per_coin' => $this->coin->current_price->divide(2)->getAmount()]);
 
 		$this->assertTrue($transaction->gains() == '100%');
 	}

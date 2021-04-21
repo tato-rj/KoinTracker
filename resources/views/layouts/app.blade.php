@@ -12,6 +12,13 @@
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
         <style type="text/css">
+a .fa-long-arrow-alt-right {
+    transition: .2s;
+}
+a:hover .fa-long-arrow-alt-right {
+    transform: translateX(3px);
+}
+
 .turn {
     transform: rotate(-45deg);
 }
@@ -59,10 +66,6 @@
         
         @include('layouts.footer')
 
-        @auth
-            @include('transactions.create.modal')
-        @endauth
-
         @if($popup = session('popup'))
             @include('components.popups.' . $popup)
         @endif
@@ -88,11 +91,65 @@
         <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
         <script src="{{ mix('js/app.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+        <script type="text/javascript">
+        $('button#load-transactions').click(function() {
+            let $button = $(this);
+            let start_at = $(".portfolio-transaction").length;
+    
+            $button.disable();
+
+            axios.get($(this).data('url'), {params: {start_at: start_at}})
+                 .then(function(response) {
+                    console.log(response.data);
+                    if (response.data) {
+                        $('#coin-transactions').append(response.data);
+                        $button.enable();
+                    } else {
+                        $button.text('ALL DONE!');
+                    }
+                 })
+                 .catch(function(error) {
+                    console.log(error);
+                 });
+        });
+        </script>
+        <script type="text/javascript">
+        $("#sort-transactions select#sort-field").change(function() {
+            var sortElements = function(a, b) {
+                let field = $('#sort-transactions select option:selected').val();
+
+                if (typeof($(a).data(field)) == 'number') {
+                    return $(a).data(field) > $(b).data(field) ? -1 : 1;
+                } else {
+                    return $(a).data(field).toLowerCase().localeCompare($(b).data(field).toLowerCase());
+                }
+            }
+            
+            var list = $(".portfolio-transaction").get();
+      
+            list.sort(sortElements);
+            
+            for (var i = 0; i < list.length; i++) {
+                list[i].parentNode.appendChild(list[i]);
+            }
+        });
+
+        $('#sort-transactions button').click(function() {
+            $(this).hide().siblings('button').show();
+            $('#coin-transactions').reverseChildren();
+        });
+        </script>
 
         <script type="text/javascript">
         $('.datepicker').each(function() {
-            var picker = new Pikaday({ field: $(this)[0] });
+            var picker = new Pikaday({
+                field: $(this)[0],
+                format: 'MM/DD/YYYY'
+            });
         });
+
+        $('.money-field').maskMoney();
     
         tippy('[data-tippy-content]', {
             allowHTML: true,
@@ -122,19 +179,22 @@
         </script>
 
         <script type="text/javascript">
+
             $('[name="coin_amount"], [name="price_per_coin"], [name="fee"]').on('change keyup', function() {
                 let $form = $(this).closest('form');
-                let coinAmount = parseFloat($form.find('[name="coin_amount"]').val());
-                let coinPrice = parseFloat($form.find('[name="price_per_coin"]').val());
-                let fee = parseFloat($form.find('[name="fee"]').val());
-                
+                let coinAmount = parseFloat($form.find('[name="coin_amount"]').val().replace(/,/g, ''));
+                let coinPrice = parseFloat($form.find('[name="price_per_coin"]').val().replace(/,/g, ''));
+                let fee = parseFloat($form.find('[name="fee"]').val().replace(/,/g, ''));
+
                 if (isNaN(fee))
                     fee = 0;
 
                 let cost = (coinAmount * coinPrice) + fee;
+                
+                if (isNaN(cost))
+                    cost = 0;
 
-                if (! isNaN(cost))
-                    $form.find('.total-cost').text(cost.toFixed(2));
+                $form.find('.total-cost').text(currency(cost, '$'));
             });
         </script>
         @stack('js')

@@ -38,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         \Blade::include('components.form.textarea');
         \Blade::include('components.form.datepicker');
         \Blade::include('components.form.checkbox');
+        \Blade::include('components.form.radio');
         \Blade::include('components.alert');
     }
 }

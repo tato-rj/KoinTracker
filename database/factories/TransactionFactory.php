@@ -21,6 +21,10 @@ class TransactionFactory extends Factory
      */
     public function definition()
     {
+        $amount = $this->faker->randomFloat(null, 1, 10);
+        $price = fiat($this->faker->randomFloat(null, 10, 20));
+        $fee = fiat($this->faker->randomDigitNotNull);
+
         return [
             'portfolio_id' => function() {
                 return Portfolio::factory()->create()->id;
@@ -28,11 +32,10 @@ class TransactionFactory extends Factory
             'coin_id' => function() {
                 return Coin::factory()->create()->id;
             },
-            'coin_amount' => $this->faker->randomFloat(null, 1),
-            'price_per_coin' => $this->faker->randomFloat(null, 1),
-            'currency' => $this->faker->word,
-            'currency_amount' => $this->faker->randomFloat(null, 1),
-            'fee' => $this->faker->randomDigitNotNull,
+            'coin_amount' => $amount,
+            'price_per_coin' => $price,
+            'currency_amount' => $price->multiply($amount)->add($fee),
+            'fee' => $fee,
             'comments' => $this->faker->sentence,
             'type' => $this->faker->word,
             'transaction_date' => now()->subMonth()

@@ -10,6 +10,6 @@ class CoinTest extends TestCase
 	/** @test */
 	public function it_knows_its_most_current_value()
 	{		
-		$this->assertTrue($this->coin->price > 1);
+		$this->assertFalse($this->coin->current_price->isZero());
 	}
 }

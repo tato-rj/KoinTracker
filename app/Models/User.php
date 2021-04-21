@@ -38,6 +38,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasManyThrough(Transaction::class, Portfolio::class);
     }
 
+    public function getCoinsAttribute()
+    {
+        return $this->transactions()->with('coin')->get()->pluck('coin')->unique();
+    }
+    
     public function hasBadge(Badge $badge)
     {
         $policy = $badge->policy;
@@ -53,8 +58,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->transactions()->where('coin_id', $coin->id)->exists();
     }
 
-    public function transactionsOf(Coin $coin)
+    public function transactionsOf(Coin $coin = null)
     {
-        return $this->transactions()->where('coin_id', $coin->id);
+        return $this->transactions()->where('coin_id', $coin->id)->orderBy('transaction_date', 'desc');
     }
 }

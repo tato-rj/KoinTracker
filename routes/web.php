@@ -17,6 +17,10 @@ require __DIR__.'/auth.php';
 
 Route::get('', 'HomeController@index')->name('home');
 
+Route::get('glossary', 'GlossaryController@index')->name('glossary');
+
+Route::get('exchanges', 'ExchangesController@index')->name('exchanges');
+
 Route::prefix('{coin}')->name('coins.')->group(function() {
 
 	Route::get('', 'CoinsController@show')->name('show');
@@ -30,6 +34,8 @@ Route::prefix('portfolios')->name('portfolios.')->group(function() {
 	Route::prefix('{portfolio}')->group(function() {
 
 		Route::get('', 'PortfoliosController@show')->name('show');
+
+		Route::get('transactions', 'PortfoliosController@transactions')->name('transactions');
 
 		Route::get('chart', 'ChartsController@portfolio')->name('chart');
 

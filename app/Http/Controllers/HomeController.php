@@ -10,8 +10,8 @@ class HomeController extends Controller
     public function index()
     {
     	$coins = Coin::all();
-    	$exchanges = Exchange::all();
-    	
+    	$exchanges = Exchange::valid()->top(8)->get();
+
     	return view('home.index', compact(['coins', 'exchanges']));
     }
 }

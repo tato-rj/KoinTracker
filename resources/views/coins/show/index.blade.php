@@ -21,12 +21,13 @@
 			</div>
 			<div class="mb-4">
 				<div id="price-date" data-original="Price of {{$coin->name}} now" style="font-size: 88%" class="text-muted">Price of {{$coin->name}} now</div>
-				<h1 id="price" class="m-0" data-original="{{$coin->fiat}}" style="font-size: 3em">{{$coin->fiat}}</h1>
+				<h1 id="price" class="m-0" data-original="{{$coin->current_price}}" style="font-size: 3em">{{$coin->current_price}}</h1>
 				@include('portfolios.components.gains', [
-					'label' => fiat($coin->priceChangeToday)->format() . ' (' . formatPercent($coin->pastDayChange, false) . ')',
-					'isPositive' => $coin->priceChangeToday > 0,
+					'label' => $coin->priceChangeToday . ' (' . formatPercent($coin->pastDayChange, false) . ')',
+					'isPositive' => $coin->priceChangeToday->isPositive(),
 					'id' => 'price-difference'])
 			</div>
+			
 			@include('coins.components.info', ['class' => 'd-none d-md-block'])
 
 			@include('transactions.components.add-button', ['size' => 'btn-block', 'theme' => 'primary'])
@@ -62,26 +63,30 @@
 				<h5 class="border-bottom mb-2 pb-2">Market info</h5>
 				<ul class="list-flat">
 					<li>
-						@label(['text' => 'Market cap'])
+						@label(['text' => 'Market cap', 'bold' => false])
 						<p class="font-weight-bold mb-2">{{fiat($coin->marketCap)->format()}}</p>
 					</li>
 					<li>
-						@label(['text' => 'Volume (1D)'])
+						@label(['text' => 'Volume (1D)', 'bold' => false])
 						<p class="font-weight-bold mb-2">{{fiat($coin->totalVolume)->format()}}</p>
 					</li>
 					<li>
-						@label(['text' => 'Circulating supply'])
-						<p class="font-weight-bold mb-2">{{$coin->supply}}</p>
+						@label(['text' => 'Circulating supply', 'bold' => false])
+						<p class="font-weight-bold mb-2">{{number_format($coin->supply)}}</p>
 					</li>
 					<li>
-						@label(['text' => 'Max supply'])
-						<p class="font-weight-bold mb-2">{{$coin->maxSupply ?? 'Unlimited'}}</p>
+						@label(['text' => 'Max supply', 'bold' => false])
+						<p class="font-weight-bold mb-2">{{$coin->maxSupply ? number_format($coin->maxSupply) : 'Unlimited'}}</p>
 					</li>
 				</ul>
 			@endcomponent
 		</div>
 	</div>
 </div>
+
+@auth
+@include('transactions.create.modal')
+@endauth
 @endsection
 
 @push('js')

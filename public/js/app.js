@@ -2056,11 +2056,11 @@ var BigGraph = /*#__PURE__*/function () {
             },
             callbacks: {
               title: function title(item, data) {
-                return currency(item[0].value).format();
+                return currency(item[0].value, '$');
               },
               label: function label(item, data) {
                 var initialPrice = data.datasets[0].data[0];
-                var price = currency(item.value).format();
+                var price = currency(item.value, '$');
                 var difference = item.value - initialPrice;
                 var isPositive = difference >= 0;
                 var percentage = percent(difference, initialPrice) + '%';
@@ -2068,7 +2068,7 @@ var BigGraph = /*#__PURE__*/function () {
                 var date = moment(parseInt(item.label)).format(format);
                 $('#price').text(price);
                 $('#price-date').text(date);
-                difference = difference < 0 ? currency(difference).format() : '+' + currency(difference).format();
+                difference = difference < 0 ? currency(difference) : '+' + currency(difference);
                 $('#price-difference').text(difference + ' (' + percentage + ')').removeClass(isPositive ? 'alert-red' : 'alert-green').addClass(isPositive ? 'alert-green' : 'alert-red');
                 return date;
 
@@ -2334,6 +2334,23 @@ jQuery.fn.removeLoader = function () {
   $(this).find('.loader-spinner').remove();
 };
 
+$.fn.reverseChildren = function () {
+  return this.each(function () {
+    var $this = $(this);
+    $this.children().each(function () {
+      $this.prepend(this);
+    });
+  });
+};
+
+$.fn.isInViewport = function () {
+  var elementTop = $(this).offset().top;
+  var elementBottom = elementTop + $(this).outerHeight();
+  var viewportTop = $(window).scrollTop();
+  var viewportBottom = viewportTop + $(window).height();
+  return elementBottom > viewportTop && elementTop < viewportBottom;
+};
+
 /***/ }),
 
 /***/ "./resources/js/helpers/numbers.js":
@@ -2344,6 +2361,12 @@ jQuery.fn.removeLoader = function () {
 
 percentage = function percentage(piece, total) {
   return parseInt(piece * 100 / total);
+};
+
+currency = function currency(amount) {
+  var symbol = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  var number = parseFloat(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  return symbol ? symbol + number : number;
 };
 
 /***/ }),

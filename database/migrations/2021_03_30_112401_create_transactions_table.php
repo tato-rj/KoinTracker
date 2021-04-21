@@ -19,7 +19,6 @@ class CreateTransactionsTable extends Migration
             $table->unsignedInteger('coin_id');
             $table->decimal('coin_amount', 10, 8);
             $table->decimal('price_per_coin', 10, 2);
-            $table->string('currency');
             $table->decimal('currency_amount', 10, 2);
             $table->float('fee')->nullable();
             $table->string('comments')->nullable();

@@ -68,7 +68,7 @@ class PortfolioTest extends TestCase
 	{
 		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id, 'transaction_date' => now()->subMonth()]);
 		 
-		$this->assertNotEquals($this->portfolio->originalValue(), $this->portfolio->value());		 
+		$this->assertFalse($this->portfolio->originalValue()->equals($this->portfolio->value()));		 
 	}
 
 	/** @test */
@@ -80,7 +80,7 @@ class PortfolioTest extends TestCase
 
 		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id]);
 
-		$this->assertTrue($this->portfolio->value() > $oldValue);
+		$this->assertTrue($this->portfolio->value()->greaterThan($oldValue));
 	}
 
 	/** @test */
@@ -92,7 +92,7 @@ class PortfolioTest extends TestCase
 
 		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id, 'transaction_date' => now()]);
 
-		$this->assertTrue($this->portfolio->value(now()->subWeek()) == $oldValue);
+		$this->assertTrue($this->portfolio->value(now()->subWeek())->equals($oldValue));
 	}
 
 	/** @test */
@@ -102,7 +102,7 @@ class PortfolioTest extends TestCase
 
 		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id]);
 
-		$this->assertTrue($this->portfolio->valueFor($this->portfolio->coins->first()) < $this->portfolio->value());
+		$this->assertTrue($this->portfolio->valueFor($this->portfolio->coins->first())->lessThan($this->portfolio->value()));
 	}
 
 	/** @test */
@@ -114,6 +114,6 @@ class PortfolioTest extends TestCase
 
 		Transaction::factory()->create(['coin_id' => $coin->id, 'portfolio_id' => $this->portfolio->id, 'transaction_date' => now()]);
 
-		$this->assertTrue($this->portfolio->valueFor($coin, now()->subWeek()) < $this->portfolio->valueFor($coin));
+		$this->assertTrue($this->portfolio->valueFor($coin, now()->subWeek())->lessThan($this->portfolio->valueFor($coin)));
 	}
 }

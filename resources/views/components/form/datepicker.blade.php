@@ -8,7 +8,7 @@
 		placeholder="{{$placeholder ?? ucfirst(snake_str($name, true))}}" 
 		style="cursor: pointer;" 
 		@isset($transaction)
-		value="{{$transaction->transaction_date->format('Y-m-d')}}"
+		value="{{$transaction->transaction_date->format('m-d-Y')}}"
 		@else
 		value="{{old($name)}}"
 		@endif

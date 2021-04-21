@@ -53,7 +53,7 @@ class TransactionPolicy
      */
     public function update(User $user, Transaction $transaction)
     {
-        return $user->transactions->contains($transaction);
+        //
     }
 
     /**
@@ -65,7 +65,7 @@ class TransactionPolicy
      */
     public function delete(User $user, Transaction $transaction)
     {
-        //
+        return $user->transactions->contains($transaction);
     }
 
     /**

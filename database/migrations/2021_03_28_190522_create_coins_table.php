@@ -18,6 +18,7 @@ class CreateCoinsTable extends Migration
             $table->string('uid');
             $table->string('short');
             $table->string('name');
+            $table->decimal('current_price', 10, 2)->nullable();
             $table->json('latest_market')->nullable();
             $table->json('latest_1h_range')->nullable();
             $table->json('latest_24h_range')->nullable();

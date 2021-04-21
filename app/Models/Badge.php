@@ -18,4 +18,12 @@ class Badge extends AppModel
 	{
 		return lcfirst(\Str::of($this->icon)->studly());
 	}
+
+	public function getElementAttribute()
+	{
+		$icon = $this->icon;
+		$type =  in_array($this->icon, ['bitcoin', 'ethereum']) ? 'fab' : 'fas';
+
+		return '<i class="'.$type.' fa-'.$icon.' fa-lg"></i>';
+	}
 }

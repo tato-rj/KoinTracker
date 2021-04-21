@@ -28,6 +28,16 @@ class UserTest extends TestCase
 	}
 
 	/** @test */
+	public function it_has_many_coins()
+	{
+		$user = User::factory()->create();
+
+		Transaction::factory()->create(['portfolio_id' => Portfolio::factory()->create(['user_id' => $user->id])]);
+
+		$this->assertInstanceOf(Coin::class, $user->coins->first());		 
+	}
+
+	/** @test */
 	public function it_knows_if_it_owns_a_given_coin()
 	{
 		$user = User::factory()->create();

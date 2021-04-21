@@ -1,0 +1,12 @@
+.pika-table {
+    abbr {
+        cursor: default !important;
+        text-decoration: none !important;
+        -webkit-text-decoration: none !important;
+        text-decoration: none !important;
+    }
+}
+
+.pika-single, .pika-row {
+    border-radius: $border-radius;
+}

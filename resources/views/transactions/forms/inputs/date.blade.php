@@ -1,6 +1,6 @@
 <div class="form-row">
 	<div class="col">
-		@datepicker(['bag' => 'default', 'name' => 'transaction_date', 'label' => 'When did you buy it?', 'placeholder' => 'Pick a date'])
+		@datepicker(['bag' => 'default', 'name' => 'transaction_date', 'label' => $label ?? null, 'placeholder' => 'Pick a date'])
 	</div>
 	<div class="col">
 		<div class="form-group">

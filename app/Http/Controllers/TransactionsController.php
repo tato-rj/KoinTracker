@@ -4,50 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\{Transaction, Portfolio};
 use Illuminate\Http\Request;
+use App\Transactions\Calculator;
+use App\Http\Requests\TransactionRequest;
 
 class TransactionsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Portfolio $portfolio)
+    public function store(Request $request, Portfolio $portfolio, TransactionRequest $form)
     {
         $portfolio->transactions()->create([
-            'coin_id' => $request->coin_id,
-            'coin_amount' => $request->coin_amount,
-            'price_per_coin' => $request->price_per_coin,
-            'currency' => auth()->user()->currency,
-            'currency_amount' => $portfolio->transactionCost($request->coin_amount, $request->price_per_coin, $request->fee),
-            'fee' => $request->fee ?? 0,
-            'comments' => $request->comments,
-            'type' => $request->type,
-            'transfer_type' => $request->transfer_type,
-            'transaction_date' => carbon($request->transaction_date)->setTimeFromTimeString($request->transaction_time)->toDateTimeString()
+            'coin_id' => $form->coin_id,
+            'coin_amount' => $form->coins(),
+            'price_per_coin' => fiat($form->price_per_coin, true),
+            'currency_amount' => $form->cost(),
+            'fee' => fiat($form->fee, true),
+            'comments' => $form->comments,
+            'type' => $form->type,
+            'transfer_type' => $form->transfer_type,
+            'transaction_date' => $form->date()
         ]);
-
+        
         return back()->with('success', 'The transaction has been successfully created!');
     }
 
@@ -69,19 +50,16 @@ class TransactionsController extends Controller
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Portfolio $portfolio, Transaction $transaction)
+    public function update(Request $request, Portfolio $portfolio, Transaction $transaction, TransactionRequest $form)
     {
-        $this->authorize('update', $transaction);
-
         $transaction->update([
-            'coin_amount' => $request->coin_amount,
-            'price_per_coin' => $request->price_per_coin,
-            'currency' => auth()->user()->currency,
-            'currency_amount' => $portfolio->transactionCost($request->coin_amount, $request->price_per_coin, $request->fee),
-            'fee' => $request->fee ?? 0,
-            'comments' => $request->comments,
-            'transfer_type' => $request->transfer_type,
-            'transaction_date' => carbon($request->transaction_date . ' ' . $request->transaction_time)->toDateTimeString()
+            'coin_amount' => $form->coins(),
+            'price_per_coin' => fiat($form->price_per_coin, true),
+            'currency_amount' => $form->cost(),
+            'fee' => fiat($form->fee, true),
+            'comments' => $form->comments,
+            'transfer_type' => $form->transfer_type,
+            'transaction_date' => $form->date()
         ]);
 
         return back()->with('success', 'The transaction has been successfully updated!');
@@ -95,7 +73,7 @@ class TransactionsController extends Controller
      */
     public function destroy(Portfolio $portfolio, Transaction $transaction)
     {
-        $this->authorize('update', $transaction);
+        $this->authorize('delete', $transaction);
         
         $transaction->delete();
 

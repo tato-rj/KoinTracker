@@ -36,17 +36,9 @@ trait CryptoApi
 		return strip_tags($this->latest_market['description'][config('app.locale')]);
 	}
 
-	public function getPriceAttribute()
-	{
-		if (! $this->latest_market)
-			return null;
-
-		return $this->latest_market['market_data']['current_price'][config('app.currency')];
-	}
-
 	public function getPriceChangeTodayAttribute()
 	{
-		return $this->price - $this->range('24h', $formatted = false)[0][1];
+		return $this->current_price->subtract(fiat($this->range('24h', $formatted = false)[0][1], true));
 	}
 
 	public function getLastUpdatedAttribute()

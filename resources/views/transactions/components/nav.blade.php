@@ -5,9 +5,9 @@
   <li class="nav-item">
     <a class="nav-link py-1" data-toggle="tab" href="#sell">Sell</a>
   </li>
-  <li class="nav-item">
+{{--   <li class="nav-item">
     <a class="nav-link py-1" data-toggle="tab" href="#transfer">Transfer</a>
-  </li>
+  </li> --}}
 </ul>
 
 <div class="form-group d-flex align-items-center">
@@ -16,7 +16,7 @@
 		@foreach($coins as $transactionCoin)
 		<option data-icon="{{$transactionCoin->getIcon()}}" 
 			@isset($coin)
-			{{$coin == $transactionCoin ? 'selected' : null}} 
+			{{$coin->is($transactionCoin) ? 'selected' : 'foo'}} 
 			@else
 			{{$loop->first ? 'selected' : null}} 
 			@endisset

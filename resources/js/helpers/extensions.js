@@ -33,3 +33,18 @@ jQuery.fn.removeLoader = function() {
     $(this).prop('disabled', false)
     $(this).find('.loader-spinner').remove();
 };
+
+$.fn.reverseChildren = function() {
+  return this.each(function(){
+    var $this = $(this);
+    $this.children().each(function(){ $this.prepend(this) });
+  });
+};
+
+$.fn.isInViewport = function() {
+var elementTop = $(this).offset().top;
+var elementBottom = elementTop + $(this).outerHeight();
+var viewportTop = $(window).scrollTop();
+var viewportBottom = viewportTop + $(window).height();
+return elementBottom > viewportTop && elementTop < viewportBottom;
+};

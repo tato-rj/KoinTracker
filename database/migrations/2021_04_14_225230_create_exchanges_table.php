@@ -16,7 +16,8 @@ class CreateExchangesTable extends Migration
         Schema::create('exchanges', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('country');
+            $table->string('country')->nullable();
+            $table->string('year_established')->nullable();
             $table->string('icon');
             $table->string('url');
             $table->timestamps();

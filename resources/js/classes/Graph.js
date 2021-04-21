@@ -98,11 +98,11 @@ class BigGraph
 		            },
 		            callbacks: {
 		            	title: function(item, data) {
-		            		return currency(item[0].value).format();
+		            		return currency(item[0].value, '$');
 		            	},
 		                label: function(item, data) {
 		                	let initialPrice = data.datasets[0].data[0];
-		                	let price = currency(item.value).format();
+		                	let price = currency(item.value, '$');
 		                	let difference = item.value - initialPrice;
 		                	let isPositive = difference >= 0;
 		                	let percentage = percent(difference, initialPrice) + '%';
@@ -112,7 +112,7 @@ class BigGraph
 		                	$('#price').text(price);
 		                	$('#price-date').text(date);
 
-		                	difference = difference < 0 ? currency(difference).format() : '+'+currency(difference).format();
+		                	difference = difference < 0 ? currency(difference) : '+'+currency(difference);
 		                	$('#price-difference').text(difference +' ('+ percentage + ')')
 		                						  .removeClass(isPositive ? 'alert-red' : 'alert-green')
 		                						  .addClass(isPositive ? 'alert-green' : 'alert-red');

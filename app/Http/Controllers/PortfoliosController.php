@@ -18,27 +18,6 @@ class PortfoliosController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Portfolio  $portfolio
@@ -49,6 +28,16 @@ class PortfoliosController extends Controller
         $coins = Coin::all();
 
         return view('portfolios.show.index', compact(['portfolio', 'coins']));
+    }
+
+    public function transactions(Request $request, Portfolio $portfolio)
+    {
+        $transactions = $request->has('coin') ? 
+            auth()->user()->transactionsOf(Coin::name($request->coin))->get()->slice($request->start_at)->take(3) : 
+            $portfolio->transactions->slice($request->start_at)->take(3);
+
+        if ($transactions)
+            return view('transactions.show.load', compact('transactions'));
     }
 
     /**

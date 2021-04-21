@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @push('head')
-<link rel="preload" href="{{ asset('css/vendor/flag-icon/flag-icon.min.css') }}" as="style">
-<link href="{{ asset('css/vendor/flag-icon/flag-icon.min.css') }}" rel="stylesheet">
 <style type="text/css">
 
 </style>
@@ -14,12 +12,18 @@
 
 	@include('home.sections.badges')
 
-	@include('home.sections.transactions')
+	@include('transactions.show.list')
 
 	@include('home.sections.market')
 
-	@include('home.sections.exchanges')
+	@include('exchanges.highlights')
 </div>
+
+@include('coins.more')
+
+@auth
+@include('transactions.create.modal')
+@endauth
 @endsection
 
 @push('js')

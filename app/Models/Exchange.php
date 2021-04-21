@@ -28,6 +28,7 @@ class Exchange extends AppModel
 			$this->create([
 				'name' => $exchange['name'],
 				'country' => $exchange['country'],
+				'year_established' => $exchange['year_established'],
 				'icon' => $exchange['image'],
 				'url' => $exchange['url'],
 			]);
@@ -40,5 +41,15 @@ class Exchange extends AppModel
 			return $this->flags[$this->country];
 
 		return null;
+	}
+
+	public function scopeValid($query)
+	{
+		return $query->whereNotNull('year_established');
+	}
+
+	public function scopeTop($query, $count)
+	{
+		return $query->take($count);
 	}
 }

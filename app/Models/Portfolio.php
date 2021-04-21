@@ -6,7 +6,7 @@ use App\Contracts\ApiContract;
 use App\Chart\{Chart, Range};
 
 class Portfolio extends AppModel implements ApiContract
-{
+{	
     public function getRouteKeyName()
     {
         return 'slug';
@@ -19,7 +19,7 @@ class Portfolio extends AppModel implements ApiContract
 
 	public function transactions()
 	{
-		return $this->hasMany(Transaction::class);
+		return $this->hasMany(Transaction::class)->orderBy('transaction_date', 'desc');
 	}
 
 	public function bestTransaction()
@@ -30,6 +30,17 @@ class Portfolio extends AppModel implements ApiContract
 	public function getCoinsAttribute()
 	{
 		return $this->transactions()->with('coin')->get()->pluck('coin')->unique();
+	}
+
+	public function getSortedCoinsAttribute()
+	{
+		$collection = collect();
+		
+		$this->coins->each(function($coin, $index) use ($collection) {
+			$collection->push(collect(['coin' => $coin, 'value' => $this->valueFor($coin)->getAmount()]));
+		});
+
+		return $collection->sortByDesc('value')->values();
 	}
 
 	public function amountOf($coinUid, $date = null)
@@ -48,7 +59,7 @@ class Portfolio extends AppModel implements ApiContract
 		$total = 0;
 
 		foreach ($this->transactions as $transaction) {
-			$total += $transaction->coin_amount * $transaction->price_per_coin;
+			$total = $transaction->price_per_coin->multiply($transaction->coin_amount)->add($total);
 		}
 
 		return $total;		
@@ -59,7 +70,7 @@ class Portfolio extends AppModel implements ApiContract
 		$total = 0;
 
 		foreach ($this->coins as $coin) {
-			$total += $coin->price * $this->amountOf($coin->uid, $date);
+			$total = $coin->current_price->multiply($this->amountOf($coin->uid, $date))->add($total);
 		}
 
 		return $total;
@@ -67,7 +78,7 @@ class Portfolio extends AppModel implements ApiContract
 
 	public function valueFor($coin, $date = null)
 	{
-		return $coin->price * $this->amountOf($coin->uid, $date);
+		return $coin->current_price->multiply($this->amountOf($coin->uid, $date));
 	}
 
 	public function range($range)
@@ -88,12 +99,5 @@ class Portfolio extends AppModel implements ApiContract
 		}
 
 		return compact(['timestamps', 'prices']);
-	}
-
-	public function transactionCost($coin_amount, $price_per_coin, $fee)
-	{
-		$cost = ($coin_amount * $price_per_coin) + $fee;
-
-        return round($cost, 2);
 	}
 }
