@@ -91,6 +91,7 @@ a:hover .fa-long-arrow-alt-right {
         <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
         <script src="{{ mix('js/app.js') }}"></script>
+        <script src="{{ asset('js/vendor/money.min.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
         <script type="text/javascript">
         $('button#load-transactions').click(function() {

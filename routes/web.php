@@ -15,13 +15,28 @@ require __DIR__.'/auth.php';
 |
 */
 
-Route::get('', 'HomeController@index')->name('home');
+Route::prefix('coming-soon')->name('dev.')->group(function() {
+	Route::get('', function() {
+		return view('auth.dev');
+	})->name('index');
 
-Route::get('glossary', 'GlossaryController@index')->name('glossary');
+	Route::post('admin', function() {
+		if (request()->pass !== 'koin21')
+			return back()->with('error', 'Your password is not right...');
+		
+		session(['dev' => true]);
 
-Route::get('exchanges', 'ExchangesController@index')->name('exchanges');
+		return redirect(route('home'));
+	})->name('admin');
+});
 
-Route::prefix('{coin}')->name('coins.')->group(function() {
+Route::get('', 'HomeController@index')->middleware('dev')->name('home');
+
+Route::get('glossary', 'GlossaryController@index')->middleware('dev')->name('glossary');
+
+Route::get('exchanges', 'ExchangesController@index')->middleware('dev')->name('exchanges');
+
+Route::prefix('{coin}')->middleware('dev')->name('coins.')->group(function() {
 
 	Route::get('', 'CoinsController@show')->name('show');
 
@@ -29,7 +44,7 @@ Route::prefix('{coin}')->name('coins.')->group(function() {
 
 });
 
-Route::prefix('portfolios')->name('portfolios.')->group(function() {
+Route::prefix('portfolios')->middleware('dev')->name('portfolios.')->group(function() {
 
 	Route::prefix('{portfolio}')->group(function() {
 
