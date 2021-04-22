@@ -36,6 +36,12 @@ Route::get('glossary', 'GlossaryController@index')->middleware('dev')->name('glo
 
 Route::get('exchanges', 'ExchangesController@index')->middleware('dev')->name('exchanges');
 
+Route::prefix('convert')->middleware('dev')->name('convert.')->group(function() {
+
+	Route::get('', 'CurrenciesController@index')->name('index');
+
+});
+
 Route::prefix('{coin}')->middleware('dev')->name('coins.')->group(function() {
 
 	Route::get('', 'CoinsController@show')->name('show');
