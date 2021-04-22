@@ -38,7 +38,11 @@ Route::get('exchanges', 'ExchangesController@index')->middleware('dev')->name('e
 
 Route::prefix('convert')->middleware('dev')->name('convert.')->group(function() {
 
-	Route::get('', 'CurrenciesController@index')->name('index');
+	Route::get('', 'ConversionsController@index')->name('index');
+
+	Route::get('coin-to-fiat', 'ConversionsController@coinToFiat')->name('coin-fiat');
+
+	Route::get('fiat-to-coin', 'ConversionsController@fiatToCoin')->name('fiat-coin');
 
 });
 

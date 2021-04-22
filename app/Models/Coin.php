@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Contracts\ApiContract;
+use App\Contracts\{ApiContract, TradableAsset};
 use App\Models\Traits\CryptoApi;
 use App\Api\Fake\Coin as FakeCoin;
 use App\Casts\Money;
 
-class Coin extends AppModel implements ApiContract
+class Coin extends AppModel implements ApiContract, TradableAsset
 {
 	use CryptoApi;
 	
@@ -40,5 +40,10 @@ class Coin extends AppModel implements ApiContract
     public function scopeName($query, $name)
     {
         return $query->where('uid', $name)->first();
+    }
+
+    public function convertTo($fiat)
+    {
+        return $this->current_price->multiply($fiat->current_price)->format();
     }
 }

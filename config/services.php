@@ -32,6 +32,10 @@ return [
 
     'crypto' => [
         'key' => env('CRYPTO_KEY')
+    ],
+
+    'openex' => [
+        'key' => env('OPENEX_KEY')
     ]
 
 ];
