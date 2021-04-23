@@ -2,6 +2,7 @@
 	@foreach($fiats as $fiat)
 	<div class="mb-3 fiat-logo fiat-{{$fiat->id}}" style="display: {{$fiat->is('usd') ? 'block' : 'none'}}">
 		<h1 class="noselect" style="font-size: 6.2917rem">{{$fiat->getCurrency()->getSymbol()}}</h1>
+		<p>{{$fiat->getCurrency()->getName()}}</p>
 	</div>
 	@endforeach
 
