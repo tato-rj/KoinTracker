@@ -26,12 +26,12 @@ class Fiat extends AppModel
 		$this->truncate();
 
 		foreach ($list['rates'] as $currency => $rate) {
-			// try {
+			try {
 				currency($currency);
 				$this->create(['currency' => $currency, 'rate' => $rate]);
-			// } catch (\Exception $e) {
-			// 	//
-			// }
+			} catch (\Exception $e) {
+				//
+			}
 		}
 	}
 

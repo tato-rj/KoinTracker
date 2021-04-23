@@ -17,11 +17,11 @@ class ConversionsController extends Controller
 
     public function coinToFiat(Request $request)
     {
-    	return Coin::find($request->coin)->valueIn((float) $request->amount, $request->currency);
+    	return Coin::find($request->coin)->valueIn((float) $request->amount, $request->currency)->format();
     }
 
     public function fiatToCoin(Request $request)
     {
-        return Fiat::currency($request->currency)->valueIn($request->amount, Coin::find($request->coin));
+        return Fiat::currency($request->currency)->valueIn($request->amount, Coin::find($request->coin))->format();
     }
 }
