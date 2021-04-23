@@ -3,18 +3,20 @@
 namespace App\Models;
 
 use App\Api\OpenExchange;
-use App\Contracts\TradableAsset;
-use  Akaunting\Money\{Money, Currency};
+use App\Casts\Currency;
 
-class Fiat extends AppModel implements TradableAsset
+class Fiat extends AppModel
 {
-	protected $casts = [
-        'current_price' => 'float',
-	];
+	protected $casts = ['rate' => 'float'];
 
 	public function api()
 	{
 		return new OpenExchange;
+	}
+
+	public function is($currency)
+	{
+		return $this->currency == strtoupper($currency);
 	}
 
 	public function scopeGetData($query)
@@ -23,21 +25,33 @@ class Fiat extends AppModel implements TradableAsset
 
 		$this->truncate();
 
-		foreach ($list['rates'] as $currency => $price) {
-			$this->create([
-				'currency' => $currency,
-				'current_price' => $price
-			]);
+		foreach ($list['rates'] as $currency => $rate) {
+			try {
+				currency($currency);
+				$this->create(['currency' => $currency, 'rate' => $rate]);
+			} catch (\Exception $e) {
+				//
+			}
 		}
 	}
 
-	public function convertTo($coin)
+	public function scopeCurrency($query, $currency)
 	{
-        return bcdiv($this->inDollar->getValue() , $coin->current_price->getValue(), 8);
+		return $query->where('currency', $currency)->firstOrFail();
 	}
 
-	public function getInDollarAttribute()
+	public function getCurrency()
 	{
-		return fiat(1/$this->current_price, true);
+		return currency($this->currency);
+	}
+
+	public function usd()
+	{
+		return fiat(1/$this->rate, true);
+	}
+
+	public function valueIn($amount, Coin $coin)
+	{
+		return money($amount, $this->currency)->convert(currency('usd'), $this->rate)->getAmount() / $coin->current_price->getValue();
 	}
 }

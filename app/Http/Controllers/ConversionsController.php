@@ -9,16 +9,19 @@ class ConversionsController extends Controller
 {
     public function index()
     {
-    	return view('convert.index');
+        $coins = Coin::all();
+        $fiats = Fiat::all();
+
+    	return view('convert.index', compact(['coins', 'fiats']));
     }
 
     public function coinToFiat(Request $request)
     {
-    	return Coin::find($request->coin)->convertTo(Fiat::find($request->fiat));
+    	return Coin::find($request->coin)->valueIn((float) $request->amount, $request->currency);
     }
 
     public function fiatToCoin(Request $request)
     {
-        return Fiat::find($request->fiat)->convertTo(Coin::find($request->coin));
+        return Fiat::currency($request->currency)->valueIn($request->amount, Coin::find($request->coin));
     }
 }

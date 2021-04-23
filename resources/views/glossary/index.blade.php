@@ -10,12 +10,7 @@
 
 @section('content')
 <div class="container">
-	<div class="row">
-		<div class="col-12 mb-4 text-center">
-			<h4>New to cryptocurrencies?</h4>
-			<p class="text-muted">Here are some new words and terms that might become a part of your vocabulary.</p>
-		</div>
-	</div>
+	@title(['title' => 'New to cryptocurrencies?', 'description' => 'Here are some new words and terms that might become a part of your vocabulary.'])
 	<div class="row">
 		@include('glossary.components.search')
 	</div>

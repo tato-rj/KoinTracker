@@ -9,7 +9,8 @@
 <div class="container">
     <div class="row flex-center h-100vh">
         <div class="col-lg-4 col-md-4 col-8 mx-auto">
-            <p><strong>KoinTracker</strong> will go live soon!</p>
+            @icon(['size' => 50, 'position' => 'center', 'mb' => 2])
+            <p class="text-center"><strong>We're going live soon</strong></p>
             <p class="text-muted">If you're an admin, type your password below to get in.</p>
             <form method="POST" action="{{route('dev.admin')}}" disable-on-submit>
                 @csrf

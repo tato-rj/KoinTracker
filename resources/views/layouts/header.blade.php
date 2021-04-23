@@ -12,7 +12,10 @@
 		<div class="col-12 d-flex justify-content-between align-items-start">
 			<div>
 				<a href="{{route('home')}}" class="link-none">
-					<h2 class="m-0 text-primary font-weight-bold">KOIN<span class="opacity-6">TRACKER</span></h2>
+					<div class="d-flex align-items-center">
+						@icon
+						<h2 class="mb-0 text-primary font-weight-bold" style="margin-left: 2px">OIN<span class="opacity-6">TRACKER</span></h2>
+					</div>
 					<p class="m-0">Simple. Easy. Fun.</p>
 				</a>
 			</div>

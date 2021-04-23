@@ -5,7 +5,7 @@ namespace Tests;
 use Tests\Support\ExceptionHandling;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use App\Models\{User, Transaction, Portfolio, Coin};
+use App\Models\{User, Transaction, Portfolio, Coin, Fiat};
 
 abstract class TestCase extends BaseTestCase
 {
@@ -20,6 +20,8 @@ abstract class TestCase extends BaseTestCase
         $this->portfolio = Portfolio::factory()->create();
 
         $this->coin = Coin::factory()->create();
+
+        $this->fiat = Fiat::factory()->create();
         
         $this->transaction = Transaction::factory()->create(['portfolio_id' => $this->portfolio]);
     }

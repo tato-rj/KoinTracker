@@ -16,7 +16,7 @@ class CreateFiatsTable extends Migration
         Schema::create('fiats', function (Blueprint $table) {
             $table->id();
             $table->string('currency');
-            $table->decimal('current_price', 13, 6);
+            $table->decimal('rate', 13, 6);
             $table->timestamps();
         });
     }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Coin, Exchange};
+use App\Models\{Coin, Exchange, Fiat};
 
 class HomeController extends Controller
 {

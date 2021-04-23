@@ -40,5 +40,7 @@ class AppServiceProvider extends ServiceProvider
         \Blade::include('components.form.checkbox');
         \Blade::include('components.form.radio');
         \Blade::include('components.alert');
+        \Blade::include('components.title');
+        \Blade::include('components.icon');
     }
 }

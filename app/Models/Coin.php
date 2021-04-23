@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Contracts\{ApiContract, TradableAsset};
+use App\Contracts\ApiContract;
 use App\Models\Traits\CryptoApi;
 use App\Api\Fake\Coin as FakeCoin;
 use App\Casts\Money;
 
-class Coin extends AppModel implements ApiContract, TradableAsset
+class Coin extends AppModel implements ApiContract
 {
 	use CryptoApi;
 	
@@ -32,6 +32,11 @@ class Coin extends AppModel implements ApiContract, TradableAsset
         return new FakeCoin;
     }
 
+    public function is($uid)
+    {
+        return $this->uid == $uid;
+    }
+
     public function getIcon($type = 'color')
     {
     	return asset('images/crypto/icons/'.$type.'/'.$this->short.'.svg');
@@ -42,8 +47,11 @@ class Coin extends AppModel implements ApiContract, TradableAsset
         return $query->where('uid', $name)->first();
     }
 
-    public function convertTo($fiat)
+    public function valueIn($amount, $currency)
     {
-        return $this->current_price->multiply($fiat->current_price)->format();
+        $currency = strtoupper($currency);
+
+        return $this->current_price->multiply($amount)
+                                   ->convert(currency($currency), Fiat::currency($currency)->rate);
     }
 }
