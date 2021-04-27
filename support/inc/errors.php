@@ -7,6 +7,6 @@ function validate($errors, $input)
 
 function bugreport($e)
 {
-	if (production())
+	// if (production())
 		return \Bugsnag::notifyException($e);
 }
