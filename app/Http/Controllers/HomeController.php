@@ -9,9 +9,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-\Mail::raw('Foo bar', function ($message) {
-    $message->to('arthurvillar@gmail.com');
-});
     	$coins = Coin::all();
     	$exchanges = Exchange::valid()->top(8)->get();
 
