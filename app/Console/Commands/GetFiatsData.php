@@ -38,10 +38,8 @@ class GetFiatsData extends Command
      */
     public function handle()
     {
-        if ($this->confirm('This will delete all the fiat currencies and get fresh new data. Are you sure?')) {
-            Fiat::getData();
-            
-            return $this->info('All set!');
-        }
+        Fiat::getData();
+          
+        return $this->info('All set!');
     }
 }

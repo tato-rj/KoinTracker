@@ -24,7 +24,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('market:fresh')->everyTwoMinutes();
+        $schedule->command('market:fresh')->everyMinute();
+
+        $schedule->command('fiats:fresh')->twiceDaily(1, 13);
+
+        $schedule->command('exchanges:fresh 60')->quarterly();
     }
 
     /**

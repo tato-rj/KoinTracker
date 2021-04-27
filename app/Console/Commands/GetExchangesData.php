@@ -40,10 +40,8 @@ class GetExchangesData extends Command
     {
         $count = $this->argument('count');
 
-        if ($this->confirm('This will delete all the exchanges and get fresh new data for the top '.$count.'. Are you sure?')) {
-            Exchange::getData($count);
-            
-            return $this->info('All set!');
-        }
+        Exchange::getData($count);
+           
+        return $this->info('All set!');
     }
 }
