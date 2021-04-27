@@ -54,6 +54,7 @@ class GetMarketData extends Command
                 $coin->update(['latest_all_range' => $coin->api()->range() ?? $coin->latest_all_range]);
             });
         } catch (\Exception $e) {
+            bugreport($e);
             return $this->info($e->getMessage());         
         }
 
