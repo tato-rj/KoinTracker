@@ -16,7 +16,7 @@
 
                 @input(['bag' => 'default', 'name' => 'email', 'placeholder' => 'Email'])
                 @input(['bag' => 'default', 'name' => 'password', 'type' => 'password',  'placeholder' => 'Password'])
-                @checkbox(['name' => 'remember', 'text' => 'Remember me on this computer'])
+                @checkbox(['name' => 'remember', 'text' => 'Remember me on this device'])
 
                 <button type="submit" class="btn btn-primary btn-sm-block btn-wide">Sign in</button>
             </form>
