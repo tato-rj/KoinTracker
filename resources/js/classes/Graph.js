@@ -54,108 +54,112 @@ class TinyGraph
 class BigGraph
 {
 	run(canvas, data, color) {
-		this._createCustomLine();
+		if (! data.prices) {
+			alert('No data for this data range...');
+		} else {
+			this._createCustomLine();
 
-		chartInstance = new Chart(canvas, {
-		    type: 'LineWithLine',
-		    data: {
-		        labels: data.timestamps,
-		        datasets: [{
-		            data: data.prices,
-		            borderColor: color,
-		            borderWidth: 4,
-		            borderCapStyle: 'round',
-		            backgroundColor: convertHex(color,6),
-					fill: false
-		        }]
-		    },
-		    options: {
-		    	legend: {
-		    		display: false
-		    	},
-		    	layout:{
-		    		padding: {
-		    			left: 10,
-		    			right: 10,
-		    			top: 5,
-		    			bottom: 5
-		    		}
-		    	},
-		    	tooltips: {
-		    		titleFontSize: 16,
-		    		titleFontFamily: "Segoe UI",
-		    		mode: 'index',
-		    		intersect: false,
-		            custom: function(item) {
-		                if (item.opacity === 0) {
-		                    $('#price').text($('#price').data('original'));
-		                    $('#price-date').text($('#price-date').data('original'));
-		                    $('#price-difference').text($('#price-difference').data('original'))
-		                    					  .removeClass('alert-red alert-green')
-		                    					  .addClass($('#price-difference').data('theme'));
-		                }
-		                item.displayColors = false;
-		            },
-		            callbacks: {
-		            	title: function(item, data) {
-		            		return currency(item[0].value, '$');
-		            	},
-		                label: function(item, data) {
-		                	let initialPrice = data.datasets[0].data[0];
-		                	let price = currency(item.value, '$');
-		                	let difference = item.value - initialPrice;
-		                	let isPositive = difference >= 0;
-		                	let percentage = percent(difference, initialPrice) + '%';
-		                	let format = $('[name="range-switch"] button.selected').data('sub') == 'year' ? 'ddd, MMMM Do, YYYY' : 'ddd, MMMM Do, h:mm a';
-		                	let date = moment(parseInt(item.label)).format(format);
-
-		                	$('#price').text(price);
-		                	$('#price-date').text(date);
-
-		                	difference = difference < 0 ? currency(difference) : '+'+currency(difference);
-		                	$('#price-difference').text(difference +' ('+ percentage + ')')
-		                						  .removeClass(isPositive ? 'alert-red' : 'alert-green')
-		                						  .addClass(isPositive ? 'alert-green' : 'alert-red');
-
-		                	return date;
-
-							function percent(piece, total) {
-							    let percent = Math.abs(piece * 100 / total);
-
-							    return percent.toFixed(2);
-							}
-		                }
-		            }
-		    	},
-			   hover: {
-			      mode: 'index',
-			      intersect: false
-			   },
-		        elements: {
-		            point:{
-		                radius: 0
-		            }
-		        },
-		        scales: {
-			        xAxes: [{
-			            gridLines: {
-			                display:false
-			            },
-		                ticks: {
-		                    display: false
-		                }
-			        }],
-			        yAxes: [{
-			            gridLines: {
-			                display:false
-			            },
-		                ticks: {
-		                    display: false
-		                }
+			chartInstance = new Chart(canvas, {
+			    type: 'LineWithLine',
+			    data: {
+			        labels: data.timestamps,
+			        datasets: [{
+			            data: data.prices,
+			            borderColor: color,
+			            borderWidth: 4,
+			            borderCapStyle: 'round',
+			            backgroundColor: convertHex(color,6),
+						fill: false
 			        }]
-		        }
-		    }
-		});
+			    },
+			    options: {
+			    	legend: {
+			    		display: false
+			    	},
+			    	layout:{
+			    		padding: {
+			    			left: 10,
+			    			right: 10,
+			    			top: 5,
+			    			bottom: 5
+			    		}
+			    	},
+			    	tooltips: {
+			    		titleFontSize: 16,
+			    		titleFontFamily: "Segoe UI",
+			    		mode: 'index',
+			    		intersect: false,
+			            custom: function(item) {
+			                if (item.opacity === 0) {
+			                    $('#price').text($('#price').data('original'));
+			                    $('#price-date').text($('#price-date').data('original'));
+			                    $('#price-difference').text($('#price-difference').data('original'))
+			                    					  .removeClass('alert-red alert-green')
+			                    					  .addClass($('#price-difference').data('theme'));
+			                }
+			                item.displayColors = false;
+			            },
+			            callbacks: {
+			            	title: function(item, data) {
+			            		return currency(item[0].value, '$');
+			            	},
+			                label: function(item, data) {
+			                	let initialPrice = data.datasets[0].data[0];
+			                	let price = currency(item.value, '$');
+			                	let difference = item.value - initialPrice;
+			                	let isPositive = difference >= 0;
+			                	let percentage = percent(difference, initialPrice) + '%';
+			                	let format = $('[name="range-switch"] button.selected').data('sub') == 'year' ? 'ddd, MMMM Do, YYYY' : 'ddd, MMMM Do, h:mm a';
+			                	let date = moment(parseInt(item.label)).format(format);
+
+			                	$('#price').text(price);
+			                	$('#price-date').text(date);
+
+			                	difference = difference < 0 ? currency(difference) : '+'+currency(difference);
+			                	$('#price-difference').text(difference +' ('+ percentage + ')')
+			                						  .removeClass(isPositive ? 'alert-red' : 'alert-green')
+			                						  .addClass(isPositive ? 'alert-green' : 'alert-red');
+
+			                	return date;
+
+								function percent(piece, total) {
+								    let percent = Math.abs(piece * 100 / total);
+
+								    return percent.toFixed(2);
+								}
+			                }
+			            }
+			    	},
+				   hover: {
+				      mode: 'index',
+				      intersect: false
+				   },
+			        elements: {
+			            point:{
+			                radius: 0
+			            }
+			        },
+			        scales: {
+				        xAxes: [{
+				            gridLines: {
+				                display:false
+				            },
+			                ticks: {
+			                    display: false
+			                }
+				        }],
+				        yAxes: [{
+				            gridLines: {
+				                display:false
+				            },
+			                ticks: {
+			                    display: false
+			                }
+				        }]
+			        }
+			    }
+			});
+		}
 	}
 
 	_createCustomLine() {

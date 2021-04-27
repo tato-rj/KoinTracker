@@ -20,9 +20,9 @@ class TransactionsController extends Controller
         $portfolio->transactions()->create([
             'coin_id' => $form->coin_id,
             'coin_amount' => $form->coins(),
-            'price_per_coin' => fiat($form->price_per_coin, true),
+            'price_per_coin' => money($form->price_per_coin, appCurrencySymbol(), $notCents = true),
             'currency_amount' => $form->cost(),
-            'fee' => fiat($form->fee, true),
+            'fee' => money($form->fee, appCurrencySymbol(), $notCents = true),
             'comments' => $form->comments,
             'type' => $form->type,
             'transfer_type' => $form->transfer_type,
@@ -54,9 +54,9 @@ class TransactionsController extends Controller
     {
         $transaction->update([
             'coin_amount' => $form->coins(),
-            'price_per_coin' => fiat($form->price_per_coin, true),
+            'price_per_coin' => money($form->price_per_coin, appCurrencySymbol(), $notCents = true),
             'currency_amount' => $form->cost(),
-            'fee' => fiat($form->fee, true),
+            'fee' => money($form->fee, appCurrencySymbol(), $notCents = true),
             'comments' => $form->comments,
             'transfer_type' => $form->transfer_type,
             'transaction_date' => $form->date()

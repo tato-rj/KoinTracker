@@ -5,14 +5,14 @@
 			
 			@auth
 				@if(auth()->user()->transactions()->exists())
-					<h1 id="portfolio-balance">{{fiat(auth()->user()->portfolio->value())}}</h1>
+					<h1 id="portfolio-balance">{{money(auth()->user()->portfolio->value())}}</h1>
 					@include('portfolios.components.gains', ['original' => auth()->user()->portfolio->originalValue()->getAmount(), 'latest' => auth()->user()->portfolio->value()->getAmount()])
 				@else
-					<h1>{{fiat(0)}}</h1>
+					<h1>{{money(0)}}</h1>
 					@include('portfolios.components.gains', ['original' => 0, 'latest' => 0])
 				@endif
 			@else
-				<h1>{{fiat(0)}}</h1>
+				<h1>{{money(0)}}</h1>
 				@include('portfolios.components.gains', ['original' => 0, 'latest' => 0])
 			@endauth
 		</div>

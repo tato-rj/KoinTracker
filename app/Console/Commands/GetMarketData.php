@@ -44,7 +44,7 @@ class GetMarketData extends Command
             Coin::all()->each(function($coin) {
                 $data = $coin->api()->market();
 
-                $coin->update(['current_price' => $data ? fiat($data['market_data']['current_price'][config('app.currency')], true) : $coin->current_price]);
+                $coin->update(['current_price' => $data ? money($data['market_data']['current_price']['usd'], 'usd', $absolute = true) : $coin->current_price]);
                 $coin->update(['latest_market' => $data ?? $coin->latest_market]);
                 $coin->update(['latest_1h_range' => $coin->api()->range(now()->subHour()) ?? $coin->latest_1h_range]);
                 $coin->update(['latest_24h_range' => $coin->api()->range(now()->subDay()) ?? $coin->latest_24h_range]);

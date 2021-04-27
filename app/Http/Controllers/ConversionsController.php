@@ -3,25 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Fiat, Coin};
+use App\Models\{Fiat, Coin, Exchange};
 
 class ConversionsController extends Controller
 {
     public function index()
     {
         $coins = Coin::all();
-        $fiats = Fiat::all();
-
-    	return view('convert.index', compact(['coins', 'fiats']));
+        $relevantFiats = Fiat::relevant();
+        $otherFiats = Fiat::notRelevant();
+        $fiats = $relevantFiats->merge($otherFiats);
+        $exchanges = Exchange::valid()->top(8)->get();
+        
+    	return view('convert.index', compact(['coins', 'relevantFiats', 'otherFiats', 'fiats', 'exchanges']));
     }
 
     public function coinToFiat(Request $request)
     {
-    	return Coin::find($request->coin)->valueIn((float) $request->amount, $request->currency)->format();
+        $fiat = money((float) $request->amount, $request->currency, $notCents = true);
+        $currency = $fiat->getCurrency();
+        $coin = Coin::find($request->coin);
+        $amount = $request->amount;
+    	$price = $coin->valueIn($fiat->getValue(), $request->currency);
+
+        return view('convert.results.coinToFiat', compact(['coin', 'amount', 'price', 'currency']))->render();
     }
 
     public function fiatToCoin(Request $request)
     {
-        return Fiat::currency($request->currency)->valueIn($request->amount, Coin::find($request->coin))->format();
+        $fiat = money($request->amount, $request->currency, $notCents = true);
+        $coins = Fiat::currency($request->currency)->valueIn($fiat->getValue(), Coin::find($request->coin));
+
+        return view('convert.results.fiatToCoin', compact(['fiat', 'coins']))->render();
     }
 }

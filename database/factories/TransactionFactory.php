@@ -22,8 +22,8 @@ class TransactionFactory extends Factory
     public function definition()
     {
         $amount = $this->faker->randomFloat(null, 1, 10);
-        $price = fiat($this->faker->randomFloat(null, 10, 20));
-        $fee = fiat($this->faker->randomDigitNotNull);
+        $price = money($this->faker->randomFloat(null, 10, 20), appCurrencySymbol());
+        $fee = money($this->faker->randomDigitNotNull, appCurrencySymbol());
 
         return [
             'portfolio_id' => function() {

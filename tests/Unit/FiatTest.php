@@ -14,7 +14,7 @@ class FiatTest extends TestCase
 	}
 
 	/** @test */
-	public function given_any_amount_it_knows_how_many__of_any_given_coins_it_can_buy()
+	public function given_any_amount_it_knows_how_much_of_any_given_coins_it_can_buy()
 	{
 		$this->assertTrue($this->fiat->valueIn(10, $this->coin) > 0);
 	}

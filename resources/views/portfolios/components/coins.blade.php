@@ -11,7 +11,7 @@
 				@include('coins.components.logo', ['link' => true]) 
 				<div>{{auth()->user()->portfolio->amountOf($coin->uid)}} <small class="text-muted font-weight-bold">{{strtoupper($coin->short)}}</small></div>
 			</div>
-			<div class="font-weight-bold">{{fiat(auth()->user()->portfolio->valueFor($coin))}}</div>
+			<div class="font-weight-bold">{{money(auth()->user()->portfolio->valueFor($coin), appCurrencySymbol())}}</div>
 		</div>
 	@empty
 	<p>You haven't added any coins yet...</p>

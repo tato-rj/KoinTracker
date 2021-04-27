@@ -52,6 +52,7 @@ a:hover .fa-long-arrow-alt-right {
         <script type="text/javascript">
             window.app = <?php echo json_encode([
                 'csrfToken' => csrf_token(),
+                'currency' => appCurrency()->getCurrency(),
                 'url' => \Request::root()
             ]); ?>
         </script>

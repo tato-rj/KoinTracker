@@ -1861,6 +1861,11 @@ $.ajaxSetup({
     'X-CSRF-TOKEN': app.csrfToken
   }
 });
+
+print = function print(value) {
+  return console.log(value);
+};
+
 $(document).ready(function () {
   $('[data-toggle="fixed-panel"]').on('click', function () {
     var $link = $(this);
@@ -2013,101 +2018,105 @@ var BigGraph = /*#__PURE__*/function () {
   _createClass(BigGraph, [{
     key: "run",
     value: function run(canvas, data, color) {
-      this._createCustomLine();
+      if (!data.prices) {
+        alert('No data for this data range...');
+      } else {
+        this._createCustomLine();
 
-      chartInstance = new Chart(canvas, {
-        type: 'LineWithLine',
-        data: {
-          labels: data.timestamps,
-          datasets: [{
-            data: data.prices,
-            borderColor: color,
-            borderWidth: 4,
-            borderCapStyle: 'round',
-            backgroundColor: convertHex(color, 6),
-            fill: false
-          }]
-        },
-        options: {
-          legend: {
-            display: false
+        chartInstance = new Chart(canvas, {
+          type: 'LineWithLine',
+          data: {
+            labels: data.timestamps,
+            datasets: [{
+              data: data.prices,
+              borderColor: color,
+              borderWidth: 4,
+              borderCapStyle: 'round',
+              backgroundColor: convertHex(color, 6),
+              fill: false
+            }]
           },
-          layout: {
-            padding: {
-              left: 10,
-              right: 10,
-              top: 5,
-              bottom: 5
-            }
-          },
-          tooltips: {
-            titleFontSize: 16,
-            titleFontFamily: "Segoe UI",
-            mode: 'index',
-            intersect: false,
-            custom: function custom(item) {
-              if (item.opacity === 0) {
-                $('#price').text($('#price').data('original'));
-                $('#price-date').text($('#price-date').data('original'));
-                $('#price-difference').text($('#price-difference').data('original')).removeClass('alert-red alert-green').addClass($('#price-difference').data('theme'));
-              }
-
-              item.displayColors = false;
+          options: {
+            legend: {
+              display: false
             },
-            callbacks: {
-              title: function title(item, data) {
-                return currency(item[0].value, '$');
-              },
-              label: function label(item, data) {
-                var initialPrice = data.datasets[0].data[0];
-                var price = currency(item.value, '$');
-                var difference = item.value - initialPrice;
-                var isPositive = difference >= 0;
-                var percentage = percent(difference, initialPrice) + '%';
-                var format = $('[name="range-switch"] button.selected').data('sub') == 'year' ? 'ddd, MMMM Do, YYYY' : 'ddd, MMMM Do, h:mm a';
-                var date = moment(parseInt(item.label)).format(format);
-                $('#price').text(price);
-                $('#price-date').text(date);
-                difference = difference < 0 ? currency(difference) : '+' + currency(difference);
-                $('#price-difference').text(difference + ' (' + percentage + ')').removeClass(isPositive ? 'alert-red' : 'alert-green').addClass(isPositive ? 'alert-green' : 'alert-red');
-                return date;
+            layout: {
+              padding: {
+                left: 10,
+                right: 10,
+                top: 5,
+                bottom: 5
+              }
+            },
+            tooltips: {
+              titleFontSize: 16,
+              titleFontFamily: "Segoe UI",
+              mode: 'index',
+              intersect: false,
+              custom: function custom(item) {
+                if (item.opacity === 0) {
+                  $('#price').text($('#price').data('original'));
+                  $('#price-date').text($('#price-date').data('original'));
+                  $('#price-difference').text($('#price-difference').data('original')).removeClass('alert-red alert-green').addClass($('#price-difference').data('theme'));
+                }
 
-                function percent(piece, total) {
-                  var percent = Math.abs(piece * 100 / total);
-                  return percent.toFixed(2);
+                item.displayColors = false;
+              },
+              callbacks: {
+                title: function title(item, data) {
+                  return currency(item[0].value, '$');
+                },
+                label: function label(item, data) {
+                  var initialPrice = data.datasets[0].data[0];
+                  var price = currency(item.value, '$');
+                  var difference = item.value - initialPrice;
+                  var isPositive = difference >= 0;
+                  var percentage = percent(difference, initialPrice) + '%';
+                  var format = $('[name="range-switch"] button.selected').data('sub') == 'year' ? 'ddd, MMMM Do, YYYY' : 'ddd, MMMM Do, h:mm a';
+                  var date = moment(parseInt(item.label)).format(format);
+                  $('#price').text(price);
+                  $('#price-date').text(date);
+                  difference = difference < 0 ? currency(difference) : '+' + currency(difference);
+                  $('#price-difference').text(difference + ' (' + percentage + ')').removeClass(isPositive ? 'alert-red' : 'alert-green').addClass(isPositive ? 'alert-green' : 'alert-red');
+                  return date;
+
+                  function percent(piece, total) {
+                    var percent = Math.abs(piece * 100 / total);
+                    return percent.toFixed(2);
+                  }
                 }
               }
-            }
-          },
-          hover: {
-            mode: 'index',
-            intersect: false
-          },
-          elements: {
-            point: {
-              radius: 0
-            }
-          },
-          scales: {
-            xAxes: [{
-              gridLines: {
-                display: false
-              },
-              ticks: {
-                display: false
+            },
+            hover: {
+              mode: 'index',
+              intersect: false
+            },
+            elements: {
+              point: {
+                radius: 0
               }
-            }],
-            yAxes: [{
-              gridLines: {
-                display: false
-              },
-              ticks: {
-                display: false
-              }
-            }]
+            },
+            scales: {
+              xAxes: [{
+                gridLines: {
+                  display: false
+                },
+                ticks: {
+                  display: false
+                }
+              }],
+              yAxes: [{
+                gridLines: {
+                  display: false
+                },
+                ticks: {
+                  display: false
+                }
+              }]
+            }
           }
-        }
-      });
+        });
+      }
     }
   }, {
     key: "_createCustomLine",
@@ -2363,11 +2372,12 @@ percentage = function percentage(piece, total) {
   return parseInt(piece * 100 / total);
 };
 
-currency = function currency(amount) {
-  var symbol = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var number = parseFloat(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
-  return symbol ? symbol + number : number;
-};
+moneyToFloat = function moneyToFloat(money) {
+  return Number(money.replace(/[^0-9.-]+/g, ""));
+}; // currency = function(amount, symbol = null) {
+// 	let number = parseFloat(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+// 	return symbol ? symbol + number : number;
+// };
 
 /***/ }),
 

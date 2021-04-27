@@ -64,11 +64,11 @@
 				<ul class="list-flat">
 					<li>
 						@label(['text' => 'Market cap', 'bold' => false])
-						<p class="font-weight-bold mb-2">{{fiat($coin->marketCap)->format()}}</p>
+						<p class="font-weight-bold mb-2">{{money($coin->marketCap)->format()}}</p>
 					</li>
 					<li>
 						@label(['text' => 'Volume (1D)', 'bold' => false])
-						<p class="font-weight-bold mb-2">{{fiat($coin->totalVolume)->format()}}</p>
+						<p class="font-weight-bold mb-2">{{money($coin->totalVolume)->format()}}</p>
 					</li>
 					<li>
 						@label(['text' => 'Circulating supply', 'bold' => false])

@@ -8,19 +8,24 @@
 
 @section('content')
 <div class="container">
-    @title(['title' => 'Convert currencies', 'description' => 'Convert a cryptocurrency into a fiat currency to find out how much it\'s worth.'])
-	<div class="row">
-        <button id="switch-conversion" class="btn btn-outline-primary rounded mx-auto mb-4 btn-lg" style="font-size: 2rem">@fa(['icon' => 'exchange-alt', 'mr' => 0])</button>
-		@include('convert.types.coinToFiat')
-        @include('convert.types.fiatToCoin')
+    @title(['title' => 'Convert currencies', 'description' => 'Convert a cryptocurrencies a fiat currencies to find out how much your money is worth.'])
+	<div class="row mb-6" id="convert-forms">
+    <div class="col-12 text-center">
+      <button id="switch-conversion" class="btn btn-outline-primary rounded mx-auto mb-4">@fa(['icon' => 'exchange-alt'])Switch</button>
+    </div>
+    @include('convert.types.coinToFiat')
+    @include('convert.types.fiatToCoin')
 	</div>
+
+  @include('exchanges.highlights')
 </div>
 @endsection
 
 @push('js')
 <script type="text/javascript">
 $('#switch-conversion').click(function() {
-    $(this).parent().find('form').toggle();
+    $('.convert-container').toggle();
+    reset();
 });
 
 $('select[name="coin"]').change(function() {
@@ -29,20 +34,40 @@ $('select[name="coin"]').change(function() {
     $($coin.data('target')).show();
 });
 
-
 $('select[name="currency"]').change(function() {
     let $fiat = $(this).find("option:selected");
     $('.fiat-logo').hide();
     $($fiat.data('target')).show();
 });
-    // axios.get('https://openexchangerates.org/api/latest.json?app_id=7d47bb4c49d94ea3b3744a3cc29c0789')
-    // 	 .then(function(response) {
-    // 	 	console.log(response.data);
-    //     	console.log(response.data.rates);
-    //     	console.log(response.data.base);
-    // 	 })
-    // 	 .catch(function(error) {
-    // 	 	console.log(error);
-    // 	 });
+
+$('#convert-forms form').on('submit', function(e) {
+    e.preventDefault();
+    let $resultContainer = $(this).closest('form').find('.convert-result');
+    let $button = $(this).find('button[type="submit"]');
+    let url = $button.data('url');
+    let coin = $(this).find('select[name="coin"] option:selected').val();
+    let amount = $(this).find('input[name="amount"]').val();
+    let currency = $(this).find('select[name="currency"] option:selected').val();
+
+    $button.disable();
+
+    axios.get(url, {params: {coin: coin, amount: moneyToFloat(amount), currency: currency}})
+      .then(function(response) {
+        $resultContainer.html(response.data);
+      })
+      .catch(function(error) {
+         console.log(error);
+      })
+      .then(function() {
+        $button.enable();
+      });
+});
+
+function reset()
+{
+  $('select[name="currency"]').val('USD').change();
+  $('select[name="coin"]').val(1).change();
+  $('input[name="amount"]').val('');
+}
 </script>
 @endpush

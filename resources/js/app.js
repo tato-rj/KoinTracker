@@ -13,6 +13,10 @@ $.ajaxSetup({
     }
 });
 
+print = function(value) {
+	return console.log(value);
+}
+
 $(document).ready(function() {
 	$('[data-toggle="fixed-panel"]').on('click', function() {
 		let $link = $(this);

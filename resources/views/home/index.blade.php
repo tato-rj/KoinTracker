@@ -43,4 +43,8 @@ $(document).ready(function() {
 	});
 });
 </script>
+
+<script type="text/javascript">
+
+</script>
 @endpush

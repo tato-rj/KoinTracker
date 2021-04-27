@@ -8,11 +8,11 @@ class Money implements CastsAttributes
 {
     public function get($model, $key, $value, $attributes)
     {
-        return fiat($value);
+        return money($value);
     }
 
     public function set($model, $key, $value, $attributes)
     {
-        return $value ? fiat($value)->getAmount() : null;
+        return $value ? money($value)->getAmount() : null;
     }
 }

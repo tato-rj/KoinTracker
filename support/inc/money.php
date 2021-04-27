@@ -1,9 +1,13 @@
 <?php
 
-use  Akaunting\Money\{Money, Currency};
-use App\Models\Fiat;
-
-function fiat($value, $formatted = false)
+function appCurrency()
 {
-	return (new Money($value ?? 0, new Currency('USD'), $formatted));
+	return auth()->check() ? auth()->user()->currency() : currency(config('app.currency'));
+}
+
+function appCurrencySymbol()
+{
+	return auth()->check() ? 
+		auth()->user()->currency()->getCurrency() : 
+		currency(config('app.currency'))->getCurrency();
 }

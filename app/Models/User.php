@@ -42,6 +42,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->transactions()->with('coin')->get()->pluck('coin')->unique();
     }
+
+    public function currency()
+    {
+        return currency(config('app.currency'));
+    }
     
     public function hasBadge(Badge $badge)
     {

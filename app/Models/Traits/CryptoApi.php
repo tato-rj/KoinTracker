@@ -38,7 +38,7 @@ trait CryptoApi
 
 	public function getPriceChangeTodayAttribute()
 	{
-		return $this->current_price->subtract(fiat($this->range('24h', $formatted = false)[0][1], true));
+		return $this->current_price->subtract(money($this->range('24h', $formatted = false)[0][1], 'usd', $notCents = true));
 	}
 
 	public function getLastUpdatedAttribute()

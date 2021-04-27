@@ -2,7 +2,7 @@
 	@php($color = $isPositive ? 'green' : 'red')
 	@php($sign = $isPositive ? '+' : '')
 @else
-	@php($gain = fiat($latest)->subtract(fiat($original)))
+	@php($gain = money($latest)->subtract(money($original)))
 	@php($percent = diffInPercent($original, $latest))
 
 	@if($gain->isZero())

@@ -7,8 +7,15 @@
 	@endforeach
 
 	<select class="form-control" name="currency">
-	    @foreach($fiats as $fiat)
-	    <option value="{{$fiat->currency}}" data-target=".fiat-{{$fiat->id}}" {{$fiat->is('usd') ? 'selected' : null}}>{{$fiat->currency}}</option>
-	    @endforeach
+		<optgroup label="Most common">
+		    @foreach($relevantFiats as $fiat)
+		    <option value="{{$fiat->currency}}" data-target=".fiat-{{$fiat->id}}" {{$fiat->is('usd') ? 'selected' : null}}>{{$fiat->getCurrency()}}</option>
+		    @endforeach
+		</optgroup>
+		<optgroup label="Other currencies">
+		    @foreach($otherFiats as $fiat)
+		    <option value="{{$fiat->currency}}" data-target=".fiat-{{$fiat->id}}" {{$fiat->is('usd') ? 'selected' : null}}>{{$fiat->getCurrency()}}</option>
+		    @endforeach
+		</optgroup>
 	</select>
 </div>

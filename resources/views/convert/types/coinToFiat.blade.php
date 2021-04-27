@@ -1,7 +1,5 @@
-<form method="GET" action="{{route('convert.coin-fiat')}}" class="col-12">
-    @csrf
-
-    <div class="mb-6">
+<form class="col-lg-6 col-md-8 col-12 mx-auto convert-container">
+    <div class="mb-4 pb-4 border-bottom">
         <div class="row align-items-center mb-2">
             @include('convert.components.coin')
             <div class="col-2 text-center">
@@ -10,11 +8,9 @@
             @include('convert.components.fiat')
         </div>
     </div>
-    
-    <div class="row">
-        <div class="col-lg-4 col-md-6 col-12 text-center mx-auto bg-light rounded p-4">
-            <input type="number" step="any" name="amount" class="form-control border-bottom rounded-0 bg-transparent mb-4" placeholder="How many coins?" style="border: 0" autocomplete="off">
-            <button type="submit" class="btn btn-primary btn-block">CONVERT</button>
-        </div>
+    <div class="text-center">
+        <div class="convert-result"></div>
+        <input required type="number" step="any" name="amount" class="form-control border-0 bg-light mb-4" placeholder="How many coins?" style="border: 0" autocomplete="off">
+        <button type="submit" class="btn btn-primary btn-block" data-url="{{route('convert.coin-fiat')}}">CONVERT</button>
     </div>
 </form>

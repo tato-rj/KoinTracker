@@ -11,7 +11,7 @@
 @section('content')
 <div class="container">
 	@title(['title' => 'New to cryptocurrencies?', 'description' => 'Here are some new words and terms that might become a part of your vocabulary.'])
-	<div class="row">
+	<div class="row mb-4">
 		@include('glossary.components.search')
 	</div>
 	<div class="row">
@@ -25,7 +25,7 @@
 						@each('glossary.components.term', $terms, 'term')
 					@endforeach
 				</div>
-				@include('glossary.components.menu')
+				{{-- @include('glossary.components.menu') --}}
 			</div>
 		</div>
 	</div>

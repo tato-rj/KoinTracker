@@ -40,22 +40,22 @@ class TransactionRequest extends FormRequest
         if ($this->typeIs('sell'))
             return $this->sellCost();
 
-        return fiat(0);
+        return money(0);
     }
 
     public function sellCost()
     {
-        return fiat($this->price_per_coin, true)
+        return money($this->price_per_coin, appCurrencySymbol(), true)
                 ->multiply(floatval($this->coin_amount))
-                ->subtract(fiat($this->fee, true))
+                ->subtract(money($this->fee, appCurrencySymbol(), true))
                 ->multiply(-1);
     }
 
     public function buyCost()
     {
-        return fiat($this->price_per_coin, true)
+        return money($this->price_per_coin, appCurrencySymbol(), true)
                 ->multiply(floatval($this->coin_amount))
-                ->add(fiat($this->fee, true));
+                ->add(money($this->fee, appCurrencySymbol(), true));
     }
 
     public function isShort()

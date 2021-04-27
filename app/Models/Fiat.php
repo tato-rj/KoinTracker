@@ -7,6 +7,7 @@ use App\Casts\Currency;
 
 class Fiat extends AppModel
 {
+	protected $relevantCurrencies = ['usd', 'eur', 'gbp', 'cad', 'brl', 'chf'];
 	protected $casts = ['rate' => 'float'];
 
 	public function api()
@@ -47,11 +48,31 @@ class Fiat extends AppModel
 
 	public function usd()
 	{
-		return fiat(1/$this->rate, true);
+		return money(1/$this->rate);
 	}
 
 	public function valueIn($amount, Coin $coin)
 	{
-		return money($amount, $this->currency)->convert(currency('usd'), $this->rate)->getAmount() / $coin->current_price->getValue();
+		$fiat = money($amount, $this->currency)->convert(currency('usd'), 1/$this->rate)->getAmount();
+		$price = $coin->current_price->getValue();
+
+		return number_format($fiat / $price,4) . ' ' . strtoupper($coin->short);
+	}
+
+	public function scopeRelevant($query)
+	{
+		$sorted = collect();
+		$currencies = $query->whereIn('currency', $this->relevantCurrencies)->get();
+
+		foreach ($this->relevantCurrencies as $currency) {
+			$sorted->push($currencies->where('currency', strtoupper($currency))->first());
+		}
+
+		return $sorted;
+	}
+
+	public function scopeNotRelevant($query)
+	{
+		return $query->whereNotIn('currency', $this->relevant()->pluck('currency'))->get();
 	}
 }

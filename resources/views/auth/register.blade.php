@@ -17,7 +17,6 @@
                 @input(['bag' => 'default', 'name' => 'first_name', 'placeholder' => 'First name'])
                 @input(['bag' => 'default', 'name' => 'last_name', 'placeholder' => 'Last name'])
                 @input(['bag' => 'default', 'name' => 'email', 'placeholder' => 'Email'])
-
                 @input(['bag' => 'default', 'name' => 'password', 'type' => 'password',  'placeholder' => 'Password'])
                 @input(['bag' => 'default', 'name' => 'password_confirmation', 'type' => 'password',  'placeholder' => 'Confirm your password'])
 
