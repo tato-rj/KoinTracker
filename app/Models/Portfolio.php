@@ -22,6 +22,16 @@ class Portfolio extends AppModel implements ApiContract
 		return $this->hasMany(Transaction::class)->orderBy('transaction_date', 'desc');
 	}
 
+	public function sellTransactions()
+	{
+		return $this->transactions()->where('type', 'sell');
+	}
+
+	public function buyTransactions()
+	{
+		return $this->transactions()->where('type', 'buy');
+	}
+
 	public function bestTransaction()
 	{
 		// return $this->transactions

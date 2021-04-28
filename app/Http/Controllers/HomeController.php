@@ -9,6 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
+    	// return auth()->user()->portfolio->originalValue()->getAmount();
     	$coins = Coin::all();
     	$exchanges = Exchange::valid()->top(8)->get();
 
