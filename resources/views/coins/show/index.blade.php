@@ -123,4 +123,8 @@ $(document).ready(function() {
 	(new Graph($('#chart'))).draw(new BigGraph);
 });
 </script>
+
+<script type="text/javascript">
+
+</script>
 @endpush

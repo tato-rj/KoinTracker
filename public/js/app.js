@@ -2050,7 +2050,7 @@ var BigGraph = /*#__PURE__*/function () {
             },
             tooltips: {
               titleFontSize: 16,
-              titleFontFamily: "Segoe UI",
+              // titleFontFamily: "Segoe UI",
               mode: 'index',
               intersect: false,
               custom: function custom(item) {
@@ -2068,7 +2068,7 @@ var BigGraph = /*#__PURE__*/function () {
                 },
                 label: function label(item, data) {
                   var initialPrice = data.datasets[0].data[0];
-                  var price = currency(item.value, '$');
+                  var price = currency(item.value, app.currency.symbol);
                   var difference = item.value - initialPrice;
                   var isPositive = difference >= 0;
                   var percentage = percent(difference, initialPrice) + '%';
@@ -2207,6 +2207,7 @@ var GraphRange = /*#__PURE__*/function () {
         }).then(function (response) {
           $button.addClass('selected').siblings().removeClass('selected');
           chartInstance.destroy();
+          $('.graph-sentiment').remove();
           $(canvasId).replaceWith(response.data);
           new Graph($(canvasId)).draw(builder);
         })["catch"](function (response) {
@@ -2374,10 +2375,13 @@ percentage = function percentage(piece, total) {
 
 moneyToFloat = function moneyToFloat(money) {
   return Number(money.replace(/[^0-9.-]+/g, ""));
-}; // currency = function(amount, symbol = null) {
-// 	let number = parseFloat(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
-// 	return symbol ? symbol + number : number;
-// };
+};
+
+currency = function currency(amount) {
+  var symbol = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  var number = parseFloat(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  return symbol ? symbol + number : number;
+};
 
 /***/ }),
 

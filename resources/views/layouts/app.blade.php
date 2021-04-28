@@ -70,7 +70,11 @@ a:hover .fa-long-arrow-alt-right {
         <script type="text/javascript">
             window.app = <?php echo json_encode([
                 'csrfToken' => csrf_token(),
-                'currency' => appCurrency()->getCurrency(),
+                'currency' => [
+                    'name' => appCurrency()->getName(),
+                    'short' => appCurrency()->getCurrency(),
+                    'symbol' => appCurrency()->getSymbol()
+                ],
                 'url' => \Request::root()
             ]); ?>
         </script>

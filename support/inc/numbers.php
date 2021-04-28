@@ -49,3 +49,8 @@ function large_num($n) {
 
     return number_format($n);
 }
+
+function between($num, $bottom, $top)
+{
+	return $num >= $bottom && $num < $top;
+}

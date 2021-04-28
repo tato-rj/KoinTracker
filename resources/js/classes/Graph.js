@@ -86,7 +86,7 @@ class BigGraph
 			    	},
 			    	tooltips: {
 			    		titleFontSize: 16,
-			    		titleFontFamily: "Segoe UI",
+			    		// titleFontFamily: "Segoe UI",
 			    		mode: 'index',
 			    		intersect: false,
 			            custom: function(item) {
@@ -105,7 +105,7 @@ class BigGraph
 			            	},
 			                label: function(item, data) {
 			                	let initialPrice = data.datasets[0].data[0];
-			                	let price = currency(item.value, '$');
+			                	let price = currency(item.value, app.currency.symbol);
 			                	let difference = item.value - initialPrice;
 			                	let isPositive = difference >= 0;
 			                	let percentage = percent(difference, initialPrice) + '%';
@@ -233,6 +233,8 @@ class GraphRange
 				 	$button.addClass('selected').siblings().removeClass('selected');
 
 				 	chartInstance.destroy();
+
+				 	$('.graph-sentiment').remove();
 
 				 	$(canvasId).replaceWith(response.data);
 
