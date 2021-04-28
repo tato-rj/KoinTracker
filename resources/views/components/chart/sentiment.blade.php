@@ -1,3 +1,4 @@
+@if($prices && $prices->last() && $prices->avg())
 @php($priceChange = number_format($prices->last() / $prices->avg(), 4))
 
 <div class="text-right graph-sentiment">
@@ -21,3 +22,4 @@
 	<div class="text-green font-weight-bold">To the moon!! @fa(['icon' => 'grin', 'mr' => 0, 'size' => 'lg'])</div>
 	@endif
 </div>
+@endif
