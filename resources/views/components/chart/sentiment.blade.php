@@ -11,7 +11,7 @@
 	<div class="text-red font-weight-bold">Not so good... @fa(['icon' => 'flushed', 'mr' => 0, 'size' => 'lg'])</div>
 	<div class="text-grey font-weight-bold">We're {{$priceDifference <= 0 ? 'down' : 'up'}} {{$priceDifference}}</div>
 	@elseif(between($priceChange, 0.96, 0.98))
-	<div class="text-red font-weight-bold">Come on... @fa(['icon' => 'grinface', 'mr' => 0, 'size' => 'lg'])</div>
+	<div class="text-red font-weight-bold">Come on... @fa(['icon' => 'grimace', 'mr' => 0, 'size' => 'lg'])</div>
 	<div class="text-grey font-weight-bold">We're {{$priceDifference <= 0 ? 'down' : 'up'}} {{$priceDifference}}</div>
 	@elseif(between($priceChange, 0.97, 0.99))
 	<div class="text-red font-weight-bold">Ugh... @fa(['icon' => 'angry', 'mr' => 0, 'size' => 'lg'])</div>
