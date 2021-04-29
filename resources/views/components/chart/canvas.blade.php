@@ -1,4 +1,4 @@
-{{-- @include('components.chart.sentiment', ['prices' => $points['prices']]) --}}
+@include('components.chart.sentiment', ['prices' => $points['prices']])
 <canvas id="{{$id}}" 
 		data-url="{{$url ?? null}}" 
 		data-color="{{$color ?? '#212529'}}" 

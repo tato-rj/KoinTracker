@@ -26,9 +26,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('market:fresh')->everyTwoMinutes();
 
-        $schedule->command('fiats:fresh')->twiceDaily(1, 13);
+        // $schedule->command('fiats:fresh')->twiceDaily(1, 13);
 
-        $schedule->command('exchanges:fresh 60')->quarterly();
+        // $schedule->command('exchanges:fresh 60')->quarterly();
     }
 
     /**
