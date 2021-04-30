@@ -58,7 +58,7 @@ class GetMarketData extends Command
                 now()->diffInMinutes($start) .' in minutes' : 
                 now()->diffInSeconds($start) . ' in seconds';
 
-        $calls = Coin::count() * 7;
+        $calls = app()->coins->count() * 7;
 
         return $this->info('Market data has been updated! We called the api ' . $calls . ' times and it took ' . $diff);
     }
