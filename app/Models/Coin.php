@@ -4,32 +4,26 @@ namespace App\Models;
 
 use App\Contracts\ApiContract;
 use App\Models\Traits\CryptoApi;
-use App\Api\Fake\Coin as FakeCoin;
-use App\Casts\Money;
+use App\Api\Fake\FakeCoin;
+use App\Markets\CryptoMarket;
 
 class Coin extends AppModel implements ApiContract
 {
 	use CryptoApi;
 	
-    protected $casts = [
-        'current_price' => Money::class,
-        'latest_market' => 'array',
-		'latest_1h_range' => 'array',
-		'latest_24h_range' => 'array',
-		'latest_7d_range' => 'array',
-		'latest_30d_range' => 'array',
-		'latest_1y_range' => 'array',
-		'latest_all_range' => 'array'
-    ];
-
     public function getRouteKeyName()
     {
         return 'uid';
     }
 
+    public function market()
+    {
+        return new CryptoMarket($this);
+    }
+
     public function scopeFake($query)
     {
-        return new FakeCoin;
+        return new FakeCoin($this);
     }
 
     public function is($uid)
@@ -51,7 +45,7 @@ class Coin extends AppModel implements ApiContract
     {
         $currency = strtoupper($currency);
 
-        return $this->current_price->multiply($amount)
+        return $this->market()->get('current_price')->multiply($amount)
                                    ->convert(currency($currency), Fiat::currency($currency)->rate);
     }
 }

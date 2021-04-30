@@ -21,7 +21,7 @@
 			</div>
 			<div class="mb-4">
 				<div id="price-date" data-original="Price of {{$coin->name}} now" style="font-size: 88%" class="text-muted">Price of {{$coin->name}} now</div>
-				<h1 id="price" class="m-0" data-original="{{$coin->current_price}}" style="font-size: 3em">{{$coin->current_price}}</h1>
+				<h1 id="price" class="m-0" data-original="{{$coin->market()->get('current_price')}}" style="font-size: 3em">{{$coin->market()->get('current_price')}}</h1>
 				@include('portfolios.components.gains', [
 					'label' => $coin->priceChangeToday . ' (' . formatPercent($coin->pastDayChange, false) . ')',
 					'isPositive' => $coin->priceChangeToday->isPositive(),

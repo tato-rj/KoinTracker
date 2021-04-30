@@ -9,13 +9,12 @@ class ConversionsController extends Controller
 {
     public function index()
     {
-        $coins = Coin::all();
         $relevantFiats = Fiat::relevant();
         $otherFiats = Fiat::notRelevant();
         $fiats = $relevantFiats->merge($otherFiats);
         $exchanges = Exchange::valid()->top(8)->get();
         
-    	return view('convert.index', compact(['coins', 'relevantFiats', 'otherFiats', 'fiats', 'exchanges']));
+    	return view('convert.index', compact(['relevantFiats', 'otherFiats', 'fiats', 'exchanges']));
     }
 
     public function coinToFiat(Request $request)

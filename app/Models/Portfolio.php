@@ -80,7 +80,7 @@ class Portfolio extends AppModel implements ApiContract
 		$total = 0;
 
 		foreach ($this->coins as $coin) {
-			$total = $coin->current_price->multiply($this->amountOf($coin->uid, $date))->add($total);
+			$total = $coin->market()->get('current_price')->multiply($this->amountOf($coin->uid, $date))->add($total);
 		}
 
 		return $total;
@@ -88,7 +88,7 @@ class Portfolio extends AppModel implements ApiContract
 
 	public function valueFor($coin, $date = null)
 	{
-		return $coin->current_price->multiply($this->amountOf($coin->uid, $date));
+		return $coin->market()->get('current_price')->multiply($this->amountOf($coin->uid, $date));
 	}
 
 	public function range($range)

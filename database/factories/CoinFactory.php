@@ -25,14 +25,6 @@ class CoinFactory extends Factory
             'uid' => $this->faker->word,
             'short' => $this->faker->word,
             'name' => $this->faker->word,
-            'current_price' => money($this->faker->randomFloat(null, 1), appCurrencySymbol()),
-            'latest_market' => Coin::fake()->market(),
-            'latest_1h_range' => Coin::fake()->range('hour'),
-            'latest_24h_range' => Coin::fake()->range('day'),
-            'latest_7d_range' => Coin::fake()->range('week'),
-            'latest_30d_range' => Coin::fake()->range('month'),
-            'latest_1y_range' => Coin::fake()->range('year'),
-            'latest_all_range' => Coin::fake()->range('year')
         ];
     }
 }

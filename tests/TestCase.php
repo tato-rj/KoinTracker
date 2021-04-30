@@ -14,16 +14,20 @@ abstract class TestCase extends BaseTestCase
     public function setUp() : void
     {
         parent::setUp();
-
+        
         $this->disableExceptionHandling();
 
         $this->portfolio = Portfolio::factory()->create();
 
-        $this->coin = Coin::factory()->create();
+        $this->coin = $this->newCoin();
 
         $this->fiat = Fiat::factory()->create();
         
-        $this->transaction = Transaction::factory()->create(['portfolio_id' => $this->portfolio]);
+        $this->transaction = Transaction::factory()->create(['portfolio_id' => $this->portfolio, 'coin_id' => $this->newCoin()->id]);
+
+        $this->beforeApplicationDestroyed(function () {
+            $this->artisan('redis:flush ' . config('database.redis.prefix'));
+        });
     }
 
     protected function signIn($guest = null, $verify = false)
@@ -50,5 +54,14 @@ abstract class TestCase extends BaseTestCase
         );
 
         return $this->actingAs($user)->get($verificationUrl);
+    }
+
+    public function newCoin()
+    {
+        $coin = Coin::factory()->create();
+
+        $coin->fake()->mock();
+
+        return $coin;
     }
 }

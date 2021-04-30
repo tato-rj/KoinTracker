@@ -14,6 +14,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton('coins', function ($app) {
+            return \Cache::remember('app_coins', weeks(1), function() {
+                return Coin::all();
+            });
+        });
+
         \View::composer('*', function($view) {
             $badges = Badge::all();
             $timeslots = timeslots('0:00', '24:00', '15');

@@ -51,7 +51,7 @@ class Transaction extends AppModel
 
 	public function gains($number = false)
 	{
-		$percent = diffInPercent($this->price_per_coin->getAmount(), $this->coin->current_price->getAmount());
+		$percent = diffInPercent($this->price_per_coin->getAmount(), $this->coin->market()->get('current_price')->getAmount());
 
 		return $number ? floatval($percent) : $percent;
 	}

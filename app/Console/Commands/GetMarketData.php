@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\Coin;
+use Illuminate\Support\Facades\Redis;
 
 class GetMarketData extends Command
 {
@@ -41,20 +42,12 @@ class GetMarketData extends Command
         $start = now();
 
         try {
-            Coin::all()->each(function($coin) {
-                $data = $coin->api()->market();
-
-                $coin->update(['current_price' => $data ? money($data['market_data']['current_price']['usd'], 'usd', $absolute = true) : $coin->current_price]);
-                $coin->update(['latest_market' => $data ?? $coin->latest_market]);
-                $coin->update(['latest_1h_range' => $coin->api()->range(now()->subHour()) ?? $coin->latest_1h_range]);
-                $coin->update(['latest_24h_range' => $coin->api()->range(now()->subDay()) ?? $coin->latest_24h_range]);
-                $coin->update(['latest_7d_range' => $coin->api()->range(now()->subWeek()) ?? $coin->latest_7d_range]);
-                $coin->update(['latest_30d_range' => $coin->api()->range(now()->subMonth()) ?? $coin->latest_30d_range]);
-                $coin->update(['latest_1y_range' => $coin->api()->range(now()->subYear()) ?? $coin->latest_1y_range]);
-                $coin->update(['latest_all_range' => $coin->api()->range() ?? $coin->latest_all_range]);
+            app()->coins->each(function($coin) {
+                $coin->market()->update();
             });
         } catch (\Exception $e) {
             bugreport($e);
+
             return $this->info($e->getMessage());         
         }
 

@@ -28,7 +28,7 @@ class PortfolioTest extends TestCase
 	/** @test */
 	public function it_knows_the_amount_of_coins_it_has_for_any_given_coin()
 	{
-		$coin = Coin::factory()->create();
+		$coin = $this->newCoin();
 		
 		Transaction::factory()->count(2)->create([
 			'portfolio_id' => $this->portfolio->id, 
@@ -42,7 +42,7 @@ class PortfolioTest extends TestCase
 	/** @test */
 	public function it_knows_the_amount_of_coins_it_has_for_any_given_coin_up_to_a_specific_date()
 	{
-		$coin = Coin::factory()->create();
+		$coin = $this->newCoin();
 		
 		Transaction::factory()->count(2)->create([
 			'portfolio_id' => $this->portfolio->id, 
@@ -66,7 +66,7 @@ class PortfolioTest extends TestCase
 	/** @test */
 	public function it_knows_its_original_value()
 	{
-		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id, 'transaction_date' => now()->subMonth()]);
+		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id, 'transaction_date' => now()->subMonth(), 'coin_id' => $this->newCoin()->id]);
 		 
 		$this->assertFalse($this->portfolio->originalValue()->equals($this->portfolio->value()));		 
 	}
@@ -74,11 +74,11 @@ class PortfolioTest extends TestCase
 	/** @test */
 	public function it_knows_its_most_current_total_value()
 	{
-		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id]);
+		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id, 'coin_id' => $this->newCoin()->id]);
 
 		$oldValue = $this->portfolio->value();
 
-		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id]);
+		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id, 'coin_id' => $this->newCoin()->id]);
 
 		$this->assertTrue($this->portfolio->value()->greaterThan($oldValue));
 	}
@@ -86,11 +86,11 @@ class PortfolioTest extends TestCase
 	/** @test */
 	public function it_knows_its_total_most_current_total_value_up_to_a_specific_date()
 	{
-		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id, 'transaction_date' => now()->subMonth()]);
+		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id, 'transaction_date' => now()->subMonth(), 'coin_id' => $this->newCoin()->id]);
 
 		$oldValue = $this->portfolio->value();
 
-		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id, 'transaction_date' => now()]);
+		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id, 'transaction_date' => now(), 'coin_id' => $this->newCoin()->id]);
 
 		$this->assertTrue($this->portfolio->value(now()->subWeek())->equals($oldValue));
 	}
@@ -98,9 +98,9 @@ class PortfolioTest extends TestCase
 	/** @test */
 	public function it_knows_its_total_most_current_total_value_for_a_given_coin()
 	{
-		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id]);
+		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id, 'coin_id' => $this->newCoin()->id]);
 
-		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id]);
+		Transaction::factory()->create(['portfolio_id' => $this->portfolio->id, 'coin_id' => $this->newCoin()->id]);
 
 		$this->assertTrue($this->portfolio->valueFor($this->portfolio->coins->first())->lessThan($this->portfolio->value()));
 	}
@@ -108,11 +108,11 @@ class PortfolioTest extends TestCase
 	/** @test */
 	public function it_knows_its_total_most_current_total_value_for_a_given_coin_up_to_a_specific_date()
 	{
-		$coin = Coin::factory()->create();
+		$coin = $this->newCoin();
 
-		Transaction::factory()->create(['coin_id' => $coin->id, 'portfolio_id' => $this->portfolio->id, 'transaction_date' => now()->subMonth()]);
+		Transaction::factory()->create(['coin_id' => $coin->id, 'portfolio_id' => $this->portfolio->id, 'transaction_date' => now()->subMonth(), 'coin_id' => $coin->id]);
 
-		Transaction::factory()->create(['coin_id' => $coin->id, 'portfolio_id' => $this->portfolio->id, 'transaction_date' => now()]);
+		Transaction::factory()->create(['coin_id' => $coin->id, 'portfolio_id' => $this->portfolio->id, 'transaction_date' => now(), 'coin_id' => $coin->id]);
 
 		$this->assertTrue($this->portfolio->valueFor($coin, now()->subWeek())->lessThan($this->portfolio->valueFor($coin)));
 	}

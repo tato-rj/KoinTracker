@@ -11,9 +11,9 @@
 </ul>
 
 <div class="form-group d-flex align-items-center">
-	<img src="{{isset($coin) ? $coin->getIcon() : $coins->first()->getIcon()}}" class="mr-2" style="height: 100%">
+	<img src="{{isset($coin) ? $coin->getIcon() : app()->coins->first()->getIcon()}}" class="mr-2" style="height: 100%">
 	<select id="select-coin" class="custom-select">
-		@foreach($coins as $transactionCoin)
+		@foreach(app()->coins as $transactionCoin)
 		<option data-icon="{{$transactionCoin->getIcon()}}" 
 			@isset($coin)
 			{{$coin->is($transactionCoin) ? 'selected' : 'foo'}} 

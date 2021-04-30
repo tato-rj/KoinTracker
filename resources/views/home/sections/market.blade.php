@@ -6,5 +6,5 @@
 		</div>
 		<p class="m-0"><a href="" data-toggle="modal" data-target="#more-coins-modal">More coins @fa(['icon' => 'long-arrow-alt-right', 'mr' => 0])</a></p>
 	</div>
-	@each('coins.components.card', $coins, 'coin')
+	@each('coins.components.card', app()->coins, 'coin')
 </div>

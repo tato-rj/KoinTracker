@@ -25,9 +25,7 @@ class PortfoliosController extends Controller
      */
     public function show(Portfolio $portfolio)
     {
-        $coins = Coin::all();
-
-        return view('portfolios.show.index', compact(['portfolio', 'coins']));
+        return view('portfolios.show.index', compact(['portfolio']));
     }
 
     public function transactions(Request $request, Portfolio $portfolio)

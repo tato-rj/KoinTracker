@@ -54,7 +54,7 @@ class Fiat extends AppModel
 	public function valueIn($amount, Coin $coin)
 	{
 		$fiat = money($amount, $this->currency)->convert(currency('usd'), 1/$this->rate)->getAmount();
-		$price = $coin->current_price->getValue();
+		$price = $coin->market()->get('current_price')->getValue();
 
 		return number_format($fiat / $price,4) . ' ' . strtoupper($coin->short);
 	}
