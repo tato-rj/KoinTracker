@@ -16,6 +16,6 @@
             @endforeach
             <input required type="text" name="amount" class="money-field form-control border-0 bg-light ml-2" placeholder="How much money?" style="border: 0;" autocomplete="off">
         </div>
-        <button type="submit" class="btn btn-primary btn-block" data-url="{{route('convert.fiat-coin')}}">CONVERT</button>
+        <button type="submit" class="btn btn-primary btn-block" style="padding: 1.85rem 1.25rem" data-url="{{route('convert.fiat-coin')}}">CONVERT</button>
     </div>
 </form>
