@@ -7,9 +7,9 @@
 @endpush
 
 @section('content')
-<div class="container">
+<div class="container mb-6">
     @title(['title' => 'Convert currencies', 'description' => 'Convert a cryptocurrencies a fiat currencies to find out how much your money is worth.'])
-	<div class="row mb-6" id="convert-forms">
+	<div class="row mb-4" id="convert-forms">
     <div class="col-12 text-center">
       <button id="switch-conversion" class="btn btn-outline-primary rounded mx-auto mb-4">@fa(['icon' => 'exchange-alt'])Switch</button>
     </div>
@@ -17,6 +17,17 @@
     @include('convert.types.fiatToCoin')
 	</div>
 
+  <div class="row">
+    <div class="col-12">
+      <h5 class="text-center">Popular conversions</h5>
+    </div>
+    <div class="col-lg-4 col-md-6 col-12">
+      
+    </div>
+  </div>
+</div>
+
+<div class="container">
   @include('exchanges.highlights')
 </div>
 @endsection

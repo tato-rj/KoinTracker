@@ -14,7 +14,7 @@
             @foreach($fiats as $fiat)
                 <div class="text-muted noselect fiat-logo fiat-{{$fiat->id}}" style="display: {{$fiat->is('usd') ? 'block' : 'none'}}">{{$fiat->getCurrency()->getSymbol()}}</div>
             @endforeach
-            <input required type="text" name="amount" style="padding: 1.85rem 1.25rem" class="money-field form-control border-0 bg-light ml-2" placeholder="How much money?" style="border: 0;" autocomplete="off">
+            <input required type="text" name="amount" style="padding: 1.85rem 1.25rem" class="money-field form-control bg-light ml-2" placeholder="How much money?" style="border: 0;" autocomplete="off">
         </div>
         <button type="submit" class="btn btn-primary btn-block" data-url="{{route('convert.fiat-coin')}}">CONVERT</button>
     </div>

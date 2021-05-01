@@ -10436,6 +10436,10 @@ h3 {
   .border-sm-none {
     border: none !important;
   }
+
+  canvas.chart-canvas {
+    height: 120px !important;
+  }
 }
 .btn {
   text-transform: uppercase;

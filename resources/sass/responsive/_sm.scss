@@ -8,7 +8,11 @@
 	}
 
 	.border-sm-none {
-		border: none!important;
+		border: none !important;
+	}
+
+	canvas.chart-canvas {
+		height: 120px !important;
 	}
 }
 

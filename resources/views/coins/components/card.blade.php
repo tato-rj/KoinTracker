@@ -9,7 +9,7 @@
 				</div>
 			</div>
 			<div class="mb-2">
-				<canvas id="{{$coin->uid}}-canvas" data-color="{{$coin->pastDayChange > 0 ? '#38c172' : '#e3342f'}}" data-points="{{json_encode($coin->range('24h'))}}" class="w-100" style="height: 80px;"></canvas>
+				<canvas id="{{$coin->uid}}-canvas" data-color="{{$coin->pastDayChange > 0 ? '#38c172' : '#e3342f'}}" data-points="{{json_encode($coin->range('24h'))}}" class="w-100 chart-canvas" style="height: 80px"></canvas>
 			</div>
 			<div class="d-flex d-apart">
 				<div class="coin-price">{{$coin->market()->get('current_price')}}</div>
