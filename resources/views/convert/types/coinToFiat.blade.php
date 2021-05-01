@@ -10,7 +10,7 @@
     </div>
     <div class="text-center">
         <div class="convert-result"></div>
-        <input required type="number" step="any" name="amount" class="form-control border-0 bg-light mb-4" placeholder="How many coins?" style="border: 0" autocomplete="off">
-        <button type="submit" class="btn btn-primary btn-block" style="padding: 1.85rem 1.25rem" data-url="{{route('convert.coin-fiat')}}">CONVERT</button>
+        <input required type="number" step="any" name="amount" style="padding: 1.85rem 1.25rem" class="form-control border-0 bg-light mb-4" placeholder="How many coins?" style="border: 0" autocomplete="off">
+        <button type="submit" class="btn btn-primary btn-block" data-url="{{route('convert.coin-fiat')}}">CONVERT</button>
     </div>
 </form>
