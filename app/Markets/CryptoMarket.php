@@ -3,13 +3,13 @@
 namespace App\Markets;
 
 use App\Models\Coin;
-use Illuminate\Support\Facades\Redis;
 
-class CryptoMarket
+class CryptoMarket extends Crypto
 {
 	public function __construct(Coin $coin)
 	{
-		$this->prefix = config('database.redis.prefix');
+		parent::__construct();
+
 		$this->coin = $coin;
 	}
 
@@ -25,20 +25,6 @@ class CryptoMarket
         $this->set('latest_30d_range', $this->coin->api()->range(now()->subMonth()));
         $this->set('latest_1y_range', $this->coin->api()->range(now()->subYear()));
         $this->set('latest_all_range', $this->coin->api()->range());
-	}
-
-	public function set($key, $value)
-	{
-		if ($value)
-			Redis::hset($this->namespace(), $key, serialize($value));
-	}
-
-	public function get($key = null)
-	{
-		if ($key)
-			return unserialize(Redis::hget($this->namespace(), $key));
-
-		return Redis::hgetall($this->namespace());
 	}
 
 	public function namespace()

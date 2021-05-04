@@ -1,0 +1,1 @@
+<div style="line-height: 1; font-size: 70%" class="text-muted"><strong>{{$label}}</strong></div>

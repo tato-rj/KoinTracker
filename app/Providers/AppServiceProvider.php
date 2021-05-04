@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 use App\Models\{Coin, Badge};
+use Illuminate\Support\Collection;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +37,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::useBootstrap();
+
+        Collection::macro('unserialized', function() {
+            return $this->map(function($item, $key) {
+                return unserialize($item)[0];
+            });
+        });
+
         \Blade::include('components.fontawesome', 'fa');
         \Blade::include('components.flag');
         \Blade::include('components.caret');

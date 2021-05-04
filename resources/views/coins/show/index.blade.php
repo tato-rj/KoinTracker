@@ -34,7 +34,7 @@
 
 		</div>
 		<div class="col-lg-8 col-md-6 col-12 mb-2">
-			@include('components.chart.canvas', ['id' => 'chart', 'points' => $coin->range('24h'), 'url' => route('coins.chart', $coin)])
+			@include('components.chart.canvas', ['id' => 'chart', 'points' => $coin->range('24h'), 'url' => route('coins.show.chart', $coin)])
 
 			@include('components.chart.range', ['target' => 'chart'])
 

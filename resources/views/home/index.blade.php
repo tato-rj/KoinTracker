@@ -19,8 +19,6 @@
 	@include('exchanges.highlights')
 </div>
 
-@include('coins.more')
-
 @auth
 @include('transactions.create.modal')
 @endauth

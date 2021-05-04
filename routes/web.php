@@ -46,13 +46,22 @@ Route::prefix('convert')->middleware('dev')->name('convert.')->group(function() 
 
 });
 
-Route::prefix('{coin}')->middleware('dev')->name('coins.')->group(function() {
+Route::prefix('coins')->middleware('dev')->name('coins.')->group(function() {
 
-	Route::get('', 'CoinsController@show')->name('show');
+	Route::get('', 'CoinsController@index')->name('index');
 
-	Route::get('chart', 'ChartsController@coin')->name('chart');
+	Route::get('search', 'CoinsController@search')->name('search');
 
+	Route::prefix('{coin}')->name('show')->group(function() {
+
+		Route::get('', 'CoinsController@show');
+
+		Route::get('chart', 'ChartsController@coin')->name('.chart');
+
+	});
 });
+
+
 
 Route::prefix('portfolios')->middleware('dev')->name('portfolios.')->group(function() {
 

@@ -48,4 +48,33 @@ class Coingecko
 
 		return $response->collect();
 	}
+
+	public function coins()
+	{
+		$page = 1;
+		$openChannel = true;
+		$coins = collect();
+
+		while ($openChannel) {
+			$response = Http::retry(3, 100)->get('https://api.coingecko.com/api/v3/coins/markets', [
+				'vs_currency' => 'usd',
+				'order' => 'market_cap_desc',
+				'per_page' => 250,
+				'sparkline' => 'true',
+				'page' => $page
+			]);
+
+			foreach($response->collect() as $data) {
+				$coins->push($data);
+			}
+
+			if ($response->collect()->isNotEmpty()) {
+				$page += 1;
+			} else {
+				$openChannel = false;
+			}
+		}
+
+		return $coins;
+	}
 }
