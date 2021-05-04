@@ -13,9 +13,9 @@
 				<div class="nav-item my-2">
 					<a href="{{route('home')}}" class="nav-link t-2 rounded px-4 py-2 font-lg text-dark link-none font-weight-bold">@fa(['icon' => 'home', 'classes' => 'opacity-6'])HOME</a>
 				</div>
-{{-- 				<div class="nav-item my-2">
-					<a href="{{route('home')}}" class="nav-link t-2 rounded px-4 py-2 font-lg text-dark link-none font-weight-bold">@fa(['icon' => 'eye', 'classes' => 'opacity-6'])WATCHLIST</a>
-				</div> --}}
+				<div class="nav-item my-2">
+					<a href="{{route('coins.index')}}" class="nav-link t-2 rounded px-4 py-2 font-lg text-dark link-none font-weight-bold">@fa(['icon' => 'coins', 'classes' => 'opacity-6'])COINS</a>
+				</div>
 				<div class="nav-item my-2">
 					<a href="{{route('exchanges')}}" class="nav-link t-2 rounded px-4 py-2 font-lg text-dark link-none font-weight-bold">@fa(['icon' => 'university', 'classes' => 'opacity-6'])EXCHANGES</a>
 				</div>
