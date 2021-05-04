@@ -16,8 +16,8 @@
 
 		@include('coins.search.input')
 
-		<div class="col-12" id="results-container" style="display: none;"></div>
-		<div class="col-12" id="coins-container"> 
+		<div class="col-12 t-2" id="results-container" style="display: none;"></div>
+		<div class="col-12 t-2" id="coins-container"> 
 			<div class="mb-5">
 				@foreach($coins as $coin)
 					@include('coins.components.row', ['coin' => $coin, 'animate' => true])
@@ -42,9 +42,9 @@ $(document).ready(function() {
 		let input = $(this).val().toLowerCase();
 
 		if (input.length > 2) {
-			if (! $coins.hasClass('opacity-6')) {
-				print('here');
 				$coins.addClass('opacity-6');
+				$results.addClass('opacity-6');
+
 				setTimeout(function() {
 					axios.get(url, {params: {input: input}})
 						 .then(function(response) {
@@ -56,13 +56,13 @@ $(document).ready(function() {
 						 })
 						 .then(function() {
 						 	$coins.removeClass('opacity-6');
+							$results.removeClass('opacity-6');
 						 });
 				}, 100);
+			} else {
+				$coins.removeClass('opacity-6').show();
+				$results.removeClass('opacity-6').html('').hide();
 			}
-		} else {
-			$coins.removeClass('opacity-6').show();
-			$results.html('').hide();
-		}
 	});
 
 	$('.coin-card').each(function() {
