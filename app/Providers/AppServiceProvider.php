@@ -41,11 +41,12 @@ class AppServiceProvider extends ServiceProvider
 
         Collection::macro('unserialized', function() {
             return $this->map(function($item, $key) {
-                try {
-                    return unserialize($item)[0];
-                } catch (\Exception $e) {
-                    dd(unserialize($item));
-                }
+                return unserialize($item);
+                // try {
+                //     return unserialize($item)[0];
+                // } catch (\Exception $e) {
+                //     dd(unserialize($item));
+                // }
                 
             });
         });
