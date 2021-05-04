@@ -3,7 +3,7 @@
         <div class="row align-items-center mb-2">
             @include('convert.components.coin')
             <div class="col-2 text-center">
-                <h2 class="m-4 text-grey">TO</h2>
+                <h2 class="m-0 text-grey">TO</h2>
             </div>
             @include('convert.components.fiat')
         </div>
