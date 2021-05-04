@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
         Collection::macro('unserialized', function() {
             return $this->map(function($item, $key) {
                 $data = unserialize($item);
-                return count($data) == 1 ? $data[0] : $item;                
+                return isset($data[0]) ? $data[0] : $item;                
             });
         });
 
