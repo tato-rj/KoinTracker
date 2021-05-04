@@ -24,7 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('market:fresh')->everyTwoMinutes();
+        $schedule->command('market:fresh')->everyTwoMinutes()->unlessBetween('12:25', '12:32');
+
+        $schedule->command('market:coins')->dailyAt('12:28');
 
         $schedule->command('fiats:fresh')->twiceDaily(1, 13);
 
