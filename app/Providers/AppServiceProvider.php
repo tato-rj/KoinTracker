@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
                 try {
                     return unserialize($item)[0];
                 } catch (\Exception $e) {
-                    dd($item);
+                    dd(unserialize($item));
                 }
                 
             });
