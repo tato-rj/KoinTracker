@@ -25,6 +25,6 @@ abstract class Crypto
 		if ($key)
 			return unserialize(Redis::hget($this->namespace(), $key));
 
-		return Redis::hgetall($this->namespace());
+		return collect(Redis::hgetall($this->namespace()))->unserialized();
 	}
 }

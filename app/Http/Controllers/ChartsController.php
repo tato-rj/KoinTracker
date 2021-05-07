@@ -12,7 +12,8 @@ class ChartsController extends Controller
         return view('components.chart.canvas', [
             'id' => $request->id, 
             'points' => $coin->range($request->range), 
-            'url' => route('coins.chart', $coin)])->render();
+            'url' => route('coins.show.chart', $coin), 
+            'color' => $coin->color($request->range)])->render();
     }
 
     public function portfolio(Request $request, Portfolio $portfolio)

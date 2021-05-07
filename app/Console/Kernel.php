@@ -24,13 +24,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('market:fresh')->everyTwoMinutes()->unlessBetween('12:25', '12:32');
+        // $schedule->command('market:data')->everyTwoMinutes()->unlessBetween('12:25', '12:32');
 
-        $schedule->command('market:coins')->dailyAt('12:28');
+        // $schedule->command('market:coins')->dailyAt('12:28');
 
-        $schedule->command('fiats:fresh')->twiceDaily(1, 13);
+        // $schedule->command('market:fiats')->twiceDaily(1, 13);
 
-        $schedule->command('exchanges:fresh 60')->quarterly();
+        // $schedule->command('market:exchanges 100')->quarterly();
     }
 
     /**

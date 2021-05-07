@@ -46,6 +46,32 @@ class Coin extends AppModel implements ApiContract
         $currency = strtoupper($currency);
 
         return $this->market()->get('current_price')->multiply($amount)
-                                   ->convert(currency($currency), Fiat::currency($currency)->rate);
+                              ->convert(currency($currency), Fiat::currency($currency)->rate);
+    }
+
+    public function color($period)
+    {
+        $green = '#38c172';
+        $red = '#e3342f';
+
+        switch ($period) {
+          case '1h':
+            return $this->pastHourChange > 0 ? $green : $red;
+            break;
+          case '24h':
+            return $this->pastDayChange > 0 ? $green : $red;
+            break;
+          case '7d':
+            return $this->pastWeekChange > 0 ? $green : $red;
+            break;
+          case '30d':
+            return $this->pastMonthChange > 0 ? $green : $red;
+            break;
+          case '1y':
+            return $this->pastYearChange > 0 ? $green : $red;
+            break;
+          default:
+            return '#212529';
+        }
     }
 }

@@ -41,8 +41,8 @@ class ResetDatabase extends Command
             return $this->info('You can only do this on local environment.');
 
         if ($this->confirm('This will delete the database and start everything from scratch. Are you sure?')) {
+            exec('redis-cli flushall');
             \Artisan::call('migrate:fresh --seed');
-            \Artisan::call('market:fresh');
 
             return $this->info('Ready to go.');
         }

@@ -110,4 +110,30 @@ class Portfolio extends AppModel implements ApiContract
 
 		return compact(['timestamps', 'prices']);
 	}
+
+    public function color($period)
+    {
+        $green = '#38c172';
+        $red = '#e3342f';
+
+        switch ($period) {
+          case '1h':
+            return $this->pastHourChange > 0 ? $green : $red;
+            break;
+          case '24h':
+            return $this->pastDayChange > 0 ? $green : $red;
+            break;
+          case '7d':
+            return $this->pastWeekChange > 0 ? $green : $red;
+            break;
+          case '30d':
+            return $this->pastMonthChange > 0 ? $green : $red;
+            break;
+          case '1y':
+            return $this->pastYearChange > 0 ? $green : $red;
+            break;
+          default:
+            return '#212529';
+        }
+    }
 }

@@ -116,6 +116,47 @@ a:hover .fa-long-arrow-alt-right {
         <script src="{{ mix('js/app.js') }}"></script>
         <script src="{{ asset('js/vendor/money.min.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        let duration = $('#loading-screen span').length * 35;
+
+        setTimeout(function() {
+            $($('#loading-screen span').get().reverse()).each(function() {
+                let $letter = $(this);
+
+                setTimeout(function() {
+                    $letter.fadeOut(200);
+                }, $letter.index() * 25);   
+            });
+
+            setTimeout(function() {
+                $('#loading-screen img').addClass('animate__bounceOut').fadeOut(600, function() {
+                    $('#loading-screen').fadeOut('fast', function() {
+                        $('#loading-screen').remove();
+                    });
+                });
+            }, duration);
+        }, 200);
+    });
+    </script>
+        <script type="text/javascript">
+    $(document).on('click', '.toggle-watchlist', function() {
+        let $btn = $(this);
+
+        $btn.disable();
+
+        axios.patch($btn.data('url'))
+             .then(function(response) {
+                $btn.find('i').toggleClass('far fas');
+             })
+             .catch(function(error) {
+                alert(error);
+             })
+             .then(function() {
+                $btn.enable();
+             });
+    });
+        </script>
         <script type="text/javascript">
         $('button#load-transactions').click(function() {
             let $button = $(this);
@@ -137,6 +178,9 @@ a:hover .fa-long-arrow-alt-right {
                     console.log(error);
                  });
         });
+        </script>
+        <script type="text/javascript">
+            $('[numeral-format]').shortCurrency();
         </script>
         <script type="text/javascript">
         $("#sort-transactions select#sort-field").change(function() {

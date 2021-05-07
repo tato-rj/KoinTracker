@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use App\Models\{Portfolio, Transaction, User, Badge, Coin};
+use App\Models\{Portfolio, Transaction, User, Badge, Coin, Watchlist};
 
 class UserTest extends TestCase
 {
@@ -15,6 +15,16 @@ class UserTest extends TestCase
 		Portfolio::factory()->create(['user_id' => $user->id]);
 
 		$this->assertInstanceOf(Portfolio::class, $user->portfolios->first());		 
+	}
+
+	/** @test */
+	public function it_has_coins_in_a_watchlist()
+	{
+		$user = User::factory()->create();
+
+		$user->watchlist()->create(['coin_id' => $this->coin->uid]);
+
+		$this->assertInstanceOf(Watchlist::class, $user->watchlist->first());
 	}
 
 	/** @test */

@@ -13,13 +13,20 @@
 			<h4>World of Crypto</h4>
 			<p class="text-muted">Showing {{$coins->firstItem()}}-{{$coins->lastItem()}} of {{$coins->total()}} coins out in the market</p>
 		</div>
+		<div class="col-12 d-flex justify-content-end"> 
+			@sort(['id' => 'sort-transactions', 'fields' => [
+				'coin' => 'Coin',
+				'market_cap' => 'Market Cap',
+				'price' => 'Price per coin'
+			]])
+		</div>
 
 		@include('coins.search.input')
 
 		<div class="col-12 t-2" id="results-container" style="display: none;"></div>
 		<div class="col-12 t-2" id="coins-container"> 
 			<div class="mb-5">
-				@foreach($coins as $coin)
+				@foreach($coins as $index => $coin)
 					@include('coins.components.row', ['coin' => $coin, 'animate' => true])
 				@endforeach
 			</div>
@@ -49,7 +56,9 @@ $(document).ready(function() {
 					axios.get(url, {params: {input: input}})
 						 .then(function(response) {
 							$coins.hide();
-							$results.html(response.data).show();
+							$results.html(response.data);
+							$('[numeral-format]').shortCurrency();
+							$results.show();
 						 })
 						 .catch(function(error) {
 

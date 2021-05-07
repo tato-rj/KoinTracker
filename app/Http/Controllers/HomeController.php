@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function index()
     {
     	$exchanges = Exchange::valid()->top(8)->get();
-
+    	
     	return view('home.index', compact('exchanges'));
     }
 }

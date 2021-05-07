@@ -34,6 +34,14 @@ jQuery.fn.removeLoader = function() {
     $(this).find('.loader-spinner').remove();
 };
 
+jQuery.fn.shortCurrency = function() {
+  $(this).each(function() {
+    let value = $(this).attr('numeral-value');
+    let format = $(this).attr('numeral-format');
+    $(this).text(numeral(value).format(format).toUpperCase());    
+  });
+};
+
 $.fn.reverseChildren = function() {
   return this.each(function(){
     var $this = $(this);

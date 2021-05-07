@@ -2344,6 +2344,14 @@ jQuery.fn.removeLoader = function () {
   $(this).find('.loader-spinner').remove();
 };
 
+jQuery.fn.shortCurrency = function () {
+  $(this).each(function () {
+    var value = $(this).attr('numeral-value');
+    var format = $(this).attr('numeral-format');
+    $(this).text(numeral(value).format(format).toUpperCase());
+  });
+};
+
 $.fn.reverseChildren = function () {
   return this.each(function () {
     var $this = $(this);

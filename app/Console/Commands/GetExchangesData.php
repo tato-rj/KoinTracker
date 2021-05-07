@@ -12,7 +12,7 @@ class GetExchangesData extends Command
      *
      * @var string
      */
-    protected $signature = 'exchanges:fresh {count}';
+    protected $signature = 'market:exchanges {count}';
 
     /**
      * The console command description.

@@ -7,6 +7,10 @@
 @endpush
 
 @section('content')
+@unless(auth()->check())
+@include('components.loading')
+@endunless
+
 <div class="container">
 	@include('home.sections.summary')
 

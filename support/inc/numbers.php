@@ -15,14 +15,15 @@ function percentage($num, $total, $caret = false)
 			$downcaret . $percent . '%';
 }
 
-function diffInPercent($start, $end)
+function diffInPercent($start, $end, $withPercent = true)
 {	
 	if ($start == 0)
 		return '0%';
 	
-	$formatter = new \NumberFormatter('en_US', NumberFormatter::PERCENT);
+	$diff = $end - $start;
+	$percent = $withPercent ? '%' : null;
 
-	return $formatter->format(($end - $start) / $start);
+	return number_format(($diff * 100) / $start, 2) . $percent;
 }
 
 function formatPercent($number, $caret = true)
@@ -31,7 +32,7 @@ function formatPercent($number, $caret = true)
 	$downcaret = $caret ? '<i class="fas fa-caret-down mr-1"></i>' : null;
 
 	return $number > 0 ? 
-			$upcaret . number_format($number, 2) . '%' : 
+			$upcaret . number_format($number, 2) . '%': 
 			$downcaret . number_format($number, 2) . '%';
 }
 
@@ -52,5 +53,5 @@ function large_num($n) {
 
 function between($num, $bottom, $top)
 {
-	return $num >= $bottom && $num < $top;
+	return $num > $bottom && $num < $top;
 }

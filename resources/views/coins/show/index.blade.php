@@ -7,7 +7,7 @@
 <div class="container">
 	<div class="row mb-4">
 		<div class="col-lg-4 col-md-5 col-12 mb-2">
-			<div class="d-apart mb-4">
+			<div class="d-flex justify-content-between mb-4">
 				<div class="d-flex align-items-center">
 					<img src="{{$coin->getIcon()}}" class="mr-2" style="width: 40px">
 					<div>
@@ -16,7 +16,7 @@
 					</div>
 				</div>
 				<div>
-					<button id="toggle-watchlist" class="btn btn-raw">@fa(['fa_type' => 'r', 'icon' => 'star', 'size' => 'lg', 'mr' => 0])</button>
+					@include('coins.components.star', ['name' => $coin->name, 'id' => $coin->uid])
 				</div>
 			</div>
 			<div class="mb-4">
@@ -34,7 +34,7 @@
 
 		</div>
 		<div class="col-lg-8 col-md-6 col-12 mb-2">
-			@include('components.chart.canvas', ['id' => 'chart', 'points' => $coin->range('24h'), 'url' => route('coins.show.chart', $coin)])
+			@include('components.chart.canvas', ['id' => 'chart', 'points' => $coin->range('24h'), 'url' => route('coins.show.chart', $coin), 'color' => $coin->color('24h')])
 
 			@include('components.chart.range', ['target' => 'chart'])
 
@@ -66,7 +66,7 @@
 				<ul class="list-flat">
 					<li>
 						@label(['text' => 'Market cap', 'bold' => false])
-						<p class="font-weight-bold mb-2">{{money($coin->marketCap)->format()}}</p>
+						<p class="font-weight-bold mb-2" numeral-format="($0.00 a)" numeral-value="{{$coin->marketCap}}"></p>
 					</li>
 					<li>
 						@label(['text' => 'Volume (1D)', 'bold' => false])
@@ -109,14 +109,6 @@ $(document).ready(function() {
 	$('#coin-transactions').on('hide.bs.collapse', function (e) {
 		let $icon = $($(e.target).data('icon'));
 		$icon.removeClass('turn');
-	});
-
-	$('#toggle-watchlist').click(function() {
-		let $btn = $(this);
-
-		$btn.disable();
-		$btn.find('i').toggleClass('far fas');
-		$btn.enable();
 	});
 
 	(new GraphRange).linkTo(new BigGraph);

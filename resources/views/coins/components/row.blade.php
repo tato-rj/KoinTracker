@@ -1,4 +1,4 @@
-@php($validCoin = ! app()->coins->where('uid', $coin['id'])->isEmpty())
+@php($validCoin = app()->coins->exists('uid', $coin['id']))
 <div class="mb-4 coin-card t-2" id="{{$coin['symbol']}}-card" style="opacity: {{$animate ? 0 : 1}};">
 	<a 
 	@if($validCoin)
@@ -19,5 +19,5 @@
 </div>
 
 @if(! $validCoin)
-@include('coins.untracked', ['coin' => $coin['id']])
+@include('coins.untracked')
 @endif

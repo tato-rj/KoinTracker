@@ -36,7 +36,7 @@ class Transaction extends AppModel
 
 	public function getCurrentValueAttribute()
 	{
-		return $this->coin->current_price->multiply($this->coin_amount);
+		return $this->coin->market()->get('current_price')->multiply($this->coin_amount);
 	}
 
 	public function getDifferenceAttribute()

@@ -1,4 +1,4 @@
-<div class="row mb-5">
+<div class="row my-5">
 	<div class="col-12 mb-4 d-flex justify-content-between align-items-end">
 		<div>
 			<h4 class="m-0">How's the market today</h4>

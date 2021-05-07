@@ -11,14 +11,14 @@ class CoinsController extends Controller
 {
     public function index()
     {
-        $coins = CollectionPaginator::paginate(collect((new CryptoCurrency)->get())->unserialized()->sortKeys(), 16);
+        $coins = CollectionPaginator::paginate((new CryptoCurrency)->get()->sortKeys(), 16);
 
         return view('coins.index', compact('coins'));
     }
 
     public function search(Request $request)
     {
-        $coins = collect((new CryptoCurrency)->get())->unserialized()->sortKeys()->filter(function($coin) use ($request) {
+        $coins = (new CryptoCurrency)->get()->sortKeys()->filter(function($coin) use ($request) {
             return str_contains(strtolower($coin['name']), strtolower($request->input));
         });
         

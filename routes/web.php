@@ -61,6 +61,13 @@ Route::prefix('coins')->middleware('dev')->name('coins.')->group(function() {
 	});
 });
 
+Route::prefix('watchlist')->middleware(['auth', 'dev'])->name('watchlist.')->group(function() {
+
+	Route::get('', 'WatchlistController@index')->name('index');
+
+	Route::patch('', 'WatchlistController@update')->name('update');
+
+});
 
 
 Route::prefix('portfolios')->middleware('dev')->name('portfolios.')->group(function() {

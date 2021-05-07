@@ -12,7 +12,7 @@ class GetFiatsData extends Command
      *
      * @var string
      */
-    protected $signature = 'fiats:fresh';
+    protected $signature = 'market:fiats';
 
     /**
      * The console command description.

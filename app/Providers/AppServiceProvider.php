@@ -40,16 +40,20 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         Collection::macro('unserialized', function() {
-            return $this->map(function($item, $key) {
-                $data = unserialize($item);
-                return isset($data[0]) ? $data[0] : $data;                
+            return $this->transform(function($item, $key) {
+                return unserialize($item);            
             });
+        });
+
+        Collection::macro('exists', function($key, $value) {
+            return ! $this->where($key, $value)->isEmpty();
         });
 
         \Blade::include('components.fontawesome', 'fa');
         \Blade::include('components.flag');
         \Blade::include('components.caret');
         \Blade::include('components.label');
+        \Blade::include('components.sort');
         \Blade::include('components.form.input');
         \Blade::include('components.form.select');
         \Blade::include('components.form.textarea');

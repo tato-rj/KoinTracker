@@ -17,22 +17,26 @@
 					<a href="{{route('coins.index')}}" class="nav-link t-2 rounded px-4 py-2 font-lg text-dark link-none font-weight-bold">@fa(['icon' => 'coins', 'classes' => 'opacity-6'])COINS</a>
 				</div>
 				<div class="nav-item my-2">
+					<a href="{{route('watchlist.index')}}" class="nav-link t-2 rounded px-4 py-2 font-lg text-dark link-none font-weight-bold">@fa(['icon' => 'star', 'classes' => 'opacity-6'])WATCHLIST</a>
+				</div>
+				<div class="nav-item my-2">
 					<a href="{{route('exchanges')}}" class="nav-link t-2 rounded px-4 py-2 font-lg text-dark link-none font-weight-bold">@fa(['icon' => 'university', 'classes' => 'opacity-6'])EXCHANGES</a>
 				</div>
 				<div class="nav-item my-2">
 					<a href="{{route('convert.index')}}" class="nav-link t-2 rounded px-4 py-2 font-lg text-dark link-none font-weight-bold">@fa(['icon' => 'random', 'classes' => 'opacity-6'])CONVERT</a>
 				</div>
-				<div class="nav-item my-2">
+{{-- 				<div class="nav-item my-2">
 					<a href="{{route('glossary')}}" class="nav-link t-2 rounded px-4 py-2 font-lg text-dark link-none font-weight-bold">@fa(['icon' => 'book-open', 'classes' => 'opacity-6'])GLOSSARY</a>
-				</div>
+				</div> --}}
 				<div class="dropdown-divider"></div>
-				<div class="nav-item my-2">
-					<a href="{{route('home')}}" class="nav-link t-2 rounded px-4 py-2 font-lg text-dark link-none font-weight-bold">SETTINGS</a>
-				</div>
-				<div class="nav-item my-2">
-					<a href="{{route('home')}}" class="nav-link t-2 rounded px-4 py-2 font-lg text-dark link-none font-weight-bold">HELP</a>
-				</div>
 				@auth
+					<div class="nav-item my-2">
+						<a href="{{route('home')}}" class="nav-link t-2 rounded px-4 py-2 font-lg text-dark link-none font-weight-bold">SETTINGS</a>
+					</div>
+					<div class="nav-item my-2">
+						<a href="{{route('home')}}" class="nav-link t-2 rounded px-4 py-2 font-lg text-dark link-none font-weight-bold">HELP</a>
+					</div>
+					
 					<div class="nav-item my-2">
 						<a class="nav-link t-2 rounded px-4 py-2 font-lg text-dark link-none font-weight-bold" href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>LOGOUT

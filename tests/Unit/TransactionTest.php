@@ -24,6 +24,6 @@ class TransactionTest extends TestCase
 	{
 		$transaction = Transaction::factory()->create(['coin_id' => $this->coin->id, 'price_per_coin' => $this->coin->market()->get('current_price')->divide(2)->getAmount()]);
 
-		$this->assertTrue($transaction->gains() == '100%');
+		$this->assertTrue($transaction->gains() == '100.00%');
 	}
 }
