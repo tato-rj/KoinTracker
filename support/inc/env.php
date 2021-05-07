@@ -14,3 +14,8 @@ function testing()
 {
 	return app()->environment() == 'testing';
 }
+
+function liveMarket()
+{
+	return env('APP_MARKET') == 'live';
+}
