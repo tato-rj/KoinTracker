@@ -1,0 +1,1 @@
+<button class="btn btn-sm btn-light text-lowercase btn-wide m-2">{{$from}} to {{$to}}</button>

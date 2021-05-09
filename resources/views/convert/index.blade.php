@@ -9,7 +9,7 @@
 @section('content')
 <div class="container mb-6">
     @title(['title' => 'Convert currencies', 'description' => 'Convert a cryptocurrencies a fiat currencies to find out how much your money is worth.'])
-	<div class="row mb-4" id="convert-forms">
+	<div class="row mb-5" id="convert-forms">
     <div class="col-12 text-center">
       <button id="switch-conversion" class="btn btn-outline-primary rounded mx-auto mb-4">@fa(['icon' => 'exchange-alt'])Switch</button>
     </div>
@@ -20,6 +20,14 @@
   <div class="row">
     <div class="col-12">
       <h5 class="text-center">Popular conversions</h5>
+      <div class="d-flex flex-wrap justify-content-center">
+        @include('convert.components.popular', ['from' => 'bitcoin', 'to' => 'usd'])
+        @include('convert.components.popular', ['from' => 'ethereum', 'to' => 'usd'])
+        @include('convert.components.popular', ['from' => 'usd', 'to' => 'bitcoin'])
+        @include('convert.components.popular', ['from' => 'gbp', 'to' => 'bitcoin'])
+        @include('convert.components.popular', ['from' => 'eur', 'to' => 'cardano'])
+        @include('convert.components.popular', ['from' => 'ripple', 'to' => 'brl'])
+      </div>
     </div>
     <div class="col-lg-4 col-md-6 col-12">
       
