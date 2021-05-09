@@ -47,7 +47,7 @@ class TransactionRequest extends FormRequest
     {
         return money($this->price_per_coin, appCurrencySymbol(), true)
                 ->multiply(floatval($this->coin_amount))
-                ->subtract(money($this->fee, appCurrencySymbol(), true))
+                ->subtract($this->getFee())
                 ->multiply(-1);
     }
 
@@ -55,7 +55,7 @@ class TransactionRequest extends FormRequest
     {
         return money($this->price_per_coin, appCurrencySymbol(), true)
                 ->multiply(floatval($this->coin_amount))
-                ->add(money($this->fee, appCurrencySymbol(), true));
+                ->add($this->getFee());
     }
 
     public function isShort()
@@ -77,5 +77,12 @@ class TransactionRequest extends FormRequest
             return $this->transaction->type == $type;
 
         return $this->type == $type;
+    }
+
+    public function getFee()
+    {
+        $fee = $this->fee ?? 0;
+
+        return money($fee, appCurrencySymbol(), true);
     }
 }

@@ -13,4 +13,4 @@
 
 @include('transactions.forms.inputs.comments')
 
-@include('transactions.forms.inputs.total', ['label' => 'Total spent'])
+@include('transactions.forms.inputs.total')

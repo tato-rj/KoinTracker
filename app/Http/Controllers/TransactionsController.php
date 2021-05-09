@@ -22,7 +22,7 @@ class TransactionsController extends Controller
             'coin_amount' => $form->coins(),
             'price_per_coin' => money($form->price_per_coin, appCurrencySymbol(), $notCents = true),
             'currency_amount' => $form->cost(),
-            'fee' => money($form->fee, appCurrencySymbol(), $notCents = true),
+            'fee' => $form->getFee(),
             'comments' => $form->comments,
             'type' => $form->type,
             'transfer_type' => $form->transfer_type,
@@ -56,7 +56,7 @@ class TransactionsController extends Controller
             'coin_amount' => $form->coins(),
             'price_per_coin' => money($form->price_per_coin, appCurrencySymbol(), $notCents = true),
             'currency_amount' => $form->cost(),
-            'fee' => money($form->fee, appCurrencySymbol(), $notCents = true),
+            'fee' => $form->getFee(),
             'comments' => $form->comments,
             'transfer_type' => $form->transfer_type,
             'transaction_date' => $form->date()
