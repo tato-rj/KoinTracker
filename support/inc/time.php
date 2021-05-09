@@ -28,6 +28,29 @@ function weeks($count)
 	return days(7) * $count;
 }
 
+function rangeToHumans($range)
+{
+    switch ($range) {
+      case '1h':
+        return 'hour';
+        break;
+      case '24h':
+        return 'day';
+        break;
+      case '7d':
+        return 'week';
+        break;
+      case '30d':
+        return 'month';
+        break;
+      case '1y':
+        return 'year';
+        break;
+      default:
+        return null;
+    }
+}
+
 function timeslots($first = null)
 {
 	$night = [

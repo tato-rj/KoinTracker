@@ -13,6 +13,7 @@ class ChartsController extends Controller
             'id' => $request->id, 
             'points' => $coin->range($request->range), 
             'url' => route('coins.show.chart', $coin), 
+            'range' => $request->range,
             'color' => $coin->color($request->range)])->render();
     }
 
@@ -21,6 +22,7 @@ class ChartsController extends Controller
         return view('components.chart.canvas', [
             'id' => $request->id, 
             'points' => $portfolio->range($request->range), 
+            'range' => $request->range,
             'url' => route('portfolios.chart', $portfolio)])->render();
     }
 }

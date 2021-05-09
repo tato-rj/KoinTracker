@@ -30,7 +30,7 @@
 	</div>
 	<div class="col-lg-8 col-md-6 col-12">
 		@if(auth()->check() && auth()->user()->transactions()->exists())
-			@include('components.chart.canvas', ['id' => 'chart', 'points' => auth()->user()->portfolio->range('24h'), 'url' => route('portfolios.chart', auth()->user()->portfolio)])
+			@include('components.chart.canvas', ['id' => 'chart', 'points' => auth()->user()->portfolio->range('24h'), 'url' => route('portfolios.chart', auth()->user()->portfolio), 'range' => '24h'])
 			@include('components.chart.range', ['target' => 'chart'])
 
 			@include('transactions.components.add-button', ['class' => 'd-md-none', 'size' => 'btn-block', 'theme' => 'primary'])
