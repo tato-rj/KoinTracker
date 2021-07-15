@@ -16,7 +16,7 @@ class DevGate
      */
     public function handle(Request $request, Closure $next)
     {
-        // if (! testing() && ! session()->has('dev'))
+        if (! testing() && ! session()->has('dev'))
             return redirect(route('dev.index'));
 
         return $next($request);
