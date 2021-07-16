@@ -33,6 +33,7 @@
 a .fa-long-arrow-alt-right {
     transition: .2s;
 }
+
 a:hover .fa-long-arrow-alt-right {
     transform: translateX(3px);
 }
@@ -40,6 +41,7 @@ a:hover .fa-long-arrow-alt-right {
 .turn {
     transform: rotate(-45deg);
 }
+
 .animate__animated.animate__fadeInUp {
   --animate-duration: .4s;
 }
