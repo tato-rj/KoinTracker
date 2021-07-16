@@ -67,6 +67,7 @@ a:hover .fa-long-arrow-alt-right {
     opacity: 1;
 }
         </style>
+        
         @stack('head')
 
         <script type="text/javascript">
